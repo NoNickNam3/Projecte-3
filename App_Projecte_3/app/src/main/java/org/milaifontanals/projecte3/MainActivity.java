@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         obreMaps();
+
     }
 
     private void obreMaps() {
