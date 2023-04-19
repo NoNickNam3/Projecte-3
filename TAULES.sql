@@ -18,14 +18,14 @@ CREATE TABLE `usuario` (
   CONSTRAINT `usuario_FK` FOREIGN KEY (`organizacion`) REFERENCES `usuario` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `lista_ubicaciones` (
-  `contacto` int(10) unsigned NOT NULL,
-  `empleado` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`contacto`,`empleado`),
-  KEY `lista_contactos_FK_1` (`empleado`),
-  CONSTRAINT `lista_contactos_FK` FOREIGN KEY (`contacto`) REFERENCES `ubicaciones` (`id`),
-  CONSTRAINT `lista_contactos_FK_1` FOREIGN KEY (`empleado`) REFERENCES `usuario` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `ubicaciones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `coordenada` varchar(100) DEFAULT NULL,
+  `observaciones` varchar(300) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `rutas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
