@@ -3,15 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp">
 
     <GridLayout
         android:id="@+id/grdl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
+        android:padding="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rounded_square">
 
         <TextView
             android:id="@+id/txvIdUbicacion"
@@ -21,6 +23,7 @@
             android:layout_columnWeight="1"
             android:layout_column="0"
             android:layout_row="0"
+            android:layout_rowSpan="2"
             android:text="0"/>
 
         <TextView
@@ -34,7 +37,7 @@
             android:text="Nom primera ubicacio"/>
 
         <TextView
-            android:id="@+id/txvDireccionUbicacion"
+            android:id="@+id/txvObservacionUbicacion"
             android:padding="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

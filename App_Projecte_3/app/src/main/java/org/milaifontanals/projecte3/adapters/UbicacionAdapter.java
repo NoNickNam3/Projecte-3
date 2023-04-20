@@ -44,7 +44,7 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
             super(filaActual);
             txvId = filaActual.findViewById(R.id.txvIdUbicacion);
             txvNombre = filaActual.findViewById(R.id.txvNombreUbicacion);
-            txvDireccion = filaActual.findViewById(R.id.txvDireccionUbicacion);
+            txvObservacion = filaActual.findViewById(R.id.txvObservacionUbicacion);
         }
     }
 
@@ -68,8 +68,16 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
         Ubicacion u = mUbicaciones.get(position);
 
         holder.txvId.setText("" + u.getId());
-        holder.txvNombre.setText("" + u.getNombre());
-        holder.txvDireccion.setText("" + u.getDirecccion());
+
+        if(!u.getNombre().equals("")){
+            holder.txvNombre.setText("" + u.getNombre());
+        }else if(!u.getDirecccion().equals("")){
+            holder.txvNombre.setText("" + u.getDirecccion());
+        }else{
+            holder.txvNombre.setText("Aquesta ubicació no té un nom identificable");
+        }
+
+        holder.txvObservacion.setText("" + u.getObservacion());
 
         Log.d("UBICACION RECIBIDA", "Actualizando la ubicacion en la posicion  " + position);
     }

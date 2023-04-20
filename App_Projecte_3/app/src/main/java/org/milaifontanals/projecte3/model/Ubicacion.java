@@ -45,6 +45,60 @@ public class Ubicacion implements Parcelable {
                     "Ciudad de Manresa",
                     false
             ));
+
+            _mUbicaciones.add(new Ubicacion(
+                    2,
+                    "",
+                    "1, 1",
+                    "Calle Jaén 27",
+                    "Lorem ipsum is a dummy text...",
+                    true
+            ));
+
+            _mUbicaciones.add(new Ubicacion(
+                    3,
+                    "",
+                    "1, 1",
+                    "",
+                    "Area de servicio de prueba",
+                    false
+            ));
+
+            _mUbicaciones.add(new Ubicacion(
+                    4,
+                    "",
+                    "1, 1",
+                    "Av. Emili Vallés 32",
+                    "Milà i Fontanals",
+                    true
+            ));
+
+            _mUbicaciones.add(new Ubicacion(
+                    5,
+                    "Frutería Mari Pili",
+                    "1, 1",
+                    "",
+                    "Area de servicio de prueba",
+                    false
+            ));
+
+            _mUbicaciones.add(new Ubicacion(
+                    6,
+                    "Anonymous Place 01",
+                    "-115, 865",
+                    "Not available",
+                    "Anonymous",
+                    true
+            ));
+
+            _mUbicaciones.add(new Ubicacion(
+                    7,
+                    "Lorem ipsum?",
+                    "3, 5",
+                    "",
+                    "",
+                    false
+            ));
         }
         return _mUbicaciones;
     }
