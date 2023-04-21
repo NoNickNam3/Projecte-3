@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import org.milaifontanals.projecte3.adapters.UbicacionAdapter;
 import org.milaifontanals.projecte3.model.Ubicacion;
@@ -19,7 +20,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //-------------------------------
+        //  Ocultar barra navegación
+        //-------------------------------
+//        View decorView = getWindow().getDecorView();
+//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+//        decorView.setSystemUiVisibility(uiOptions);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_main);
+
+
 
         //---------------------------------
         // Configuració del RecyclerView
