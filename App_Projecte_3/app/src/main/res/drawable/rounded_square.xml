@@ -5,11 +5,11 @@
     android:thickness="1dp">
 
     <stroke
-        android:color="#888888"
+        android:color="#3A3A3A"
         android:width="3dp"/>
 
     <solid
-        android:color="#cccccc"/>
+        android:color="#6D7560"/>
 
     <corners
         android:radius="15dp"/>
