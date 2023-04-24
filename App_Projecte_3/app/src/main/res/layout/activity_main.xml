@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@color/backgroundApp">
+    android:background="@color/backgroundAppLight">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvUbicacion"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@color/toolBarColorDark"
+        android:background="@color/toolBarColorLight"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <GridLayout
