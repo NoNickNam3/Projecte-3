@@ -1,6 +1,7 @@
 package org.milaifontanals.projecte3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import org.milaifontanals.projecte3.model.Ubicacion;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rcvUbicacion;
+    private Fragment fragmentRVW;
     private UbicacionAdapter adapter;
 
     @Override
@@ -31,24 +33,23 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
-
         //---------------------------------
         // Configuració del RecyclerView
         //---------------------------------
-        rcvUbicacion = findViewById(R.id.rcvUbicacion);
-        rcvUbicacion.setLayoutManager(new LinearLayoutManager(this));
-        rcvUbicacion.setHasFixedSize(true);
+        fragmentRVW = getSupportFragmentManager().findFragmentById(R.id.agenda);
+        //rcvUbicacion = fragmentRVW.getView().findViewById(R.id.rcvUbicacion);
+        //rcvUbicacion.setLayoutManager(new LinearLayoutManager(this));
+        //rcvUbicacion.setHasFixedSize(true);
 
         adapter = new UbicacionAdapter(Ubicacion.getUbicaciones(), this);
-        rcvUbicacion.setAdapter(adapter);
+        //rcvUbicacion.setAdapter(adapter);
 
-        //obreMaps();
+        obreMaps();
 
     }
 
     private void obreMaps() {
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=48.852864,7.939082&via=47.853355, 7.936379");
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=47.853355,7.936379&waypoints=Andorra|Barcelona");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);

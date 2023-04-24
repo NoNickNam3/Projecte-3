@@ -8,12 +8,23 @@
     tools:context=".MainActivity"
     android:background="@color/backgroundAppLight">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navMainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:name="org.milaifontanals.projecte3.Agenda"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navegador" />
+
+    <!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvUbicacion"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
     </androidx.recyclerview.widget.RecyclerView>
+    -->
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
