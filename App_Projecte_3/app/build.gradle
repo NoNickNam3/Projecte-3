@@ -6,6 +6,10 @@ android {
     namespace 'org.milaifontanals.projecte3'
     compileSdk 33
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "org.milaifontanals.projecte3"
         minSdk 21

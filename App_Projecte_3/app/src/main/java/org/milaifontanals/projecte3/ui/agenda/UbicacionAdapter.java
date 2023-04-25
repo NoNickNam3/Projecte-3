@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.adapters;
+package org.milaifontanals.projecte3.ui.agenda;
 
 import android.content.Context;
 import android.util.Log;
