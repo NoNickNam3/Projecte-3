@@ -1,0 +1,7 @@
+body .logo {
+  width: 50%;
+  height: 50%;
+}
+body .dropdown {
+  max-height: 200px ;
+}
