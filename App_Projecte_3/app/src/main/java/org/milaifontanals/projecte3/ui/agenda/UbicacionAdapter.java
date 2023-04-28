@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,8 +43,9 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
 
         public ViewHolder(@NonNull View filaActual) {
             super(filaActual);
-            txvId = filaActual.findViewById(R.id.txvIdUbicacion);
+            //txvId = filaActual.findViewById(R.id.txvIdUbicacion);
             txvNombre = filaActual.findViewById(R.id.txvNombreUbicacion);
+            txvDireccion = filaActual.findViewById(R.id.txvDireccionUbicacion);
             txvObservacion = filaActual.findViewById(R.id.txvObservacionUbicacion);
         }
     }
@@ -67,19 +69,31 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ubicacion u = mUbicaciones.get(position);
 
-        holder.txvId.setText("" + u.getId());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.weight = 0.0f;
 
-        if(!u.getNombre().equals("")){
-            holder.txvNombre.setText("" + u.getNombre());
-        }else if(!u.getDirecccion().equals("")){
-            holder.txvNombre.setText("" + u.getDirecccion());
+        if(u.getNombre().equals("") && u.getDirecccion().equals("")){
+            holder.txvDireccion.setLayoutParams(params);
+            holder.txvNombre.setText("Aquesta ubicació no té un nom o direccio identificable");
         }else{
-            holder.txvNombre.setText("Aquesta ubicació no té un nom identificable");
+            if(u.getNombre().equals("")){
+                holder.txvNombre.setLayoutParams(params);
+            }else{
+                holder.txvNombre.setText("" + u.getNombre());
+            }
+            if(u.getDirecccion().equals("")){
+                holder.txvDireccion.setLayoutParams(params);
+            }else{
+                holder.txvDireccion.setText("" + u.getDirecccion());
+            }
         }
 
         holder.txvObservacion.setText("" + u.getObservacion());
 
-        Log.d("UBICACION RECIBIDA", "Actualizando la ubicacion en la posicion  " + position);
+        Log.d("XXX", "Actualizando la ubicacion en la posicion  " + position);
     }
 
 }

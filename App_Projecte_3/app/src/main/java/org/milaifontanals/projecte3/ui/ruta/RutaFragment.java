@@ -1,12 +1,17 @@
-package org.milaifontanals.projecte3;
+package org.milaifontanals.projecte3.ui.ruta;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.milaifontanals.projecte3.R;
+import org.milaifontanals.projecte3.databinding.FragmentAgendaBinding;
+import org.milaifontanals.projecte3.databinding.FragmentRutaBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +19,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class RutaFragment extends Fragment {
+
+    private FragmentRutaBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,12 +60,16 @@ public class RutaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.d("XXX", "onCreate");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ruta, container, false);
+
+        Log.d("XXX", "onCreateView");
+        binding = FragmentRutaBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        return view;
     }
 }

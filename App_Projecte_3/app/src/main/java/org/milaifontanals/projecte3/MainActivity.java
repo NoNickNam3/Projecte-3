@@ -1,17 +1,18 @@
 package org.milaifontanals.projecte3;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.NavHost;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-
-import org.milaifontanals.projecte3.ui.agenda.UbicacionAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NavHostFragment navHostFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_main);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
         //obreMaps();
 
@@ -34,21 +36,21 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view){
         switch(view.getId()){
             case R.id.btnAgenda:
-
+                navHostFragment.getNavController().navigate(R.id.agendaFragment);
                 break;
 
             case R.id.btnRuta:
-
+                navHostFragment.getNavController().navigate(R.id.rutaFragment);
                 break;
 
             case R.id.btnTracking:
-
+                navHostFragment.getNavController().navigate(R.id.trackingFragment);
                 break;
         }
     }
 
     private void obreMaps() {
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=47.853355,7.936379&waypoints=Andorra|Barcelona|Paris|Galicia|Portugal");
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=47.853355,7.936379&waypoints=Avenida Valmes|Carrer Masquefa, 08700 Igualada");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
