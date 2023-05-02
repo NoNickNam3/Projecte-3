@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaUbicacionController;
 
@@ -17,7 +18,7 @@ use App\Http\Controllers\ListaUbicacionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Redirect::to('/login');
 });
 
 Route::get('/testing',[ListaUbicacionController::class, 'getLlistaUbicacions']);
@@ -26,11 +27,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/tracking', function () {
-    return view('tracking');
-})->middleware(['auth', 'verified'])->name('tracking');
+// Route::get('/tracking', function () {
+//     return view('tracking');
+// })->middleware(['auth', 'verified'])->name('tracking');
 
-// Route::get('/tracking', [ProfileController::class, 'getUsers'])->middleware(['auth', 'verified'])->name('tracking');
+Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+
+Route::post('/get_tracking_user', [TrackingController::class, 'get_tracking_user']);
 
 
 Route::middleware('auth')->group(function () {

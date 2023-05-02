@@ -46,16 +46,16 @@ class ProfileController extends Controller
         }
     }
 
-    public function getUsers(Request $request)
-    {
-        $userId = Auth::id();
-        $users = User::where('organizacion', $userId)->get();
-        return $users;
-        // return view('tracking', [
-        //     'users' => $users,
-        //     'user' => $request->user(),
-        // ]);
-    }
+    // public function getUsers(Request $request)
+    // {
+    //     $userId = Auth::id();
+    //     $users = User::where('organizacion', $userId)->get();
+    //     return $users;
+    //     // return view('tracking', [
+    //     //     'users' => $users,
+    //     //     'user' => $request->user(),
+    //     // ]);
+    // }
 
     /**
      * Delete the user's account.
@@ -75,6 +75,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('/login');
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('tracking', function (Blueprint $table) {
             $table->unsignedBigInteger('empleado');
             $table->timestamp('momento');
-            $table->float('coordenadas');
+            $table->string('coordenadas');
             $table->primary(['empleado', 'momento']);
             $table->foreign('empleado')
                   ->references('id')

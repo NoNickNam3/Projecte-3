@@ -10,6 +10,7 @@ class Tracking extends Model
 {
     use HasFactory;
 
+    protected $table = 'tracking';
     protected $primaryKey = ['empleado', 'momento'];
     public $incrementing = false;
 

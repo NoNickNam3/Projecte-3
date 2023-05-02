@@ -21,9 +21,10 @@
 
                         <x-slot name="content">
                             <div class=" overflow-y-auto dropdown">
-                                @foreach ($items as $item)
+                                @foreach ($users as $item)
                                     <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="button">
-                                        {{ $item }}
+                                        {{ $item->nombre }}
+                                        {{ $item->id }}
                                     </button>
                                 @endforeach
                             </div>
