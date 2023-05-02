@@ -15,23 +15,30 @@ class TrackingTableSeeder extends Seeder
      */
     public function run()
     {
-        // Asegúrate de que haya algunos empleados en la tabla 'users' antes de ejecutar este seeder
-        $employeeIds = [1,1,1]; // Ejemplo de ids de empleados
+        $employeeIds = [1, 1, 1,1]; // Ejemplo de ids de empleados
 
         $trackingData = [];
 
+        $coordenadasEjemplo = [
+            '41.61759,0.62001',
+            '41.15445,1.10654',
+            '41.11468,1.25877',
+            '41.4035,2.17425'
+        ];
+
         foreach ($employeeIds as $employeeId) {
             for ($i = 0; $i < 1; $i++) {
-                $coordenadas = rand(100000, 999999) . ',' . rand(100000, 999999);
+                $coordenadas = $coordenadasEjemplo[array_rand($coordenadasEjemplo)];
+
                 $trackingData[] = [
-                    'empleado' => $employeeId,
+                    'empleado' => 1,
                     'momento' => Carbon::now()->subHours(rand(1, 100))->toDateTimeString(),
                     'coordenadas' => $coordenadas,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ];
             }
-        }        
+        }
 
         DB::table('tracking')->insert($trackingData);
     }

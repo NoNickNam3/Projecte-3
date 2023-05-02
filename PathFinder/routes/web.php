@@ -35,6 +35,8 @@ Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 
 Route::post('/get_tracking_user', [TrackingController::class, 'get_tracking_user']);
 
+// Route::get('/trackingc', [TrackingController::class, 'get_tracking_user'])->name('trackingc');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -34,9 +34,9 @@ class TrackingController extends Controller
     {
         if (isset($_POST['id']) && isset($_POST['fecha'])) {
             $id = $_POST['id'];
-        $fecha = $_POST['fecha'];
-        $trackings = Tracking::where('empleado', 1)
-            ->whereRaw("DATE_FORMAT(momento, '%Y-%m-%d') LIKE '2023-05-02%'")
+            $fecha = $_POST['fecha'];
+        $trackings = Tracking::where('empleado', $id)
+            ->whereRaw("DATE_FORMAT(momento, '%Y-%m-%d') LIKE '".$fecha."%'")
             ->get();
 
         $coordenadas = array();
@@ -45,14 +45,11 @@ class TrackingController extends Controller
             $timestamp = $tracking->momento;
             $formattedTimestamp = $timestamp->format('Y-m-d H:i:s');
 
-            $array = array('longitud' => $co[0], 'altitud' => $co[1], 'momento' => $formattedTimestamp);
+            $array = array('latitud' => $co[0], 'longitud' => $co[1], 'momento' => $formattedTimestamp);
             array_push($coordenadas, $array);
         }
-        // var_dump($coordenadas);
-        // exit;
         return $coordenadas;
         }
-        // }
     }
     /**
      * Store a newly created resource in storage.

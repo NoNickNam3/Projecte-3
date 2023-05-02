@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(UsersTableSeeder::class);
         $this->call(TrackingTableSeeder::class);
 
         // \App\Models\User::factory(10)->create();
