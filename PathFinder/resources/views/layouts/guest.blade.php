@@ -8,6 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link rel="stylesheet" href="{{ asset('css/mycss.css') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
@@ -15,16 +16,26 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
-                    <x-application-logo style="width: 7rem" />
-                </a>
+        <div class="contLogin ">
+            <div class="contIzq">
+    
+                <div class="w-full sm:max-w-md  px-6 py-4 bg-white  overflow-hidden sm:rounded-lg">
+                    <div class="contLogo">
+                        <a href="/">
+                            {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
+                            <x-application-logo style="width: 5rem" />
+                        </a>
+                        {{-- <h1 class="text-gray-900 textLogin">PATHFINDER</h1> --}}
+                    </div>
+                    
+                    {{ $slot }}
+                </div>
             </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+            <div class="contDer">
+                <h1 class="eslogan">DESCUBRE LA MEJOR RUTA CON SOLO UN TOQUE</h1>
+                <div class="contFondo" >
+                    <img src="{{asset('img/fondoPathFinder.png')}}">
+                </div>
             </div>
         </div>
     </body>

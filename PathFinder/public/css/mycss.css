@@ -1,7 +1,143 @@
+body .contLogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+body .contLogo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+body .contIzq {
+  border-radius: 8% 0 0 8%;
+}
+body .contDer {
+  border-radius: 0 8% 8% 0;
+}
+body .contIzq,
+body .contDer {
+  box-shadow: 0 8px 50px -4px rgba(0, 0, 0, 0.5);
+}
+body .contIzq {
+  background-color: #d6882c;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  position: relative;
+}
+body .contDer {
+  background-color: #093e3b;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+body .contFondo {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .contFondo img {
+  width: 95%;
+  border-radius: 7%;
+}
+body .eslogan {
+  color: white;
+  font-weight: bold;
+  font-size: 35px;
+  width: 30%;
+  text-align: center;
+  margin: 3%;
+  position: absolute;
+  top: 35%;
+}
+body .textLogin {
+  font-size: 20px;
+  font-weight: bold;
+}
 body .logo {
   width: 50%;
   height: 50%;
 }
+body .whiteletter {
+  color: white;
+}
 body .dropdown {
-  max-height: 200px ;
+  max-height: 200px;
+}
+body .color1 {
+  background-color: #d6882c;
+}
+body .color2 {
+  background-color: #e49b44;
+}
+body .color3 {
+  background-color: #093e3b;
+}
+body .color4 {
+  background-color: #3c745c;
+}
+body .color5 {
+  background-color: #855113;
+}
+body .text-color1 {
+  color: #d6882c;
+}
+body .text-color2 {
+  color: #e49b44;
+}
+body .text-color3 {
+  color: #093e3b;
+}
+body .text-color4 {
+  color: #3c745c;
+}
+body .text-color5 {
+  color: #855113;
+}
+body .cl-w {
+  color: white;
+}
+body .mrg-l4 {
+  margin-left: 40px;
+}
+body .hover-text-color4:hover {
+  color: #3c745c;
+}
+body .selectClients,
+body input[type="date"] {
+  background-color: #855113;
+  color: white;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+body input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: hue-rotate(90deg);
+}
+body .contMapa {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+}
+body #elMeuMapa {
+  width: 90%;
+  height: auto;
+  border: solid 5px #093e3b;
+  border-radius: 10px;
+  z-index: 0;
+}
+body .pdbottom {
+  padding-bottom: 30px;
 }

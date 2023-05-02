@@ -1,9 +1,186 @@
-body{
-    .logo{
+body {
+
+    .contLogin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .contLogo {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contIzq {
+        border-radius: 8% 0 0 8%;
+    }
+
+    .contDer {
+        border-radius: 0 8% 8% 0;
+    }
+
+    .contIzq,
+    .contDer {
+        box-shadow: 0 8px 50px -4px rgba(0, 0, 0, 0.5);
+    }
+
+    .contIzq {
+        background-color: #d6882c;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+        position: relative;
+    }
+
+    .contDer {
+        background-color: #093e3b;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+    }
+
+    .contFondo {
+        width: 90%;
+        // height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 95%;
+            border-radius: 7%;
+        }
+    }
+
+    .eslogan {
+        color: white;
+        font-weight: bold;
+        font-size: 35px;
+        width: 30%;
+        text-align: center;
+        margin: 3%;
+        position: absolute;
+        top: 35%;
+    }
+
+    .textLogin {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .logo {
         width: 50%;
         height: 50%;
     }
-    .dropdown{
-        max-height: 200px ;
+
+    .whiteletter {
+        color: white;
     }
+
+    .dropdown {
+        max-height: 200px;
+    }
+
+    .color1 {
+        background-color: #d6882c;
+    }
+
+    .color2 {
+        background-color: #e49b44
+    }
+
+    .color3 {
+        background-color: #093e3b
+    }
+
+    .color4 {
+        background-color: #3c745c
+    }
+
+    .color5 {
+        background-color: #855113
+    }
+
+    .text-color1 {
+        color: #d6882c;
+    }
+
+    .text-color2 {
+        color: #e49b44;
+    }
+
+    .text-color3 {
+        color: #093e3b;
+    }
+
+    .text-color4 {
+        color: #3c745c;
+    }
+
+    .text-color5 {
+        color: #855113;
+    }
+
+    .cl-w {
+        color: white;
+    }
+
+    .mrg-l4 {
+        margin-left: 40px;
+    }
+
+    .hover-text-color4:hover {
+        color: #3c745c;
+    }
+
+
+
+    .selectClients,
+    input[type="date"] {
+        background-color: #855113;
+        color: white;
+        border-radius: 10px;
+        margin-left: 20px;
+    }
+
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: hue-rotate(90deg);
+    }
+
+    .contMapa {
+        width: 100%;
+        height: 400px;
+        // background-color: yellow;
+        display: flex;
+        justify-content: center;
+    }
+
+    #elMeuMapa {
+        width: 90%;
+        height: auto;
+        border: solid 5px #093e3b;
+        border-radius: 10px;
+        z-index: 0;
+    }
+
+    .pdbottom {
+        padding-bottom: 30px;
+    }
+
+    // 
+
+
 }
