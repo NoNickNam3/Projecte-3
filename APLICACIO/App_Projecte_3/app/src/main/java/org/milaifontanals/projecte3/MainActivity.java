@@ -23,7 +23,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements Callback<RespostaLogin> {
 
     private NavHostFragment navHostFragment;
-    private String mKeyActual = null;
+    private String mTokenActual = null;
     private SQLiteDatabase db = null;
 
     @Override
@@ -44,19 +44,24 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
         setContentView(R.layout.activity_main);
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         /*
-        String[] projection = {"key", "id"};
-        Cursor cursor = db.query("dbInterna", projection, null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
-            mKeyActual = key;
-            // do something with id and name
+        Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
+        call.enqueue(this);
+        */
+
+        Cursor cursor = db.rawQuery("select * from dbInterna", null);
+        if (cursor.moveToNext()) {
+            Log.d("XXX", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+            String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
+            mTokenActual = token;
         }
         cursor.close();
-        if(mKeyActual != null){
+
+        if(mTokenActual != null){
             Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
             call.enqueue(this);
         }
-        */
+
 
         //obreMaps();
 
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
             values.put("token", res.getToken());
             values.put("email", res.getUser().getEmail());
             long id = db.insert("dbInterna", null, values);
-            mKeyActual = res.getToken();
+            mTokenActual = res.getToken();
             Log.d("XXX", res.getToken());
         }
     }

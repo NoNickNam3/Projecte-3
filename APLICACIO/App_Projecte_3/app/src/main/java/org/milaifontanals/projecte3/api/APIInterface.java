@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface APIInterface {
 /*
@@ -21,9 +22,5 @@ public interface APIInterface {
     @FormUrlEncoded
     @POST("login")
     Call<RespostaLogin> loginUser(@Field("email") String email, @Field("password") String password);
-
-    @FormUrlEncoded
-    @POST("relogin")
-    Call<RespostaLogin> reLoginUser(@Field("key") String key);
 
 }
