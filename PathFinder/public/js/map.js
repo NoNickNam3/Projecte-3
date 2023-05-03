@@ -6,30 +6,30 @@ function f_principal() {
     cliente.addEventListener('change', f_peticionMapa);
     fecha.addEventListener('change', f_peticionMapa);
 
-    f_omplirSelect();
 
-    let listTracking = [
-        {
-            "latitud": "41.61759",
-            "longitud": "0.62001",
-            "momento": "2023-05-02 09:37:36"
-        },
-        {
-            "latitud": "41.15445",
-            "longitud": "1.10654",
-            "momento": "2023-05-02 09:37:36"
-        },
-        {
-            "latitud": "41.11468",
-            "longitud": "1.25877",
-            "momento": "2023-05-02 09:37:36"
-        },
-        {
-            "latitud": "41.4035",
-            "longitud": "2.17425",
-            "momento": "2023-05-02 09:37:36"
-        },
-    ];
+    // let listTracking = [
+    //     {
+    //         "latitud": "41.61759",
+    //         "longitud": "0.62001",
+    //         "momento": "2023-05-02 09:37:36"
+    //     },
+    //     {
+    //         "latitud": "41.15445",
+    //         "longitud": "1.10654",
+    //         "momento": "2023-05-02 09:37:36"
+    //     },
+    //     {
+    //         "latitud": "41.11468",
+    //         "longitud": "1.25877",
+    //         "momento": "2023-05-02 09:37:36"
+    //     },
+    //     {
+    //         "latitud": "41.4035",
+    //         "longitud": "2.17425",
+    //         "momento": "2023-05-02 09:37:36"
+    //     },
+    // ];
+    listTracking = [];
     // let listTracking = f_peticionMapa();
     f_omplirMapa(listTracking);
 }
@@ -131,49 +131,28 @@ function f_omplirMapa(listTracking) {
 // }
 
 
-function f_omplirSelect() {
-    let selectCli = document.getElementsByTagName('select')[0]; // Seleccionamos el primer select encontrado
-    let allCli = f_peticionClientes();
 
-    let opt0 = document.createElement('option');
-    opt0.text = "Selecciona un cliente...";
-    opt0.value = -1;
-    opt0.className = "bg-white ";
-    opt0.disabled = true;
-    selectCli.add(opt0);
+// function f_peticionClientes() {
+//     // fetch('url-del-servidor', {
+//     //     method: 'POST',
+//     //     headers: {
+//     //         'Content-Type': 'application/json'
+//     //     }
+//     // })
+//     // .then(response => {
+//     //     if (response.ok) {
+//     //         console.log('La petición fue enviada exitosamente');
+//     //     } else {
+//     //         console.error('Error al enviar la petición');
+//     //     }
+//     // })
+//     // .catch(error => {
+//     //     console.error('Error al enviar la petición:', error);
+//     // });
+//     let cli2 = [{ idCli: 121, nomCli: 'Jhonny Melavo' }, { idCli: 122, nomCli: 'Armando Paredes' }, { idCli: 123, nomCli: 'Broco Li' }, { idCli: 123, nomCli: 'Débora Meltrozo' }];
 
-    allCli.forEach((cliente) => {
-        let option = document.createElement('option');
-        option.text = cliente.nomCli;
-        option.value = cliente.idCli;
-        option.className = "bg-white block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100";
-        selectCli.add(option);
-    });
-
-    selectCli.selectedIndex = 0;
-}
-
-function f_peticionClientes() {
-    // fetch('url-del-servidor', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     }
-    // })
-    // .then(response => {
-    //     if (response.ok) {
-    //         console.log('La petición fue enviada exitosamente');
-    //     } else {
-    //         console.error('Error al enviar la petición');
-    //     }
-    // })
-    // .catch(error => {
-    //     console.error('Error al enviar la petición:', error);
-    // });
-    let cli2 = [{ idCli: 121, nomCli: 'Jhonny Melavo' }, { idCli: 122, nomCli: 'Armando Paredes' }, { idCli: 123, nomCli: 'Broco Li' }, { idCli: 123, nomCli: 'Débora Meltrozo' }];
-
-    return cli2;
-}
+//     return cli2;
+// }
 
 function f_peticionMapa() {
     let cliente = document.getElementsByName('selectClients')[0];
@@ -184,26 +163,25 @@ function f_peticionMapa() {
     }
     if (f_comprobacionParams(cliente, fecha)) {
 
-        // fetch('url-del-servidor', {
-        //     method: 'POST',
-        //     body: JSON.stringify(dataSend),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        // .then(response => {
-        //     if (response.ok) {
-        //         console.log('La petición fue enviada exitosamente');
-        //     } else {
-        //         console.error('Error al enviar la petición');
-        //     }
-        // })
-        // .catch(error => {
-        //     console.error('Error al enviar la petición:', error);
-        // });
+        fetch('/get', {
+            method: 'POST',
+            body: JSON.stringify(dataSend),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('La petición fue enviada exitosamente');
+                } else {
+                    console.error('Error al enviar la petición');
+                }
+            })
+            .catch(error => {
+                console.error('Error al enviar la petición:', error);
+            });
         console.info(dataSend);
     }
-
 
 }
 
