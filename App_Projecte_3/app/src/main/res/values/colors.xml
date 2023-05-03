@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color1">#d6882c</color>
+    <color name="color2">#e49b44</color>
+    <color name="color3">#093e3b</color>
+    <color name="color4">#3c745c</color>
+    <color name="color5">#855113</color>
     <color name="toolBarColorLight">#DCDCDC</color>
     <color name="toolBarColorDark">#6E6E6E</color>
     <color name="backgroundAppLight">#DCDCDC</color>

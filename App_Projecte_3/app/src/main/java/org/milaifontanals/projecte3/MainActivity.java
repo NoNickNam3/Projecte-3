@@ -1,18 +1,30 @@
 package org.milaifontanals.projecte3;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavHost;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import org.milaifontanals.projecte3.api.apiRequests.APIAdapter;
+import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity implements Callback<RespostaLogin> {
 
     private NavHostFragment navHostFragment;
+    private String mKeyActual = null;
+    private SQLiteDatabase db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +38,24 @@ public class MainActivity extends AppCompatActivity {
 //        decorView.setSystemUiVisibility(uiOptions);
         getSupportActionBar().hide();
 
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
+        db = dbHelper.getWritableDatabase();
+
         setContentView(R.layout.activity_main);
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+
+        String[] projection = {"key", "email"};
+        Cursor cursor = db.query("dbInterna", projection, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            String key = cursor.getString(cursor.getColumnIndexOrThrow("key"));
+            mKeyActual = key;
+            // do something with id and name
+        }
+        cursor.close();
+        if(mKeyActual != null){
+            Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
+            call.enqueue(this);
+        }
 
         //obreMaps();
 
@@ -56,4 +84,23 @@ public class MainActivity extends AppCompatActivity {
         startActivity(mapIntent);
     }
 
+    @Override
+    public void onResponse(Call<RespostaLogin> call, Response<RespostaLogin> response) {
+        if(response.isSuccessful()){
+            RespostaLogin res = response.body();
+
+            //Database configs
+            ContentValues values = new ContentValues();
+            values.put("token", res.getToken());
+            values.put("email", res.getUser().getEmail());
+            long id = db.insert("dbInterna", null, values);
+            mKeyActual = res.getToken();
+            Log.d("XXX", res.getToken());
+        }
+    }
+
+    @Override
+    public void onFailure(Call<RespostaLogin> call, Throwable t) {
+        Log.d("XXX", "NO HA POGUT FER EL CALL");
+    }
 }
