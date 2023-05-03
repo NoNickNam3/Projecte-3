@@ -30,26 +30,24 @@ class TrackingController extends Controller
         return view('tracking.create');
     }
 
-    public function get_tracking_user()
+    public function get_tracking_user(Request $request)
     {
-        if (isset($_POST['id']) && isset($_POST['fecha'])) {
-            $id = $_POST['id'];
-            $fecha = $_POST['fecha'];
+        $id = $request->input('id');
+        $fecha = $request->input('fecha');
         $trackings = Tracking::where('empleado', $id)
-            ->whereRaw("DATE_FORMAT(momento, '%Y-%m-%d') LIKE '".$fecha."%'")
+            ->whereRaw("momento LIKE '".$fecha."%'")
             ->get();
 
         $coordenadas = array();
         foreach ($trackings as $tracking) {
             $co = explode(",", $tracking->coordenadas);
             $timestamp = $tracking->momento;
-            $formattedTimestamp = $timestamp->format('Y-m-d H:i:s');
+            $formattedTimestamp = $timestamp->format('H:i');
 
             $array = array('latitud' => $co[0], 'longitud' => $co[1], 'momento' => $formattedTimestamp);
             array_push($coordenadas, $array);
         }
-        return $coordenadas;
-        }
+        return response()->json($coordenadas);
     }
     /**
      * Store a newly created resource in storage.

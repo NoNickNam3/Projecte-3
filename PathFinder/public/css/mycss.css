@@ -130,6 +130,7 @@ body .contMapa {
   height: 400px;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 body #elMeuMapa {
   width: 90%;
@@ -140,4 +141,12 @@ body #elMeuMapa {
 }
 body .pdbottom {
   padding-bottom: 30px;
+}
+body .mascara {
+  width: 90%;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+  opacity: 0.7;
+  border-radius: 2%;
 }
