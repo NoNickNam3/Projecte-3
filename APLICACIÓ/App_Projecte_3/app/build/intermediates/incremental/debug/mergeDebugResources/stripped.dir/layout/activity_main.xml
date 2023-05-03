@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@color/color4">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_map" />
+
+    <!--
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </androidx.recyclerview.widget.RecyclerView>
+    -->
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@color/color4"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="20dp"
+            >
+
+            <FrameLayout
+                android:id="@+id/btnRuta"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_button"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:layout_columnWeight="1"
+                android:layout_column="0"
+                android:layout_row="0"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="30dp"
+                    android:maxWidth="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ruta" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnAgenda"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_button"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:layout_columnWeight="1"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="30dp"
+                    android:maxWidth="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/agenda" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnTracking"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_button"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:layout_columnWeight="1"
+                android:layout_column="2"
+                android:layout_row="0"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="30dp"
+                    android:maxWidth="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tracking" />
+            </FrameLayout>
+
+        </GridLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+</LinearLayout>
