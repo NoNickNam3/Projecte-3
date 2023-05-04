@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
         }
         cursor.close();
 
-        if(mTokenActual != null){
+        if(mTokenActual == null){
             Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
             call.enqueue(this);
         }

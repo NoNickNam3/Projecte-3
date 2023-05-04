@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.ruta.RutaFragment"
-    android:background="@drawable/rounded_square"
+    android:background="@color/color4"
     >
 
     <androidx.fragment.app.FragmentContainerView
