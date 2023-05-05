@@ -7,11 +7,28 @@
     tools:context=".ui.agenda.AgendaFragment">
 
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvUbicacion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Find"
+        android:background="@drawable/rounded_square_find"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        />
+
+    </RelativeLayout>
 
 </FrameLayout>

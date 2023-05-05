@@ -30,6 +30,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getSupportActionBar().hide();
+
         //  Configuració de la bdd SQLite
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
         db = dbHelper.getWritableDatabase();

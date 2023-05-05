@@ -11,17 +11,20 @@ import android.widget.EditText;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.api.APIAdapter;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements Callback<RespostaRegister> {
 
     private EditText edtCorreu, edtPasswd, edtPasswdConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
 
 
@@ -40,8 +43,19 @@ public class RegisterActivity extends AppCompatActivity {
 
                 break;
             case R.id.btnRegister:
-
+                Intent i2 = new Intent(this, MainActivity.class);
+                startActivity(i2);
                 break;
         }
+    }
+
+    @Override
+    public void onResponse(Call<RespostaRegister> call, Response<RespostaRegister> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<RespostaRegister> call, Throwable t) {
+
     }
 }
