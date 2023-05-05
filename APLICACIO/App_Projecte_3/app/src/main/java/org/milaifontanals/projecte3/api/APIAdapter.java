@@ -18,7 +18,7 @@ public class APIAdapter {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         if(API_SERVICE == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.200.17.17/Projecte-3/PathFinder/public/api/")
+                    .baseUrl("http://169.254.40.141/Projecte-3/PathFinder/public/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

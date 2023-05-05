@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3;
+package org.milaifontanals.projecte3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
 
         Cursor cursor = db.rawQuery("select * from dbInterna", null);
         if (cursor.moveToNext()) {
-            Log.d("XXX", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            Log.d("XXX", "HE POGUT CARREGAR LA BDD");
             String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
             String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
             mTokenActual = token;
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
             Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
             call.enqueue(this);
         }
-
 
         //obreMaps();
 
@@ -108,5 +108,8 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
     @Override
     public void onFailure(Call<RespostaLogin> call, Throwable t) {
         Log.d("XXX", "NO HA POGUT FER EL CALL");
+        ContentValues values = new ContentValues();
+        values.put("token", "tokenHolder");
+        long id = db.insert("dbInterna", null, values);
     }
 }

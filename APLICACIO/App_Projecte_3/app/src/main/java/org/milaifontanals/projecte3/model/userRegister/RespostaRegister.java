@@ -1,5 +1,4 @@
-
-package org.milaifontanals.projecte3.model.userLogin;
+package org.milaifontanals.projecte3.model.userRegister;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +7,7 @@ import org.milaifontanals.projecte3.model.apiUser.User;
 
 import io.reactivex.rxjava3.annotations.Nullable;
 
-public class RespostaLogin {
+public class RespostaRegister {
     @Nullable
     @SerializedName("token")
     @Expose
@@ -41,5 +40,4 @@ public class RespostaLogin {
     public String getError() { return error; }
 
     public void setError(String error) { this.error = error; }
-
 }

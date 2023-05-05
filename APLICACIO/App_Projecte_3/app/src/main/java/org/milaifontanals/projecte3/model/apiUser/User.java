@@ -1,5 +1,5 @@
 
-package org.milaifontanals.projecte3.model.userLogin;
+package org.milaifontanals.projecte3.model.apiUser;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

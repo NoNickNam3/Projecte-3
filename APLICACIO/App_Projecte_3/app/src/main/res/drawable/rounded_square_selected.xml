@@ -5,11 +5,17 @@
     android:thickness="1dp">
 
     <stroke
-        android:color="#3A3A3A"
-        android:width="1dp" />
+        android:color="@color/darkPaletteBlack"
+        android:width="2dp" />
 
-    <solid
-        android:color="@color/color5"/>
+    <gradient
+        android:startColor="@color/darkPaletteWhite"
+        android:endColor="@color/color4"
+        android:type="linear"
+        android:angle="45"
+    />
 
+    <corners
+        android:radius="15dp" />
 
 </shape>

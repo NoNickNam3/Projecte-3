@@ -5,10 +5,21 @@
     <color name="color3">#093e3b</color>
     <color name="color4">#3c745c</color>
     <color name="color5">#855113</color>
+
+    <color name="lightPaletteBlack">#181823</color>
+    <color name="lightPaletteBlue">#537FE7</color>
+    <color name="lightPaletteSea">#C0EEF2</color>
+    <color name="lightPaletteWinter">#E9F8F9</color>
+    <color name="darkPaletteBlack">#212A3E</color>
+    <color name="darkPaletteNavy">#394867</color>
+    <color name="darkPaletteGrey">#9BA4B5</color>
+    <color name="darkPaletteWhite">#E9F8F9</color>
+
     <color name="toolBarColorLight">#DCDCDC</color>
     <color name="toolBarColorDark">#6E6E6E</color>
     <color name="backgroundAppLight">#DCDCDC</color>
-    <color name="backgroundAppDark">#404040</color>
+    <color name="backgroundAppDark">#394867</color>
+    <color name="backgroundToolbarDark">#212A3E</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
