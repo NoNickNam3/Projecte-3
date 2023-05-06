@@ -1,6 +1,7 @@
 package org.milaifontanals.projecte3.api;
 
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -21,6 +22,16 @@ public interface APIInterface {
 */
     @FormUrlEncoded
     @POST("login")
-    Call<RespostaLogin> loginUser(@Field("email") String email, @Field("password") String password);
+    Call<RespostaLogin> loginUser(
+            @Field("email") String email,
+            @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("register")
+    Call<RespostaRegister> registerUser(
+            @Field("name") String name,
+            @Field("apellidos") String apellidos,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("password_confirmation") String passwordConfirm);
 }

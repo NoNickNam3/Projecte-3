@@ -26,6 +26,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
     private String mTokenActual = null;
     private EditText edtCorreu, edtPasswd;
 
+    private Intent intentMove;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             Log.d("XXX", "HE POGUT CARREGAR LA BDD");
             String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
             mTokenActual = token;
+            intentMove = new Intent(this, MainActivity.class);
+            startActivity(intentMove);
         }
         cursor.close();
 
@@ -61,8 +65,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
                 call.enqueue(this);
                 break;
             case R.id.btnRegister:
-                Intent i = new Intent(this, RegisterActivity.class);
-                startActivity(i);
+                intentMove = new Intent(this, RegisterActivity.class);
+                startActivity(intentMove);
                 break;
         }
     }
@@ -81,15 +85,17 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             long id = db.insert("dbInterna", null, values);
             mTokenActual = res.getToken();
             Log.d("XXX", res.getToken());
+
+            intentMove = new Intent(this, MainActivity.class);
+            startActivity(intentMove);
+
         }
     }
 
     @Override
     public void onFailure(Call<RespostaLogin> call, Throwable t) {
         Log.d("XXX", "NO HE POGUT FER EL CALL");
-        ContentValues values = new ContentValues();
-        values.remove("token");
-        db.insert("dbInterna", null, values);
+        //db.rawQuery("delete from dbInterna", null);
     }
 
 }
