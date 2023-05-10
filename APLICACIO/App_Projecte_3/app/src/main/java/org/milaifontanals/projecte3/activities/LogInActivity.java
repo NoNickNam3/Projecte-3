@@ -15,6 +15,7 @@ import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.utils.dbUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,10 +80,10 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             RespostaLogin res = response.body();
 
             //Database configs
-            ContentValues values = new ContentValues();
-            values.put("token", res.getToken());
-            values.put("email", res.getUser().getEmail());
-            long id = db.insert("dbInterna", null, values);
+
+            //  Enregistra l'usuari a la bdd
+            dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
+
             mTokenActual = res.getToken();
             Log.d("XXX", res.getToken());
 

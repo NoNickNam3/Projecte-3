@@ -14,6 +14,7 @@ import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.api.APIAdapter;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
+import org.milaifontanals.projecte3.utils.dbUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,9 +73,8 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
 
             //Database configs
             ContentValues values = new ContentValues();
-            values.put("token", res.getToken());
-            values.put("email", res.getUser().getEmail());
-            long id = db.insert("dbInterna", null, values);
+            //  Enregistra l'usuari a la bdd
+            dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
             mTokenActual = res.getToken();
             Log.d("XXX", res.getToken());
 

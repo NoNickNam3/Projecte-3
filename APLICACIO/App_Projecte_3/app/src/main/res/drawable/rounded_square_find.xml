@@ -9,7 +9,7 @@
         android:width="2dp"/>
 
     <gradient
-        android:startColor="@color/lightPaletteSea"
+        android:startColor="@color/darkPaletteGrey"
         android:endColor="@color/lightPaletteWinter"
         android:type="linear"
         android:angle="45"
