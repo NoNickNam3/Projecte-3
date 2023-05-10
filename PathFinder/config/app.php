@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -182,6 +182,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

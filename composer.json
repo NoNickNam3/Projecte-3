@@ -1,0 +1,5 @@
+{
+    "require": {
+        "alexpechkarev/google-maps": "^10.0"
+    }
+}

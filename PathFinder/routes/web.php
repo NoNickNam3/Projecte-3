@@ -32,6 +32,32 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    //PERFIL
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //TRACKING
+    Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+    Route::post('/get_tracking_user', [TrackingController::class, 'get_tracking_user']);
+
+    //UBICACION
+    Route::get('/ubicaciones', [UbicacionController::class, 'index'])->name('ubicaciones');
+    Route::post('/get_ubicaciones_user', [UbicacionController::class, 'get_ubicaciones_user']);
+    Route::post('/ubicaciones', [UbicacionController::class, 'store'])->name('ubicaciones.store');
+    Route::post('/eliminar_ubicacion', [UbicacionController::class, 'eliminar_ubicacion'])->name('eliminar_ubicacion');
+    Route::put('/ubicaciones/{id}', [UbicacionController::class, 'update'])->name('ubicaciones.update');
+
+    //GESTIONAR EMPLEADOS
+    Route::get('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
+});
+
+//TESTING
+Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
+Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
+// Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
+
 // Route::get('/tracking', function () {
 //     return view('tracking');
 // })->middleware(['auth', 'verified'])->name('tracking');
@@ -61,31 +87,6 @@ Route::get('/dashboard', function () {
 //     \Illuminate\Support\Facades\Mail::to($email)->send(new EnviarMail($email,$nom,$codi));
 //     exit;
 // });
-
-Route::get('/test_mail', function () {
-    \Illuminate\Support\Facades\Mail::to('tonitonipuig@gmail.com')->send(new EnviarMail('tonitonipuig@gmail.com','Toni','33032'));
-    exit;
-});
-
-Route::get('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
-    Route::post('/get_tracking_user', [TrackingController::class, 'get_tracking_user']);
-    Route::get('/ubicaciones', [UbicacionController::class, 'index'])->name('ubicaciones');
-    Route::post('/get_ubicaciones_user', [UbicacionController::class, 'get_ubicaciones_user']);
-    Route::post('/ubicaciones', [UbicacionController::class, 'store'])->name('ubicaciones.store');
-    Route::put('/ubicaciones/{id}', [UbicacionController::class, 'update'])->name('ubicaciones.update');
-});
-
-//TESTING
-Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
-Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
-// Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
 
 
 require __DIR__ . '/auth.php';

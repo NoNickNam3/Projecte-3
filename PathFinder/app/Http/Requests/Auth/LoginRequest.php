@@ -53,6 +53,12 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if($user->organizacion != $user->id){
+            throw ValidationException::withMessages([
+                'email' => 'Aquest usuari no pot accedir al sistema de administració',
+            ]);
+        }
+
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 

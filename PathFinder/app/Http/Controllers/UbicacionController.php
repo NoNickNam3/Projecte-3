@@ -49,6 +49,19 @@ class UbicacionController extends Controller
         }
     }
 
+
+    public function eliminar_ubicacion(Request $request)
+    {
+        $id = $request->input('id');
+            try {
+                $ubicacion = Ubicacion::findOrFail($id);
+                $ubicacion->delete();
+                return redirect()->route('ubicaciones')->with('success', 'Error al importar el contacto.');
+            } catch (\Exception $e) {
+                return redirect()->route('ubicaciones')->with('error', 'Error al eliminar contacto.');
+            }
+    }
+
     public function get_ubicaciones_user(Request $request)
     {
         $id = $request->input('id');
