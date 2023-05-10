@@ -49,6 +49,7 @@ class TrackingController extends Controller
         }
         return response()->json($coordenadas);
     }
+
     /**
      * Store a newly created resource in storage.
      */

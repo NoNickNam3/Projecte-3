@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiEmpleatController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     //TOTES LES RUTAS DE FUNCIONALITAT AMB TOKEN
+    Route::post('/enlazar_codigo',[ApiEmpleatController::class, 'enlazar_codigo']);
+    Route::post('/ubicacion/crear', [ApiUbicacionController::class, 'store']);
+    Route::delete('/ubicacion/{id}', [ApiUbicacionController::class, 'destroy']);
     Route::put('/perfil/update', [ProfileController::class, 'update']);
     Route::get('/ubicacion/{id}/coordenada', [ApiUbicacionController::class, 'getCoordenada']);
     http://127.0.0.1:8000/api/ubicacion/1/coordenada

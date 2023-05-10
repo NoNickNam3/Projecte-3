@@ -20,6 +20,10 @@ class ApiPasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return response()->json(['status' => 'password-updated'], 200);
+        // return response()->json(['status' => 'password-updated'], 200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Password actualitzat correctament'
+        ],200);
     }
 }
