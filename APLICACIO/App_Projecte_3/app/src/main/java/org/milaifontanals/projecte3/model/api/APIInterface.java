@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.api;
+package org.milaifontanals.projecte3.model.api;
 
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
@@ -6,6 +6,7 @@ import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -27,6 +28,7 @@ public interface APIInterface {
             @Field("password") String password);
 
     @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("register")
     Call<RespostaRegister> registerUser(
             @Field("name") String name,

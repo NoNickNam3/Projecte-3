@@ -2,7 +2,6 @@ package org.milaifontanals.projecte3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.milaifontanals.projecte3.R;
-import org.milaifontanals.projecte3.api.APIAdapter;
+import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.utils.dbUtils;

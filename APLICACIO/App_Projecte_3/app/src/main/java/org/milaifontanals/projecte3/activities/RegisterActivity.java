@@ -11,8 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.milaifontanals.projecte3.R;
-import org.milaifontanals.projecte3.api.APIAdapter;
-import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 import org.milaifontanals.projecte3.utils.dbUtils;
 
@@ -48,7 +47,6 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
             case R.id.btnLogIn:
                 Intent i = new Intent(this, LogInActivity.class);
                 startActivity(i);
-
                 break;
             case R.id.btnRegister:
                 Call<RespostaRegister> call = APIAdapter.getApiService().registerUser(
@@ -86,7 +84,8 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
 
     @Override
     public void onFailure(Call<RespostaRegister> call, Throwable t) {
-        Log.d("XXX", "Crashed");
+        Log.d("XXX", "Crashed " + t.getMessage());
+         Log.d("XXX", "Localized: " + t.getLocalizedMessage());
         intentMove = new Intent(this, LogInActivity.class);
         startActivity(intentMove);
     }

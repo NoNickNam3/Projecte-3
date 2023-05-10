@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 
 import org.milaifontanals.projecte3.R;
-import org.milaifontanals.projecte3.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
     private NavHostFragment navHostFragment;
     private String mTokenActual = null;
     private SQLiteDatabase db = null;
+    private Intent intentMove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
             //Database configs
             ContentValues values = new ContentValues();
             values.put("token", res.getToken());
-            values.put("email", res.getUser().getEmail());
             long id = db.insert("dbInterna", null, values);
             mTokenActual = res.getToken();
             Log.d("XXX", res.getToken());
@@ -101,9 +100,8 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
 
     @Override
     public void onFailure(Call<RespostaLogin> call, Throwable t) {
-        Log.d("XXX", "NO HA POGUT FER EL CALL");
-        ContentValues values = new ContentValues();
-        values.put("token", "tokenHolder");
-        long id = db.insert("dbInterna", null, values);
+        Log.d("XXX", "ERROR EN MAIN");
+        intentMove = new Intent(this, LogInActivity.class);
+        startActivity(intentMove);
     }
 }
