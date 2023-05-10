@@ -52,16 +52,10 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
         Cursor cursor = db.rawQuery("select * from dbInterna", null);
         if (cursor.moveToNext()) {
             Log.d("XXX", "HE POGUT CARREGAR LA BDD");
-            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
             String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
             mTokenActual = token;
         }
         cursor.close();
-
-        if(mTokenActual == null){
-            Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
-            call.enqueue(this);
-        }
 
         //obreMaps();
 
