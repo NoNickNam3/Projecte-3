@@ -25,6 +25,33 @@ class ApiUbicacionController extends Controller
         ],200);
     }
 
+    public function getUbicaciones(Request $request)
+    {
+        try {
+            $lista_ubicaciones = ListaUbicacion::where('empleado', Auth::user()->id)->get();
+            $list = array();
+            foreach ($lista_ubicaciones as $lista_ubicacion) {
+                $ubicacion = $lista_ubicacion->ubicacion;
+                $co = explode(",", $ubicacion->coordenada);
+                $array = array('latitud' => $co[0], 'longitud' => $co[1]);
+                $ubicacion->coordenada = $array;
+    
+                array_push($list, $ubicacion);
+            }
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Ubicaciones obtenidas',
+                'data' => $list
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Fallo al obtener ubicaciones',
+                'data' => $list
+            ],500);
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

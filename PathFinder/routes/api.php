@@ -37,4 +37,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/perfil/update', [ProfileController::class, 'update']);
     Route::get('/ubicacion/{id}/coordenada', [ApiUbicacionController::class, 'getCoordenada']);
     http://127.0.0.1:8000/api/ubicacion/1/coordenada
+    Route::get('/getListaUbicaciones', [ApiUbicacionController::class, 'getUbicaciones']);
 });
