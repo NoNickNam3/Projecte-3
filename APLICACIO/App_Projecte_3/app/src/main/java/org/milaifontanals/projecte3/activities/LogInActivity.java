@@ -3,6 +3,7 @@ package org.milaifontanals.projecte3.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -81,9 +82,13 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             //Database configs
 
             //  Enregistra l'usuari a la bdd
-            dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
+            //dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
 
             mTokenActual = res.getToken();
+            SharedPreferences sp = this.getSharedPreferences("tokenUsuari", MODE_PRIVATE);
+            SharedPreferences.Editor ed = sp.edit();
+            ed.putString("token", mTokenActual);
+            ed.commit();
             Log.d("XXX", res.getToken());
 
             intentMove = new Intent(this, MainActivity.class);

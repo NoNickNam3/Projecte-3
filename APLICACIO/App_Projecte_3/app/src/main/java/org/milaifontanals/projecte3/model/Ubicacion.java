@@ -6,6 +6,9 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +27,30 @@ public class Ubicacion implements Parcelable {
      */
     private static ArrayList<Ubicacion> _mUbicaciones;
 
+    private static List<UbicacionApi> llUbicacionsRebudes;
+
+    public static void setLlUbicacionsRebudes(List<UbicacionApi> llUbicacionsRebudes) {
+        Ubicacion.llUbicacionsRebudes = llUbicacionsRebudes;
+    }
+
     public static List<Ubicacion> getUbicaciones(){
 
+        for(UbicacionApi apiu : llUbicacionsRebudes){
+            int fav = apiu.getFav();
+            boolean bFav = true;
+            if(fav == 0){
+                bFav = false;
+            }
+            _mUbicaciones.add(new Ubicacion(
+                    apiu.getId(),
+                    apiu.getNombre(),
+                    apiu.getCoordenada().getLatitud() + "," + apiu.getCoordenadas().getLongitud(),
+                    apiu.getDireccion(),
+                    apiu.getObservaciones(),
+                    bFav
+                    ));
+        }
+/*
         if(_mUbicaciones==null) {
             _mUbicaciones = new ArrayList<Ubicacion>();
             _mUbicaciones.add(new Ubicacion(
@@ -99,7 +124,8 @@ public class Ubicacion implements Parcelable {
                     "",
                     false
             ));
-        }
+        }*/
+
         return _mUbicaciones;
     }
 
