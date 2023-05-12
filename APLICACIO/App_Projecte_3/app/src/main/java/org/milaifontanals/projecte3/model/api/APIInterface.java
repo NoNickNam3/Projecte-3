@@ -1,11 +1,13 @@
 package org.milaifontanals.projecte3.model.api;
 
+import org.milaifontanals.projecte3.model.apiUbicacions.RespostaUbicacions;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -36,4 +38,7 @@ public interface APIInterface {
             @Field("email") String email,
             @Field("password") String password,
             @Field("password_confirmation") String passwordConfirm);
+
+    @GET("getLlistatContactes")
+    Call<RespostaUbicacions> getLlistaUbicacions();
 }
