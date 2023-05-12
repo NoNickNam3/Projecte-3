@@ -120,7 +120,7 @@ body input[type="date"] {
   background-color: #855113;
   color: white;
   border-radius: 10px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 body input[type="date"]::-webkit-calendar-picker-indicator {
   filter: hue-rotate(90deg);
@@ -149,4 +149,307 @@ body .mascara {
   position: absolute;
   opacity: 0.7;
   border-radius: 2%;
+}
+body .contUbis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+body .contFormUbis {
+  margin: 3%;
+  width: 40%;
+  height: 69vh;
+  display: flex;
+  flex-direction: column;
+  gap: 6%;
+}
+body .contFilter {
+  width: 100%;
+  height: 17%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+body .contTabla {
+  min-height: 77%;
+  overflow-y: auto;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+body table {
+  width: 100%;
+  /* 140px * 5 column + 16px scrollbar width */
+  border: 4px solid #093e3b;
+  font-weight: bold;
+  user-select: none;
+}
+body tbody,
+body thead tr {
+  display: block;
+}
+body tbody {
+  height: 338px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+body tbody tr:hover {
+  cursor: pointer;
+}
+body tbody tr:active {
+  background-color: #f0f0f0;
+}
+body thead {
+  background-color: #093e3b;
+  color: white;
+}
+body thead tr:nth-child(1) {
+  background-color: #093e3b;
+}
+body tbody td,
+body thead th {
+  width: 200px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  text-align: center;
+}
+body tr i {
+  font-size: 20px;
+  color: #093e3b;
+}
+body tr:nth-child(even) {
+  background-color: white;
+}
+body tr:nth-child(odd) {
+  background-color: #b8e2df;
+}
+body tbody::-webkit-scrollbar {
+  width: 10px;
+}
+body tbody::-webkit-scrollbar-track {
+  background-color: #3c745c;
+}
+body tbody::-webkit-scrollbar-thumb {
+  background-color: #093e3b;
+}
+body .borRad {
+  border-radius: 30px;
+}
+body .inputNombre {
+  background-color: white;
+  border: none;
+}
+body .inputNombre:focus {
+  border-color: #d6882c;
+  --tw-ring-shadow: #d6882c;
+}
+body .contInput {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border-width: 3.5px;
+  background: white;
+}
+body .contInput i {
+  color: white;
+  font-size: 30px;
+}
+body .borderColor1 {
+  border-color: #855113;
+}
+body .borderColor2 {
+  border-color: #093e3b;
+}
+body .contIcon {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .fav {
+  border: 2px solid #855113;
+  border-radius: 3px;
+  margin: 5px;
+  transform: scale(2);
+}
+body .fav:checked {
+  border-color: #855113;
+  color: #855113;
+}
+body .fav:focus {
+  --tw-ring-shadow: none;
+  --tw-ring-offset-shadow: none;
+}
+body .fav2 {
+  border: 2px solid #093e3b;
+  border-radius: 3px;
+  margin: 5px;
+  transform: scale(2);
+}
+body .fav2:checked {
+  border-color: #093e3b;
+  color: #093e3b;
+}
+body .fav2:focus {
+  --tw-ring-shadow: none;
+  --tw-ring-offset-shadow: none;
+}
+body .contEdit {
+  padding: 30px;
+  border-width: 4px;
+  border-color: #093e3b;
+  position: relative;
+  gap: 4%;
+  width: 38%;
+  background-color: #b8e2df;
+  display: none;
+  /* El div está oculto al inicio */
+  transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+body .contEdit.show {
+  display: flex;
+  /* Cuando se agrega la clase "show", el div se muestra con display:flex */
+}
+body .moverDerecha {
+  animation-name: move-right-back;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes move-right-back {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 130%;
+  }
+  100% {
+    left: 0;
+  }
+}
+body .contEditInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+body .contBotones {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  right: 20px;
+}
+body .contBotones i {
+  font-size: 25px;
+  background-color: #855113;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+body .contBotones .fa-solid:hover {
+  background-color: #d6882c;
+}
+body .contBotones .fa-solid:active {
+  background-color: #855113;
+}
+body .buttonForm {
+  padding: 10px;
+  background-color: #855113;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+body .contBotones2 {
+  position: absolute;
+  display: flex;
+  width: 100px;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  bottom: 30px;
+  right: 30px;
+}
+body .contObservaciones {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+body .contObservaciones textarea {
+  border-radius: 10px;
+  border-color: #093e3b;
+  border-width: 4px;
+}
+body .googleMap {
+  width: 100%;
+  height: 50%;
+  border-radius: 20px;
+  border-color: #093e3b;
+  border-width: 4px;
+}
+body .oculto {
+  display: none;
+}
+body .max-input {
+  width: 220px;
+}
+body .head {
+  width: 100%;
+  height: 5%;
+  background-color: #093e3b;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+body .error {
+  background-color: #ffb2b2;
+}
+body .success {
+  background-color: #c1ffb2;
+}
+body .allDisabled {
+  background-color: #d5d5d5;
+  color: gray;
+}
+body .buttonEliminar {
+  width: 41px;
+  height: 44px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 7px;
+}
+body .formUpdate {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body .formAdd {
+  display: flex;
+  position: absolute;
+  top: 10.5%;
+  right: 160px;
+  padding: 10px;
+  background-color: #855113;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+body .formAdd:hover {
+  background-color: #916f45;
+}
+body .formAdd:active {
+  background-color: #855113;
 }

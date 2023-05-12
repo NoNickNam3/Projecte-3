@@ -17,8 +17,8 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'nombre' => 'toni',
-                'apellidos' => 'puig',
+                'nombre' => 'Toni',
+                'apellidos' => 'Puig',
                 'organizacion' => null,
                 'email' => 'tonitonipuig@gmail.com',
                 'email_verified_at' => null,
@@ -27,12 +27,10 @@ class UsersTableSeeder extends Seeder
             ],
         ]);
 
-        
-
         DB::table('users')->insert([
             [
-                'nombre' => 'maria',
-                'apellidos' => 'lopez',
+                'nombre' => 'Maria',
+                'apellidos' => 'Lopez',
                 'organizacion' => null,
                 'email' => 'marialopez@gmail.com',
                 'email_verified_at' => null,
@@ -41,16 +39,16 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'nombre' => 'Hector',
-                'apellidos' => 'Martin',
-                'organizacion' => null,
-                'email' => 'hazurza@gmail.com',
+                'apellidos' => 'Asurza',
+                'organizacion' => 3,
+                'email' => 'hasurza@gmail.com',
                 'email_verified_at' => null,
-                'password' => Hash::make('hazurza98'),
+                'password' => Hash::make('hasurza98'),
                 'remember_token' => null,
             ],
             [
-                'nombre' => 'juan',
-                'apellidos' => 'garcia',
+                'nombre' => 'Juan',
+                'apellidos' => 'Garcia',
                 'organizacion' => 3,
                 'email' => 'juangarcia@gmail.com',
                 'email_verified_at' => null,
@@ -58,8 +56,8 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => null,
             ],
             [
-                'nombre' => 'laura',
-                'apellidos' => 'martinez',
+                'nombre' => 'Laura',
+                'apellidos' => 'Martinez',
                 'organizacion' => 3,
                 'email' => 'lauramartinez@gmail.com',
                 'email_verified_at' => null,
@@ -67,8 +65,8 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => null,
             ],
             [
-                'nombre' => 'pablo',
-                'apellidos' => 'gonzalez',
+                'nombre' => 'Pablo',
+                'apellidos' => 'Gonzalez',
                 'organizacion' => 1,
                 'email' => 'pablogonzalez@gmail.com',
                 'email_verified_at' => null,
@@ -76,8 +74,8 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => null,
             ],
             [
-                'nombre' => 'carla',
-                'apellidos' => 'ramirez',
+                'nombre' => 'Carla',
+                'apellidos' => 'Ramirez',
                 'organizacion' => 3,
                 'email' => 'carlaramirez@gmail.com',
                 'email_verified_at' => null,

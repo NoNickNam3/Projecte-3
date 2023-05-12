@@ -16,7 +16,6 @@ class ListaUbicacionesSeeder extends Seeder
         $users = User::all();
 
         foreach ($ubicaciones as $ubicacion) {
-            // Escogemos un usuario aleatorio para enlazarlo con la ubicación
             $user = $users->random();
 
             DB::table('lista_ubicaciones')->insert([

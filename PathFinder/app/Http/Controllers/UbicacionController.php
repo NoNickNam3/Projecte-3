@@ -56,7 +56,7 @@ class UbicacionController extends Controller
             try {
                 $ubicacion = Ubicacion::findOrFail($id);
                 $ubicacion->delete();
-                return redirect()->route('ubicaciones')->with('success', 'Error al importar el contacto.');
+                return redirect()->route('ubicaciones')->with('success', 'Contacto eliminado correctamente.');
             } catch (\Exception $e) {
                 return redirect()->route('ubicaciones')->with('error', 'Error al eliminar contacto.');
             }
@@ -72,14 +72,18 @@ class UbicacionController extends Controller
             ->join('ubicaciones', 'lista_ubicaciones.contacto', '=', 'ubicaciones.id')
             ->where('ubicaciones.nombre', 'like', $nombre . '%')
             ->when($fav == 1, function ($query) {
-                return $query->orderBy('ubicaciones.fav');
+                return $query->orderBy('ubicaciones.fav','desc');
             })
             ->get();
 
         $list = array();
         foreach ($lista_ubicaciones as $lista_ubicacion) {
             $ubicacion = $lista_ubicacion->ubicacion;
+            $co = explode(",", $ubicacion->coordenada);
+            $ubicacion->coordenada = array('latitud' => $co[0], 'longitud' => $co[1]);
+        
             array_push($list, $ubicacion);
+
         }
 
         return response()->json($list);
@@ -163,20 +167,21 @@ class UbicacionController extends Controller
 // </form>
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'coordenada' => 'required|max:100',
-            'observaciones' => 'nullable|max:300',
-            'direccion' => 'nullable|max:100',
-            'fav' => 'required|integer|min:0|max:1',
-        ]);
-    
+    {    
         try {
+
+            $request->validate([
+                'nombre' => 'required|max:100',
+                'coordenada' => 'required|max:100',
+                'observaciones' => 'nullable|max:300',
+                'direccion' => 'nullable|max:100',
+                'fav' => 'required|integer|min:0|max:1',
+            ]);
             $ubicacion = Ubicacion::findOrFail($id);
             $ubicacion->update($request->all());
             return redirect()->route('ubicaciones')->with('success', 'Ubicación actualizada exitosamente.');
         } catch (\Exception $e) {
+            // var_dump('asddddddddddddddddddddddddddd');
             return redirect()->route('ubicaciones')->with('error', 'Error al actualizar la ubicación: ' . $e->getMessage());
         }
     }

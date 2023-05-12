@@ -1,13 +1,16 @@
 document.addEventListener('DOMContentLoaded', f_principal);
 
 function f_principal() {
-    let cliente = document.getElementsByName('selectClients')[0];
-    let fecha = document.getElementsByName('fechaClient')[0];
-    cliente.selectedIndex = 0;
-    cliente.addEventListener('change', f_peticionMapa);
-    fecha.addEventListener('change', f_peticionMapa);
+    if (window.location.pathname == '/tracking') {
+        let cliente = document.getElementsByName('selectClients')[0];
+        let fecha = document.getElementsByName('fechaClient')[0];
 
-    f_omplirMapa([]);
+        cliente.selectedIndex = 0;
+        cliente.addEventListener('change', f_peticionMapa);
+        fecha.addEventListener('change', f_peticionMapa);
+
+        f_omplirMapa([]);
+    }
 }
 
 let mapa;
@@ -99,6 +102,8 @@ function f_peticionMapa() {
                     } else {
                         console.error('Error al enviar la petición');
                     }
+                } else if (response.status == 419) {
+                    window.location.href = '/login';
                 } else {
                     console.info("es null");
                     console.info(response);

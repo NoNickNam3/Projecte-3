@@ -98,19 +98,19 @@ body {
     }
 
     .color2 {
-        background-color: #e49b44
+        background-color: #e49b44;
     }
 
     .color3 {
-        background-color: #093e3b
+        background-color: #093e3b;
     }
 
     .color4 {
-        background-color: #3c745c
+        background-color: #3c745c;
     }
 
     .color5 {
-        background-color: #855113
+        background-color: #855113;
     }
 
     .text-color1 {
@@ -152,7 +152,7 @@ body {
         background-color: #855113;
         color: white;
         border-radius: 10px;
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
 
@@ -190,7 +190,405 @@ body {
         border-radius: 2%;
     }
 
-    // 
+    // View Ubicaciones
 
+    .contUbis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+        // gap: 10px;
+        // background-color: aqua;
+    }
+
+    .contFormUbis {
+        margin: 3%;
+        width: 40%;
+        height: 69vh;
+        display: flex;
+        flex-direction: column;
+        gap: 6%;
+    }
+
+
+    .contFilter {
+        width: 100%;
+        height: 17%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contTabla {
+        min-height: 77%;
+        overflow-y: auto;
+        // background-color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+
+    table {
+        width: 100%;
+        /* 140px * 5 column + 16px scrollbar width */
+        // border-spacing: 0;
+        border: 4px solid #093e3b;
+        font-weight: bold;
+        user-select: none;
+    }
+
+    tbody,
+    thead tr {
+        display: block;
+    }
+
+    tbody {
+        height: 338px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        tr:hover {
+            cursor: pointer;
+        }
+
+        tr:active {
+            background-color: #f0f0f0;
+        }
+    }
+
+    thead {
+        background-color: #093e3b;
+        color: white;
+
+        tr:nth-child(1) {
+            background-color: #093e3b;
+        }
+    }
+
+    tbody td,
+    thead th {
+        width: 200px;
+        padding-bottom: 15px;
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    // thead th:last-child {
+    //     // width: 156px;
+    //     /* 140px + 16px scrollbar width */
+    // }
+
+    tr {
+        i {
+            font-size: 20px;
+            color: #093e3b
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: white;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #b8e2df;
+    }
+
+    tbody::-webkit-scrollbar {
+        width: 10px;
+
+
+    }
+
+    tbody::-webkit-scrollbar-track {
+        background-color: #3c745c;
+    }
+
+    tbody::-webkit-scrollbar-thumb {
+        background-color: #093e3b;
+    }
+
+    // tbody::-webkit-scrollbar-thumb:hover {
+    //     background-color: #3c745c;
+    // }
+
+    .borRad {
+        border-radius: 30px;
+    }
+
+    .inputNombre {
+        background-color: white;
+        border: none;
+        // height: 50%;
+
+    }
+
+    .inputNombre:focus {
+        border-color: #d6882c;
+        --tw-ring-shadow: #d6882c;
+    }
+
+    .contInput {
+        display: flex;
+        flex-direction: row;
+        border-radius: 10px;
+        border-width: 3.5px;
+        background: white;
+
+        i {
+            color: white;
+            font-size: 30px;
+        }
+    }
+
+    .borderColor1 {
+        border-color: #855113;
+    }
+
+    .borderColor2 {
+        border-color: #093e3b;
+    }
+
+    .contIcon {
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    // .inputNombre::placeholder {
+    //     color: black
+    // }
+
+    .fav {
+        border: 2px solid #855113;
+        border-radius: 3px;
+        margin: 5px;
+        transform: scale(2);
+    }
+
+    .fav:checked {
+        border-color: #855113;
+        color: #855113;
+    }
+
+    .fav:focus {
+        --tw-ring-shadow: none;
+        --tw-ring-offset-shadow: none;
+    }
+
+    .fav2 {
+        border: 2px solid #093e3b;
+        border-radius: 3px;
+        margin: 5px;
+        transform: scale(2);
+    }
+
+    .fav2:checked {
+        border-color: #093e3b;
+        color: #093e3b;
+    }
+
+    .fav2:focus {
+        --tw-ring-shadow: none;
+        --tw-ring-offset-shadow: none;
+    }
+
+    .contEdit {
+        // border-radius: 20px;
+        padding: 30px;
+        border-width: 4px;
+        border-color: #093e3b;
+        position: relative;
+        gap: 4%;
+        width: 38%;
+        background-color: #b8e2df;
+
+        display: none;
+        /* El div está oculto al inicio */
+        // transition: all 5s ease;
+        transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .contEdit.show {
+        display: flex;
+        /* Cuando se agrega la clase "show", el div se muestra con display:flex */
+    }
+
+    .moverDerecha {
+        animation-name: move-right-back;
+        animation-duration: .5s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes move-right-back {
+        0% {
+            left: 0;
+        }
+
+        50% {
+            left: 130%;
+        }
+
+        100% {
+            left: 0;
+        }
+    }
+
+    .contEditInput {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contBotones {
+        position: absolute;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        right: 20px;
+
+        i {
+            font-size: 25px;
+            background-color: #855113;
+            padding: 10px;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .fa-solid:hover {
+            background-color: #d6882c;
+        }
+
+        .fa-solid:active {
+
+            background-color: #855113;
+        }
+
+    }
+
+
+    .buttonForm {
+        // padding-top: 30px;
+        padding: 10px;
+        background-color: #855113;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .contBotones2 {
+        position: absolute;
+        display: flex;
+        width: 100px;
+        // background-color: aqua;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        bottom: 30px;
+        right: 30px;
+    }
+
+    .contObservaciones {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        // justify-content: start;
+        // overflow: hidden;
+        gap: 10px;
+
+        textarea {
+            border-radius: 10px;
+            border-color: #093e3b;
+            border-width: 4px;
+        }
+    }
+
+    .googleMap {
+        width: 100%;
+        height: 50%;
+        border-radius: 20px;
+        border-color: #093e3b;
+        border-width: 4px;
+    }
+
+    .oculto {
+        display: none;
+    }
+
+    .max-input {
+        width: 220px;
+    }
+
+    .head {
+        width: 100%;
+        height: 5%;
+        background-color: #093e3b;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .error {
+        background-color: #ffb2b2;
+    }
+
+    .success {
+        background-color: #c1ffb2;
+    }
+
+    .allDisabled {
+        background-color: rgb(213, 213, 213);
+        color: gray;
+    }
+
+    .buttonEliminar {
+        width: 41px;
+        height: 44px;
+        // background-color: red;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 7px;
+    }
+
+    .formUpdate {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .formAdd {
+        display: flex;
+        position: absolute;
+        top: 10.5%;
+        right: 160px;
+        padding: 10px;
+        background-color: #855113;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .formAdd:hover {
+        background-color: #916f45;
+    }
+
+    .formAdd:active {
+
+        background-color: #855113;
+    }
 
 }
