@@ -21,7 +21,8 @@
             android:layout_height="50dp"
             android:textAlignment="center"
             android:paddingBottom="15dp"
-            android:hint="email" />
+            android:hint="email"
+            android:text="tonitonipuig@gmail.com"/>
 
         <EditText
             android:id="@+id/edtPasswd"
@@ -30,7 +31,8 @@
             android:textAlignment="center"
             android:paddingBottom="5dp"
             android:hint="password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="12345678"/>
 
         <LinearLayout
             android:layout_width="match_parent"

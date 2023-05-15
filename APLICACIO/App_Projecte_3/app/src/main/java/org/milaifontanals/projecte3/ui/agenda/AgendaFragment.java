@@ -2,6 +2,7 @@ package org.milaifontanals.projecte3.ui.agenda;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.milaifontanals.projecte3.activities.LogInActivity;
+import org.milaifontanals.projecte3.activities.MainActivity;
 import org.milaifontanals.projecte3.databinding.FragmentAgendaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
@@ -125,10 +128,10 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
 
             adapter = new UbicacionAdapter(Ubicacion.getUbicaciones(), this.getContext());
             binding.rcvUbicacion.setAdapter(adapter);
-            adapter.setOnClickListener(new View.OnClickListener() {
+            adapter.setOnUbicacioClickedListener(new UbicacionAdapter.OnUbicacioClickedListener() {
                 @Override
-                public void onClick(View v) {
-                    DireccionsUtil.obreMaps(v.getContext());
+                public void onUbicacioClicked(Ubicacion u) {
+                    DireccionsUtil.obreMaps(requireContext(), u);
                 }
             });
         }
@@ -138,5 +141,11 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
     @Override
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
         Log.d("XXX", "No he pogut obtenir una merda");
+
+
+
+        Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
+        startActivity(intentMove);
+
     }
 }

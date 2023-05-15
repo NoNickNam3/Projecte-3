@@ -24,12 +24,21 @@ public class APIAdapter {
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();
+
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.200.17.17/Projecte-3/PathFinder/public/api/")
+                    .baseUrl("http://10.2.132.190/Projecte-3/PathFinder/public/api/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
             API_SERVICE = retrofit.create(APIInterface.class);
+            /*
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://169.254.40.141/Projecte-3/PathFinder/public/api/")
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(client)
+                    .build();
+            API_SERVICE = retrofit.create(APIInterface.class);
+            */
         }
 
         return API_SERVICE;

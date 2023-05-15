@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
 
         setContentView(R.layout.activity_main);
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        /*
-        Call<RespostaLogin> call = APIAdapter.getApiService().loginUser("tonitonipuig@gmail.com", "12345678");
-        call.enqueue(this);
-        */
 
         Cursor cursor = db.rawQuery("select * from dbInterna", null);
         if (cursor.moveToNext()) {

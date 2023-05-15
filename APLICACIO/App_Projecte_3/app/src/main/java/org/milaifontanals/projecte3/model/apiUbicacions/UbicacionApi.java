@@ -38,10 +38,6 @@ public class UbicacionApi {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @Nullable
-    @SerializedName("coordenadas")
-    @Expose
-    private Coordenadas coordenadas;
 
     public Integer getId() {
         return id;
@@ -105,14 +101,6 @@ public class UbicacionApi {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Coordenadas getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(Coordenadas coordenadas) {
-        this.coordenadas = coordenadas;
     }
 
 }

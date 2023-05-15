@@ -18,12 +18,16 @@ import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 
 import java.util.List;
 
-public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.ViewHolder> implements View.OnClickListener{
+public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.ViewHolder> {
+
+    public interface OnUbicacioClickedListener{
+        public void onUbicacioClicked(Ubicacion u);
+    }
 
     private List<Ubicacion> mUbicaciones;
     private Context mContext;
 
-    private View.OnClickListener mListener;
+    private OnUbicacioClickedListener mListener;
 
     public UbicacionAdapter(List<Ubicacion> pUbicaciones, Context c){
         mUbicaciones = pUbicaciones;
@@ -35,14 +39,9 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
         return mUbicaciones.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        if(mListener != null){
-            mListener.onClick(v);
-        }
-    }
 
-    public void setOnClickListener(View.OnClickListener listener){
+
+    public void setOnUbicacioClickedListener(OnUbicacioClickedListener listener){
         this.mListener = listener;
     }
 
@@ -69,7 +68,15 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View fila = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ubicacion, parent, false);
         ViewHolder vh = new ViewHolder(fila);
-        fila.setOnClickListener(this);
+        fila.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onUbicacioClicked(mUbicaciones.get(vh.getAdapterPosition()));
+                }
+            }
+        });
+
 
         /**
          * ========================================
