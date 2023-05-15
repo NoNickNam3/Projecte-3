@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaUbicacionController;
 use App\Http\Controllers\UbicacionController;
 use App\Mail\EnviarMail;
+use App\Http\Controllers\OptimizadorController;
 use Illuminate\Facades\Mail;
 
 /*
@@ -50,13 +51,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/ubicaciones/{id}', [UbicacionController::class, 'update'])->name('ubicaciones.update');
 
     //GESTIONAR EMPLEADOS
-    Route::get('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
+    Route::post('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
+    //desvincular_emp
 });
 
 //TESTING
 Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
 Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
-Route::get('/opti', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
+Route::get('/optim', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
 // Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
 
 // Route::get('/tracking', function () {
