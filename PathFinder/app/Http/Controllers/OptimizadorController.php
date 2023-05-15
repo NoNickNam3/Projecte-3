@@ -25,25 +25,24 @@ class OptimizadorController extends Controller
 
         $dataArr = json_decode($response->getBody(), true);
 
-        return $dataArr;
+        $locations = [];
 
-        // $locations = [];
+        foreach ($dataArr['waypoints'] as $waypoint) {
+            $locations[] = $waypoint['location'];
+        }
 
-        // foreach ($dataArr['waypoints'] as $waypoint) {
-        //     $locations[] = $waypoint['location'];
-        // }
+        usort($locations, function ($a, $b) {
+            return $a['waypoint_index'] - $b['waypoint_index'];
+        });
 
-        // usort($locations, function ($a, $b) {
-        //     return $a['waypoint_index'] - $b['waypoint_index'];
-        // });
+        $tripDuration = $dataArr['trips'][0]['duration'];
+        $tripDistance = $dataArr['trips'][0]['distance'];
 
-        // $tripDuration = $dataArr['trips'][0]['duration'];
-        // $tripDistance = $dataArr['trips'][0]['distance'];
-
-        // $result = [
-        //     'locations' => $locations,
-        //     'tripDuration' => $tripDuration,
-        //     'tripDistance' => $tripDistance
-        // ];
+        $result = [
+            'locations' => $locations,
+            'tripDuration' => $tripDuration,
+            'tripDistance' => $tripDistance
+        ];
+        return $locations;
     }
 }
