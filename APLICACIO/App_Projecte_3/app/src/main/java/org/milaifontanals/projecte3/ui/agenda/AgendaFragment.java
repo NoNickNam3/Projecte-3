@@ -134,6 +134,9 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
                     DireccionsUtil.obreMaps(requireContext(), u);
                 }
             });
+        }else{
+            Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
+            startActivity(intentMove);
         }
 
     }
@@ -141,8 +144,6 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
     @Override
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
         Log.d("XXX", "No he pogut obtenir una merda");
-
-
 
         Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
         startActivity(intentMove);

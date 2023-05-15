@@ -45,6 +45,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             Log.d("XXX", "HE POGUT CARREGAR LA BDD");
             String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
             mTokenActual = token;
+            Log.d("XXX", mTokenActual);
             intentMove = new Intent(this, MainActivity.class);
             startActivity(intentMove);
         }

@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<RespostaLogin> {
+public class MainActivity extends AppCompatActivity {
 
     private NavHostFragment navHostFragment;
     private String mTokenActual = null;
@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
 
         setContentView(R.layout.activity_main);
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-
+/*
         Cursor cursor = db.rawQuery("select * from dbInterna", null);
         if (cursor.moveToNext()) {
             Log.d("XXX", "HE POGUT CARREGAR LA BDD");
             String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
             mTokenActual = token;
         }
-        cursor.close();
+        cursor.close();*/
 
         //obreMaps();
 
@@ -78,26 +78,5 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
-    }
-
-    @Override
-    public void onResponse(Call<RespostaLogin> call, Response<RespostaLogin> response) {
-        if(response.isSuccessful()){
-            RespostaLogin res = response.body();
-
-            //Database configs
-            ContentValues values = new ContentValues();
-            values.put("token", res.getToken());
-            long id = db.insert("dbInterna", null, values);
-            mTokenActual = res.getToken();
-            Log.d("XXX", res.getToken());
-        }
-    }
-
-    @Override
-    public void onFailure(Call<RespostaLogin> call, Throwable t) {
-        Log.d("XXX", "ERROR EN MAIN");
-        intentMove = new Intent(this, LogInActivity.class);
-        startActivity(intentMove);
     }
 }
