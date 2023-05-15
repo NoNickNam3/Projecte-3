@@ -5,6 +5,7 @@
     android:thickness="1dp">
 
     <stroke
+<<<<<<< HEAD
         android:color="@color/darkPaletteBlack"
         android:width="2dp" />
 
@@ -17,5 +18,13 @@
 
     <corners
         android:radius="15dp" />
+=======
+        android:color="#3A3A3A"
+        android:width="1dp" />
+
+    <solid
+        android:color="@color/color5"/>
+
+>>>>>>> 775ea72fb5cc56873befd27ccd1c583a105e9cab
 
 </shape>
