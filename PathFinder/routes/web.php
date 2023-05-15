@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 //TESTING
 Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
 Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
+Route::get('/opti', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
 // Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
 
 // Route::get('/tracking', function () {
