@@ -34,7 +34,7 @@ public class Ubicacion implements Parcelable {
     }
 
     public static List<Ubicacion> getUbicaciones(){
-
+/*
         for(UbicacionApi apiu : llUbicacionsRebudes){
             int fav = apiu.getFav();
             boolean bFav = true;
@@ -49,8 +49,8 @@ public class Ubicacion implements Parcelable {
                     apiu.getObservaciones(),
                     bFav
                     ));
-        }
-/*
+        }*/
+
         if(_mUbicaciones==null) {
             _mUbicaciones = new ArrayList<Ubicacion>();
             _mUbicaciones.add(new Ubicacion(
@@ -124,7 +124,7 @@ public class Ubicacion implements Parcelable {
                     "",
                     false
             ));
-        }*/
+        }
 
         return _mUbicaciones;
     }

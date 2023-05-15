@@ -14,13 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.Ubicacion;
+import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 
 import java.util.List;
 
-public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.ViewHolder>{
+public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.ViewHolder> implements View.OnClickListener{
 
     private List<Ubicacion> mUbicaciones;
     private Context mContext;
+
+    private View.OnClickListener mListener;
 
     public UbicacionAdapter(List<Ubicacion> pUbicaciones, Context c){
         mUbicaciones = pUbicaciones;
@@ -30,6 +33,17 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
     @Override
     public int getItemCount() {
         return mUbicaciones.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(mListener != null){
+            mListener.onClick(v);
+        }
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.mListener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -55,6 +69,7 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View fila = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ubicacion, parent, false);
         ViewHolder vh = new ViewHolder(fila);
+        fila.setOnClickListener(this);
 
         /**
          * ========================================

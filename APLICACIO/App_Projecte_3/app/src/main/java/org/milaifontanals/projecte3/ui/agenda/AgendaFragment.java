@@ -23,6 +23,7 @@ import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
 import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 
 import java.util.List;
 
@@ -124,6 +125,12 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
 
             adapter = new UbicacionAdapter(Ubicacion.getUbicaciones(), this.getContext());
             binding.rcvUbicacion.setAdapter(adapter);
+            adapter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DireccionsUtil.obreMaps(v.getContext());
+                }
+            });
         }
 
     }
