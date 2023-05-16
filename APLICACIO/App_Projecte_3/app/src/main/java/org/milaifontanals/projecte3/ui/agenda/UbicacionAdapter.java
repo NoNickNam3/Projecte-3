@@ -77,6 +77,17 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
             }
         });
 
+        fila.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(mListener != null){
+                    mListener.onUbicacioClicked(mUbicaciones.get(vh.getAdapterPosition()));
+                }
+
+                return false;
+            }
+        });
+
 
         /**
          * ========================================
