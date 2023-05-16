@@ -41,8 +41,12 @@ public class DireccionsUtil {
         c.startActivity(mapIntent);
     }
 
-    public static void obrirRuta(Context c, String desti, List<Ubicacion> llUbicacions) {
+    public static void obrirRuta(Context c, Ubicacion desti, List<Ubicacion> llUbicacions) {
         String googleURL = "&waypoints=";
+
+        if(llUbicacions.contains(desti)){
+            llUbicacions.remove(desti);
+        }
 
         int i = 0;
         for(Ubicacion u : llUbicacions){
@@ -56,7 +60,7 @@ public class DireccionsUtil {
             i++;
         }
 
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + desti + googleURL);
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + getNNStringFromUbicacion(desti) + googleURL);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         c.startActivity(mapIntent);

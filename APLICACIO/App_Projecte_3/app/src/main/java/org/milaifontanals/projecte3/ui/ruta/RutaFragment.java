@@ -44,6 +44,7 @@ import retrofit2.Response;
 public class RutaFragment extends Fragment implements Callback<RespostaGetUbicaciones>, View.OnClickListener {
 
     private List<Ubicacion> uSeleccionades;
+    private Ubicacion uDesti;
     private FragmentRutaBinding binding;
     private UbicacionRutaAdapter adapter, adapterSeleccionats;
     public String mTokenActual = null;
@@ -109,8 +110,8 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
             case R.id.btnAnar:
 
-                DireccionsUtil.obrirRuta(requireContext(), "Milà i Fontanals", uSeleccionades);
-
+                uDesti = uSeleccionades.get(0);
+                DireccionsUtil.obrirRuta(requireContext(), uDesti, uSeleccionades);
                 break;
         }
     }
