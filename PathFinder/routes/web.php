@@ -53,12 +53,13 @@ Route::middleware('auth')->group(function () {
     //GESTIONAR EMPLEADOS
     Route::post('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
     //desvincular_emp
+
 });
 
 //TESTING
 Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
 Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
-Route::get('/optim', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
+// Route::post('/optim', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
 // Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
 
 // Route::get('/tracking', function () {
