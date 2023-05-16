@@ -39,23 +39,34 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
 
+
         //  Comprovació del Token a la bdd, si existeix, em crec que és el bó
-        Cursor cursor = db.rawQuery("select * from dbInterna", null);
-        if (cursor.moveToNext()) {
-            Log.d("XXX", "HE POGUT CARREGAR LA BDD");
-            String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
-            mTokenActual = token;
-            Log.d("XXX", mTokenActual);
-            intentMove = new Intent(this, MainActivity.class);
-            startActivity(intentMove);
-        }
-        cursor.close();
+
 
         setContentView(R.layout.activity_log_in);
 
         //  Assigno els camps del LogIn a els edits.
         edtCorreu = findViewById(R.id.edtCorreuUsuari);
         edtPasswd = findViewById(R.id.edtPasswd);
+
+        try{
+            Cursor cursor = db.rawQuery("select * from dbInterna", null);
+            if (cursor.moveToNext()) {
+                Log.d("XXX", "HE POGUT CARREGAR LA BDD");
+                String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
+                mTokenActual = token;
+                Log.d("XXX", mTokenActual);
+
+                SharedPreferences sp = this.getSharedPreferences("tokenUsuari", MODE_PRIVATE);
+                SharedPreferences.Editor ed = sp.edit();
+                ed.putString("token", mTokenActual);
+                ed.commit();
+
+                intentMove = new Intent(this, MainActivity.class);
+                startActivity(intentMove);
+            }
+            cursor.close();
+        }catch(Exception e){}
 
     }
 
@@ -83,7 +94,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             //Database configs
 
             //  Enregistra l'usuari a la bdd
-            //dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
+            dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
 
             mTokenActual = res.getToken();
             SharedPreferences sp = this.getSharedPreferences("tokenUsuari", MODE_PRIVATE);

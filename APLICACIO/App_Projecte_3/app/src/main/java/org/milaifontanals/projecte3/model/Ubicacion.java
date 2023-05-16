@@ -139,6 +139,14 @@ public class Ubicacion implements Parcelable {
         setFav(fav);
     }
 
+    public static void removeUbicacion(Ubicacion u) {
+        _mUbicaciones.remove(u);
+    }
+
+    public static void addUbicacion(Ubicacion u) {
+        _mUbicaciones.add(u);
+    }
+
     public int getId() {
         return id;
     }

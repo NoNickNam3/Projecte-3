@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.ui.agenda;
+package org.milaifontanals.projecte3.ui.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.Ubicacion;
-import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 
 import java.util.List;
 
