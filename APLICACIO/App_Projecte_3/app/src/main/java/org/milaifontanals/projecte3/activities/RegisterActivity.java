@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
+import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 import org.milaifontanals.projecte3.utils.dbUtils;
 
@@ -39,6 +41,10 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
         edtCorreu = findViewById(R.id.edtCorreuUsuari);
         edtPasswd = findViewById(R.id.edtPasswd);
         edtPasswdConfirm = findViewById(R.id.edtPasswdConfirm);
+
+        //  Configuració de la bdd SQLite
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
+        db = dbHelper.getWritableDatabase();
 
     }
 
@@ -74,6 +80,12 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
             //  Enregistra l'usuari a la bdd
             dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
             mTokenActual = res.getToken();
+            Log.d("XXX", res.getToken());
+
+            SharedPreferences sp = this.getSharedPreferences("tokenUsuari", MODE_PRIVATE);
+            SharedPreferences.Editor ed = sp.edit();
+            ed.putString("token", mTokenActual);
+            ed.commit();
             Log.d("XXX", res.getToken());
 
             intentMove = new Intent(this, MainActivity.class);

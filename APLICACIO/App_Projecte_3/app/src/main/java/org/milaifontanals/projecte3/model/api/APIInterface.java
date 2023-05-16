@@ -1,10 +1,15 @@
 package org.milaifontanals.projecte3.model.api;
 
+import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
 
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,4 +48,11 @@ public interface APIInterface {
     @GET("getListaUbicaciones")
     @Headers("Accept: application/json")
     Call<RespostaGetUbicaciones> getLlistaUbicacions(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    Call<RespostaRuta> getOptimitzador(
+            @Header("Authorization") String token,
+            @Body OptimitzarRequest or
+            );
 }

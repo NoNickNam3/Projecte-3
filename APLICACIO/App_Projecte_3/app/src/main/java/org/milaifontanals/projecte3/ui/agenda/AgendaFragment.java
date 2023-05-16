@@ -2,10 +2,9 @@ package org.milaifontanals.projecte3.ui.agenda;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,14 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.milaifontanals.projecte3.activities.LogInActivity;
-import org.milaifontanals.projecte3.activities.MainActivity;
 import org.milaifontanals.projecte3.databinding.FragmentAgendaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
 import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.ui.adapters.UbicacionAdapter;
+import org.milaifontanals.projecte3.utils.dbUtils;
 import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
+import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
 import java.util.List;
 
@@ -107,6 +108,8 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
         if(mTokenActual != null){
             Call<RespostaGetUbicaciones> callUbicacions = APIAdapter.getApiService().getLlistaUbicacions(" Bearer " + mTokenActual);
             callUbicacions.enqueue(this);
+        }else{
+            IntentUtils.anarLogin(requireContext(), this);
         }
 
     }
@@ -135,18 +138,18 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
                 }
             });
         }else{
-            Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
-            startActivity(intentMove);
+            IntentUtils.anarLogin(requireContext(), this);
         }
 
     }
 
     @Override
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
-        Log.d("XXX", "No he pogut obtenir una merda");
+        Log.d("XXX", "Error en descarregar les ubicacions, de volta al LogIn jefe.");
 
-        Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
-        startActivity(intentMove);
+        dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
+
+        IntentUtils.anarLogin(requireContext(), this);
 
     }
 }

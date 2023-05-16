@@ -35,4 +35,13 @@ public class ComprovacionsUtil {
         return m.matches();
     }
 
+    public static String getStringNN(Object o){
+
+        if(o == null){
+            return "";
+        }
+
+        return o.toString();
+    }
+
 }

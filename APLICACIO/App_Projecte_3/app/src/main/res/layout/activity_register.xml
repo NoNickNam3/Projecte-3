@@ -36,8 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:hint="surname"
-                android:inputType="textPassword" />
+                android:hint="surname" />
         </LinearLayout>
 
         <EditText
