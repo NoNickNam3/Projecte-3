@@ -1,14 +1,18 @@
 package org.milaifontanals.projecte3.ui.crearUbicacio;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.milaifontanals.projecte3.R;
+import org.milaifontanals.projecte3.databinding.FragmentCrearUbicacioBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,7 @@ import org.milaifontanals.projecte3.R;
  * create an instance of this fragment.
  */
 public class CrearUbicacio extends Fragment {
+    FragmentCrearUbicacioBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

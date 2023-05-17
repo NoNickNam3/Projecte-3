@@ -15,7 +15,7 @@ import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
-import org.milaifontanals.projecte3.utils.dbUtils;
+import org.milaifontanals.projecte3.utils.db.dbUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;

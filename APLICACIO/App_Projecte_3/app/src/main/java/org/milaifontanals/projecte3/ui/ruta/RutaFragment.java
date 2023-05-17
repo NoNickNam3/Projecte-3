@@ -16,16 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.milaifontanals.projecte3.R;
-import org.milaifontanals.projecte3.databinding.FragmentAgendaBinding;
 import org.milaifontanals.projecte3.databinding.FragmentRutaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
 import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
-import org.milaifontanals.projecte3.ui.adapters.UbicacionAdapter;
 import org.milaifontanals.projecte3.ui.adapters.UbicacionRutaAdapter;
-import org.milaifontanals.projecte3.utils.dbUtils;
+import org.milaifontanals.projecte3.utils.db.dbUtils;
 import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 

@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.utils;
+package org.milaifontanals.projecte3.utils.db;
 
 import android.content.ContentValues;
 import android.content.Intent;

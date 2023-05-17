@@ -5,6 +5,7 @@ import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
 import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
+import org.milaifontanals.projecte3.ui.crearUbicacio.CrearUbicacio;
 
 import java.util.List;
 
@@ -51,8 +52,21 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
+    @POST("optimizar")
     Call<RespostaRuta> getOptimitzador(
             @Header("Authorization") String token,
             @Body OptimitzarRequest or
             );
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("ubicacion/crear")
+    Call<CrearUbicacio> crearUbicacio(
+            @Header("Authorization") String token,
+            @Field("nombre") String nombre,
+            @Field("direccion") String direccion,
+            @Field("coordenada") String coord,
+            @Field("observacion") String observacion,
+            @Field("fav") int favorito
+    );
 }
