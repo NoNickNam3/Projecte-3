@@ -7,9 +7,13 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+        <script src={{asset('js/dashboard.js')}}></script>
+        <script src={{asset('js/empleados.js')}}></script>
+
         <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 <script src="http://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-
 
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ asset('css/mycss.css') }}">
