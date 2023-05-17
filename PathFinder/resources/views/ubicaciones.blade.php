@@ -28,7 +28,6 @@
         <div class=" mx-auto sm:px-6 lg:px-3 flex contUbis">
             <div class="contFormUbis">
                 <div class="contFilter borRad">
-                    {{-- <h5>Nombre:</h5> --}}
                     <div class="contInput borderColor1">
                         <div class="contIcon color5">
                             <i class="fa-solid fa-magnifying-glass-location"></i>
@@ -59,21 +58,28 @@
                             
                         </tbody>
                     </table>
+                    <img id="no-result" src="{{asset('img/no-result-color.png')}}" alt="" class="no-result oculto">
                 </div>
             </div>
             <div class="shadow-sm sm:rounded-lg contFormUbis borRad contEdit">
-                <div class="contBotones">
+                <div id="contBotones" class="contBotones">
                     <i id="buttonEditar" class="fa-solid fa-pen-to-square"></i>
                     <i id="buttonEliminar" class="fa-solid fa-trash">
                         <form id="formDelete" action="{{ route('eliminar_ubicacion') }}" method="post">
                             @csrf
-                            <input id="idUbicacion" name="id" class="oculto" type="text">
+                            <input name="id" class="oculto" type="text">
                             <input type="submit" class="buttonEliminar" value="" >
                         </form>
                     </i>
-                    
+                    <i id="buttonImportar" class="oculto fa-solid fa-cloud-arrow-up">
+                        <form id="formImportar" action="{{ route('importar') }}" method="post">
+                            @csrf
+                            <input name="id" class="oculto" type="text">
+                            <input type="submit" class="buttonEliminar" value="" >
+                        </form>
+                    </i>
                 </div>
-                <form id="formUpdate" class ="formUpdate" action="{{ route('ubicaciones.update', ['id' => 2]) }}" method="POST">
+                <form id="formUpdate" class ="formUpdate" action="{{ route('ubicaciones.store') }}/" method="POST">
                     @csrf
                     @method('PUT')
                     <input id="coordenada" type="text" name="coordenada" class="oculto" />
@@ -91,7 +97,7 @@
                         <h5 class="font-semibold text-xl text-gray-800 leading-tight">Dirección:</h5>
                         <div class="contInput borderColor2">
                             <x-text-input id="direccion" class="inputNombre color5 max-input" type="text" name="direccion" placeholder="Ejm: Av.Barcelona,158"  />
-                            <div class="contIcon color3">
+                            <div id="direSearch" class="contIcon color3 pointer">
                                 <i class="fa-solid fa-signs-post"></i>
                             </div>
                         </div>
@@ -108,7 +114,7 @@
                         <textarea id="observaciones" name="observaciones" cols="40" rows="3" placeholder="Ejm: Es una calle cerrada, solo abren de 8 a 12 am"></textarea>
                     </div>
                     <div class="contBotones2">
-                        <input id="buttonCancelar" class="buttonForm" name="cancelar" value="Cancelar">
+                        <input id="buttonCancelar" class="buttonForm" name="cancelar" value="Cerrar">
                         <input id="buttonGuardar" class="buttonForm" name="guardar" type="submit" value="Guardar">
                         <input id="buttonCrear" class="buttonForm oculto" name="crear" type="submit" value="Crear">
                     </div>

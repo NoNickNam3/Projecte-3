@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', f_principal);
 
-let map, marker, filaUbis, contEdit, inputSearch, nombre, direccion, lat, lng, observaciones, direMsg, tbod, idUbicacion, coordenada;
-let buttonEditar, buttonEliminar, buttonCancelar, buttonGuardar;
+let map, marker, filaUbis, contEdit, inputSearch, nombre, direccion, lat, lng, observaciones, direMsg, tbod, idUbicacion, coordenada, no_result, direSearch;
+let buttonEditar, buttonEliminar, buttonCancelar, buttonGuardar, buttonCrear, buttonImportar;
 let nombreForm, userForm, favForm;
-let formUpdate, formDelete, formAdd;
+let formUpdate, formDelete, formAdd, formImportar;
+let idUb;
+let msgError = "";
 
 function f_principal() {
     if (window.location.pathname == '/ubicaciones') {
@@ -11,6 +13,7 @@ function f_principal() {
         filaUbis = document.getElementsByClassName('filaUbi');
         // console.info(filaUbis);
         contEdit = document.querySelector('.contEdit');
+        contBotones = document.getElementById('contBotones');
         nombre = document.getElementById('nombre');
         direccion = document.getElementById('direccion');
         observaciones = document.getElementById('observaciones');
@@ -18,7 +21,7 @@ function f_principal() {
         favValue = document.getElementById('favValue');
         direMsg = document.querySelectorAll('.inputNombre')[2];
         tbod = document.getElementById("listaUbicaciones");
-        idUbicacion = document.getElementById('idUbicacion');
+        idUbicacion = document.getElementsByName('id');
 
         nombreForm = document.getElementsByName('nombreForm')[0];
         userForm = document.getElementsByName('selectClientsUbis')[0];
@@ -28,18 +31,22 @@ function f_principal() {
         buttonEliminar = document.getElementById('buttonEliminar');
         buttonCancelar = document.getElementById('buttonCancelar');
         buttonGuardar = document.getElementById('buttonGuardar');
+        buttonCrear = document.getElementById('buttonCrear');
+        buttonImportar = document.getElementById('buttonImportar');
 
         formAdd = document.getElementById('formAdd');
         formDelete = document.getElementById('formDelete');
         formUpdate = document.getElementById('formUpdate');
+        formImportar = document.getElementById('formImportar');
         coordenada = document.getElementById('coordenada');
 
-        // console.log("La ruta actual es: " + window.location.pathname);
-        // llenarTabla();
+        put = document.getElementsByName('_method')[0];
+        no_result = document.getElementById('no-result');
+        direSearch = document.getElementById('direSearch');
+
         listaUbicaciones();
         agregarListeners();
         checkFav();
-        disabledFormEdit(true);
     }
 
 }
@@ -51,9 +58,6 @@ function agregarListeners() {
     buttonEditar.addEventListener('click', () => {
         disabledFormEdit(false);
     });
-    // buttonEliminar.addEventListener('click', () => {
-    //     eliminarUbicacion(idUbicacion.value);
-    // });
     buttonCancelar.addEventListener('click', () => {
         contEdit.classList.remove('show');
         limipiarMsg();
@@ -69,6 +73,17 @@ function agregarListeners() {
         }
     });
 
+    direSearch.addEventListener('click', () => {
+        buscarCoordenada(direccion.value);
+    });
+    direSearch.addEventListener('mouseover', function () {
+        direSearch.classList.add('fa-fade');
+    });
+
+    direSearch.addEventListener('mouseout', function () {
+        direSearch.classList.remove('fa-fade');
+    });
+
     favSelect.addEventListener('click', checkFav);
 
     nombreForm.addEventListener('input', listaUbicaciones);
@@ -76,23 +91,23 @@ function agregarListeners() {
     favForm.addEventListener('input', listaUbicaciones);
 
     formAdd.addEventListener('click', () => {
-        if (contEdit.classList.toString().includes('show')) {
-            contEdit.classList.add('moverDerecha');
-            setTimeout(() => {
-                contEdit.classList.remove('moverDerecha');
-            }, 500);
-        }
-        contEdit.classList.add('show');
+
+        animacionCambiarFila();
 
         nombre.value = "";
         direccion.value = "";
-        idUbicacion.value = "";
+        idUbicacion[0].value = "";
+        idUbicacion[1].value = "";
         observaciones.value = "";
         coordenada.value = "";
+        favSelect.checked = false;
         limipiarMsg();
         crearAutocomplete();
         disabledFormEdit(false);
         ocultarBotones(true);
+        actualizarIdUpdate("");
+        buttonImportar.classList.add('oculto');
+
     });
 
     formUpdate.addEventListener("keydown", function (event) {
@@ -105,13 +120,14 @@ function agregarListeners() {
     formUpdate.addEventListener('submit', (event) => {
         // Prevenimos que el formulario se envíe automáticamente
         event.preventDefault();
+        // console.info(nombre.length);
 
         // Mostramos la ventana emergente de confirmación
-        if (nombre.disabled) {
+        if (comprobarFormulario()) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Eeeeeps!',
-                text: 'Primero modifica la ubicación!',
+                text: msgError,
             });
         } else {
             formUpdate.submit();
@@ -138,15 +154,63 @@ function agregarListeners() {
         });
     });
 
+    formImportar.addEventListener('submit', (event) => {
+        // Prevenimos que el formulario se envíe automáticamente
+        event.preventDefault();
+
+        // Mostramos la ventana emergente de confirmación
+        Swal.fire({
+            icon: 'warning',
+            title: '¿Estás seguro de importar?',
+            text: 'Al importar esta ubicacion dejará de pertenecer al empleado y pasará a ser de la empresa',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, importar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            // Si el usuario confirma la eliminación, enviamos el formulario
+            if (result.isConfirmed) {
+                formImportar.submit();
+            }
+        });
+    });
+
+}
+
+function comprobarFormulario() {
+    if (nombre.value.length == 0) {
+        msgError = "El nombre es obligatorio";
+        return true;
+    }
+    if (direccion.value.length == 0) {
+        msgError = "La direccion es obligatoria";
+        return true;
+    }
+    if (nombre.disabled) {
+        msgError = "Primero modifica la ubicación!";
+        return true;
+    }
+    if (direccion.classList.toString().includes('error')) {
+        msgError = "Dirección incorrecta!";
+        return true;
+    }
+    return false;
 }
 
 function ocultarBotones(estado) {
     if (estado) {
-        formDelete.classList.add('oculto');
+        buttonEditar.classList.add('oculto');
+        buttonEliminar.classList.add('oculto');
         buttonGuardar.classList.add('oculto');
+        buttonCrear.classList.remove('oculto');
+        buttonImportar.classList.remove('oculto');
+        put.disabled = estado;
     } else {
-        formDelete.classList.remove('oculto');
+        buttonEditar.classList.remove('oculto');
+        buttonEliminar.classList.remove('oculto');
         buttonGuardar.classList.remove('oculto');
+        buttonCrear.classList.add('oculto');
+        buttonImportar.classList.add('oculto');
+        put.disabled = estado
     }
 }
 function checkFav() {
@@ -159,20 +223,15 @@ function checkFav() {
 
 function agregarList(fila) {
     fila.addEventListener('dblclick', () => {
-        if (contEdit.classList.toString().includes('show')) {
-            contEdit.classList.add('moverDerecha');
-            setTimeout(() => {
-                contEdit.classList.remove('moverDerecha');
-                disabledFormEdit(true);
-            }, 500);
-        }
-        contEdit.classList.add('show'); /* Al hacer clic en la fila, se agrega la clase "show" al segundo div */
 
+        animacionCambiarFila();
+        disabledFormEdit(true);
         let celdas = fila.querySelectorAll('td');
 
         nombre.value = celdas[0].textContent;
         direccion.value = celdas[1].textContent;
-        idUbicacion.value = celdas[3].textContent;
+        idUbicacion[0].value = celdas[3].textContent;
+        idUbicacion[1].value = celdas[3].textContent;
         observaciones.value = celdas[4].textContent;
         coordenada.value = celdas[5].textContent + "," + celdas[6].textContent;
         actualizarIdUpdate(celdas[3].textContent);
@@ -186,7 +245,28 @@ function agregarList(fila) {
         actualizarMap(celdas[5].textContent, celdas[6].textContent);
         limipiarMsg();
         crearAutocomplete();
+
+        if (userForm.selectedIndex != 0) {
+            ocultarBotones(true);
+            buttonCrear.classList.add('oculto');
+
+        } else {
+            ocultarBotones(false);
+            // buttonCrear.classList.remove('oculto');
+        }
+
     });
+}
+
+function animacionCambiarFila() {
+    if (contEdit.classList.toString().includes('show')) {
+        contEdit.classList.add('moverDerecha');
+        setTimeout(() => {
+            contEdit.classList.remove('moverDerecha');
+            // disabledFormEdit(true);
+        }, 500);
+    }
+    contEdit.classList.add('show'); /* Al hacer clic en la fila, se agrega la clase "show" al segundo div */
 }
 
 function actualizarIdUpdate(id) {
@@ -224,8 +304,13 @@ function actualizarMap(lat, lng) {
     lng = parseFloat(lng);
 
     var newLatLng = { lat: lat, lng: lng };
-    map.setCenter(newLatLng);
-    marker.setPosition(newLatLng);
+    if (map == undefined) {
+        location.reload();
+    } else {
+        map.setCenter(newLatLng);
+        marker.setPosition(newLatLng);
+    }
+
 }
 
 function crearAutocomplete() {
@@ -305,6 +390,17 @@ function disabledFormEdit(estado) {
     direccion.disabled = estado;
     observaciones.disabled = estado;
     favSelect.disabled = estado;
+    if (estado) {
+        nombre.classList.add('no-edit');
+        direccion.classList.add('no-edit');
+        observaciones.classList.add('no-edit');
+        favSelect.classList.add('no-edit');
+    } else {
+        nombre.classList.remove('no-edit');
+        direccion.classList.remove('no-edit');
+        observaciones.classList.remove('no-edit');
+        favSelect.classList.remove('no-edit');
+    }
 }
 
 function listaUbicaciones() {
@@ -346,56 +442,7 @@ function listaUbicaciones() {
 }
 
 function llenarTabla(ubicaciones) {
-    // ubicaciones = [
-    //     {
-    //         "id": "1",
-    //         "nombre": "La Sagrada Familia",
-    //         "direccion": "Carrer de Mallorca, 401, 08013 Barcelona",
-    //         "coordenadas": { "latitud": 41.4036, "longitud": 2.1744 },
-    //         "favorito": true,
-    //         "observaciones": "Mejor visitar temprano en la mañana para evitar las largas filas"
-    //     },
-    //     {
-    //         "id": "2",
-    //         "nombre": "Parque Güell",
-    //         "direccion": "Carrer d'Olot, s/n, 08024 Barcelona",
-    //         "coordenadas": { "latitud": 41.4147, "longitud": 2.1528 },
-    //         "favorito": false,
-    //         "observaciones": "El acceso a la zona monumental del parque es de pago"
-    //     },
-    //     {
-    //         "id": "3",
-    //         "nombre": "La Rambla",
-    //         "direccion": "La Rambla, 08002 Barcelona",
-    //         "coordenadas": { "latitud": 41.3809, "longitud": 2.1731 },
-    //         "favorito": true,
-    //         "observaciones": "Lugar muy turístico, ten cuidado con los carteristas"
-    //     },
-    //     {
-    //         "id": "4",
-    //         "nombre": "Barrio Gótico",
-    //         "direccion": "Barri Gòtic, 08002 Barcelona",
-    //         "coordenadas": { "latitud": 41.3834, "longitud": 2.1766 },
-    //         "favorito": true,
-    //         "observaciones": "El casco histórico de Barcelona, ideal para pasear"
-    //     },
-    //     {
-    //         "id": "5",
-    //         "nombre": "Casa Batlló",
-    //         "direccion": "Passeig de Gràcia, 43, 08007 Barcelona",
-    //         "coordenadas": { "latitud": 41.3910, "longitud": 2.1647 },
-    //         "favorito": false,
-    //         "observaciones": "Espectacular edificio modernista diseñado por Gaudí"
-    //     },
-    //     {
-    //         "id": "6",
-    //         "nombre": "La Pedrera (Casa Milà)",
-    //         "direccion": "Carrer de Provença, 261-265, 08008 Barcelona",
-    //         "coordenadas": { "latitud": 41.3954, "longitud": 2.1618 },
-    //         "favorito": false,
-    //         "observaciones": "Otro edificio modernista impresionante de Gaudí"
-    //     }
-    // ];
+
     eliminarContenido();
     ubicaciones.forEach(function (ubicacion) {
         // Crear un elemento tr para representar la fila
@@ -449,6 +496,11 @@ function llenarTabla(ubicaciones) {
         // Agregar la fila al tbody
         tbod.appendChild(fila);
     });
+    if (ubicaciones.length == 0) {
+        no_result.classList.remove('oculto');
+    } else {
+        no_result.classList.add('oculto');
+    }
 }
 
 function eliminarContenido() {

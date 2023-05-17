@@ -1,3 +1,7 @@
+body {
+  /****************DASHBOARD**************************/
+  /****************EMPLEADOS**************************/
+}
 body .contLogin {
   display: flex;
   justify-content: center;
@@ -175,6 +179,10 @@ body .contFilter {
   gap: 10px;
 }
 body .contTabla {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 77%;
   overflow-y: auto;
   border-top-left-radius: 20px;
@@ -368,8 +376,9 @@ body .contBotones2 {
   position: absolute;
   display: flex;
   width: 100px;
+  height: 20%;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
   font-size: 18px;
   font-weight: bold;
@@ -452,4 +461,202 @@ body .formAdd:hover {
 }
 body .formAdd:active {
   background-color: #855113;
+}
+body .no-result {
+  position: absolute;
+  margin-top: 5%;
+  width: 60%;
+}
+body .no-edit {
+  background-color: #E8ECEF;
+  color: gray;
+}
+body .pointer {
+  cursor: pointer;
+}
+body .separacion {
+  gap: 20px;
+  flex-wrap: wrap;
+}
+body .contInfo {
+  width: 275px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+body .infoHeader {
+  width: 100%;
+  height: 25%;
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+body .infoHeader h4 {
+  color: white;
+  font-weight: bold;
+}
+body .infoBody {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+body .infoBody h1 {
+  color: white;
+  font-weight: bold;
+  font-size: 45px;
+}
+body .infoBottom {
+  width: 100%;
+  height: 25%;
+  border-top: 1px solid;
+}
+body .bgcol1A {
+  background-color: #0079F7;
+}
+body .bgcol1B {
+  background-color: #017CFE;
+}
+body .brcol1 {
+  border-color: #0268D6;
+}
+body .bgcol2A {
+  background-color: #26A343;
+}
+body .bgcol2B {
+  background-color: #26A343;
+}
+body .brcol2 {
+  border-color: #228E3A;
+}
+body .bgcol3A {
+  background-color: #F6BC09;
+}
+body .bgcol3B {
+  background-color: #FEC206;
+}
+body .brcol3 {
+  border-color: #D7A50F;
+}
+body .bgcol4A {
+  background-color: #D53343;
+}
+body .bgcol4B {
+  background-color: #DC3444;
+}
+body .brcol4 {
+  border-color: #BB2E3A;
+}
+body .contChart {
+  border-radius: 10px;
+  width: 49%;
+  height: 500px;
+  overflow: hidden;
+  border: 4px solid #093e3b;
+  padding-bottom: 10px;
+}
+body .contHeaderChart {
+  width: 100%;
+  height: 12%;
+  border-bottom: 1px solid #3c745c;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: #093e3b;
+}
+body .contHeaderChart h4 {
+  color: white;
+  font-weight: bold;
+}
+body .contCanvas {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .contBasic {
+  padding: 20px;
+  width: 100%;
+  height: 30%;
+  background-color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body .contBasic h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+body .contBig {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .contElem {
+  width: 60%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+body .contInv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .contInv .inputInv {
+  width: 60%;
+  border: none;
+  background-color: #f7df98;
+  height: 130%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+body .contInv h5 {
+  color: white;
+  font-weight: bold;
+}
+body .contBot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 15px;
+  height: 130%;
+  width: 150px;
+  background-color: #855113;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+body .contBot i {
+  font-size: 25px;
+  color: white;
+}
+body .buttonDesv {
+  background-color: #855113;
+  width: 200px;
+  padding: 10px 40px;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+body .buttonDesv i {
+  font-size: 25px;
+  color: white;
+}
+body .sep2 {
+  gap: 70px;
 }
