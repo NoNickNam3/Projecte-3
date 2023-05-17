@@ -20,7 +20,6 @@ public class DireccionsUtil {
         return "";
     }
 
-
     public static String getNNStringFromUbicacion(Ubicacion u){
 
         if(u.getCoordenadas() != null && !u.getCoordenadas().equals("")){
@@ -65,5 +64,12 @@ public class DireccionsUtil {
         mapIntent.setPackage("com.google.android.apps.maps");
         c.startActivity(mapIntent);
 
+    }
+
+    public static void obreMaps(Context c) {
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=47.853355,7.936379&waypoints=Avenida Valmes|Carrer Masquefa, 08700 Igualada");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        c.startActivity(mapIntent);
     }
 }

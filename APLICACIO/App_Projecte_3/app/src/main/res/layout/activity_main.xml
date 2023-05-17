@@ -8,15 +8,47 @@
     tools:context=".activities.MainActivity"
     android:background="@color/darkPaletteNavy">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_map" />
+            android:layout_height="wrap_content"
+            android:hint="Find"
+            android:background="@drawable/rounded_square_find"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_action_name"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/icona_pathfinder_foreground"
+            />
+
+    </RelativeLayout>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_map" />
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"

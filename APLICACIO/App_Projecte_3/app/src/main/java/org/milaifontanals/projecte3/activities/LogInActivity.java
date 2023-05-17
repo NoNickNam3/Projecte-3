@@ -26,7 +26,6 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
     private SQLiteDatabase db = null;
     private String mTokenActual = null;
     private EditText edtCorreu, edtPasswd;
-
     private Intent intentMove;
 
     @Override

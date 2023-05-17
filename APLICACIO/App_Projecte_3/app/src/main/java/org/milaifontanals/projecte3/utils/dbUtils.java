@@ -1,7 +1,9 @@
 package org.milaifontanals.projecte3.utils;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import org.milaifontanals.projecte3.model.apiUser.User;
 import org.milaifontanals.projecte3.utils.comprovacions.ComprovacionsUtil;
@@ -19,7 +21,6 @@ public class dbUtils {
 
         return id;
     }
-
     public static long eliminarUsuariBDD(SQLiteDatabase db){
 
         return db.delete("dbInterna", null, null);

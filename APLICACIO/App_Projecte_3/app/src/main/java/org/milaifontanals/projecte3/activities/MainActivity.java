@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import org.milaifontanals.projecte3.R;
+import org.milaifontanals.projecte3.databinding.ActivityMainBinding;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 
@@ -21,7 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ActivityMainBinding bind;
     private NavHostFragment navHostFragment;
     private String mTokenActual = null;
     private SQLiteDatabase db = null;
@@ -31,12 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //-------------------------------
-        //  Ocultar barra navegación
-        //-------------------------------
-//        View decorView = getWindow().getDecorView();
-//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-//        decorView.setSystemUiVisibility(uiOptions);
         getSupportActionBar().hide();
 
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
@@ -44,16 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-/*
-        Cursor cursor = db.rawQuery("select * from dbInterna", null);
-        if (cursor.moveToNext()) {
-            Log.d("XXX", "HE POGUT CARREGAR LA BDD");
-            String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
-            mTokenActual = token;
-        }
-        cursor.close();*/
 
-        //obreMaps();
+        bind = ActivityMainBinding.inflate(getLayoutInflater());
 
     }
 
@@ -73,10 +60,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void obreMaps() {
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=47.853355,7.936379&waypoints=Avenida Valmes|Carrer Masquefa, 08700 Igualada");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
-    }
 }
