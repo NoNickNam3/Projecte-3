@@ -24,8 +24,8 @@ class EmpleadosController extends Controller
     public function enviar_codigo(Request $request)
     {
         $email = $request->input('email');
-        $nom = User::where('email', $email)->first()->nombre;
-        if ($nom == null) {
+        $u = User::where('email', $email)->first();
+        if ($u == null) {
             return redirect()->route('empleados')->with('error', 'No hay ninún usuario con ese email.');
         }
         $id = User::where('email', $email)->first()->id;
@@ -35,7 +35,7 @@ class EmpleadosController extends Controller
             'empleado' => $id,
             'codigo' => $codi,
         ]);
-        Mail::to($email)->send(new EnviarMail($email, $nom, $codi));
+        Mail::to($email)->send(new EnviarMail($email, $u->nombre, $codi));
         return redirect()->route('empleados')->with('success', 'Correo enviado exitosamente.');
     }
 
