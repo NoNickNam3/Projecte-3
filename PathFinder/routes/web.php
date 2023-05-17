@@ -29,11 +29,14 @@ Route::get('/', function () {
 
 Route::get('/testing', [ListaUbicacionController::class, 'getLlistaUbicacions']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //INICIO
+    Route::get('/dashboard',[Controller::class, 'index'])->name('dashboard');
+
     //PERFIL
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -52,8 +55,7 @@ Route::middleware('auth')->group(function () {
 
     //GESTIONAR EMPLEADOS
     Route::post('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
-    //desvincular_emp
-
+    Route::post('/desvincular_emp', [EmpleadosController::class, 'desvincular_emp'])->name('desvincular_emp');
 });
 
 //TESTING

@@ -20,7 +20,7 @@ class UbicacionController extends Controller
             array_push($list, $ubicacion);
         }
 
-        $users = User::where('organizacion', $userId)->get();
+        $users = User::where('organizacion', $userId)->where('id', '!=', $userId)->get();
 
         return view('ubicaciones', [
             'lista_ubicaciones' => json_encode($list),
