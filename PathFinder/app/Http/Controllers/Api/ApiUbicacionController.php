@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ListaUbicacion;
 use App\Models\Ubicacion;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ApiUbicacionController extends Controller
 {
@@ -23,6 +25,33 @@ class ApiUbicacionController extends Controller
             'message' => 'Coordenada obtenida',
             'data' => $ubicacion->coordenada
         ],200);
+    }
+
+    public function getUbicaciones(Request $request)
+    {
+        try {
+            $lista_ubicaciones = ListaUbicacion::where('empleado', Auth::user()->id)->get();
+            $list = array();
+            foreach ($lista_ubicaciones as $lista_ubicacion) {
+                $ubicacion = $lista_ubicacion->ubicacion;
+                $co = explode(",", $ubicacion->coordenada);
+                $array = array('latitud' => $co[0], 'longitud' => $co[1]);
+                $ubicacion->coordenada = $array;
+    
+                array_push($list, $ubicacion);
+            }
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Ubicaciones obtenidas',
+                'data' => $list
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Fallo al obtener ubicaciones',
+                'data' => $list
+            ],500);
+        }
     }
 
     public function store(Request $request)
