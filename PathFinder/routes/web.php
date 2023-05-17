@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/ubicaciones/{id}', [UbicacionController::class, 'update'])->name('ubicaciones.update');
 
     //GESTIONAR EMPLEADOS
+    Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados');
     Route::post('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
     Route::post('/desvincular_emp', [EmpleadosController::class, 'desvincular_emp'])->name('desvincular_emp');
 });
