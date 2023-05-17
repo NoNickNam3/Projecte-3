@@ -92,6 +92,7 @@ function agregarListeners() {
         limipiarMsg();
         crearAutocomplete();
         disabledFormEdit(false);
+        ocultarBotones(true);
     });
 
     formUpdate.addEventListener("keydown", function (event) {
@@ -137,6 +138,16 @@ function agregarListeners() {
         });
     });
 
+}
+
+function ocultarBotones(estado) {
+    if (estado) {
+        formDelete.classList.add('oculto');
+        buttonGuardar.classList.add('oculto');
+    } else {
+        formDelete.classList.remove('oculto');
+        buttonGuardar.classList.remove('oculto');
+    }
 }
 function checkFav() {
     if (favSelect.checked) {
