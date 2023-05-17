@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invitacion;
+use App\Models\ListaUbicacion;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -15,6 +18,38 @@ class Controller extends BaseController
 
     public function index(Request $request)
     {
+        $orgId = Auth::id();
+
+        $invitaciones = Invitacion::all()->count();
+
+        $usersEmpleatsCount = User::where('organizacion', $orgId)
+            ->where('id', '!=', $orgId)
+            ->count();
+
+        $usersTrackedHoy= User::where('organizacion', $orgId)
+            ->where('id', '!=', $orgId)
+            ->join('tracking', 'users.id', '=', 'tracking.empleado')
+            ->whereDate('tracking.momento', '=', date('Y-m-d'))
+            ->count();
+
+        $ubicacionesEmpresa = ListaUbicacion::where('empleado', $orgId)->count();
+
+        var_dump($ubicacionesEmpresa);
+
+        var_dump($usersTrackedHoy);
+
+        var_dump($usersEmpleatsCount);
+
+        var_dump($invitaciones);
+
+        return view('dashboard', [
+            'invitaciones' => $invitaciones,
+            'usersEmpleatsCount' => $usersEmpleatsCount,
+            'usersTrackedHoy' => $usersTrackedHoy,
+            'ubicacionesEmpresa' => $ubicacionesEmpresa,
+            'user' => $request->user(),
+        ]);
+        
         // return view('tracking', array(
         //     'users' => 
         //         array(
@@ -61,6 +96,5 @@ class Controller extends BaseController
         //     'user' => Auth::user(),
         //     'proba' => 'a',
         // ));
-        return view('tracking', array('us'=>1));
     }
 }

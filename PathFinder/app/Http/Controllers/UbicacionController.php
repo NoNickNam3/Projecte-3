@@ -20,7 +20,7 @@ class UbicacionController extends Controller
             array_push($list, $ubicacion);
         }
 
-        $users = User::where('organizacion', $userId)->get();
+        $users = User::where('organizacion', $userId)->where('id', '!=', $userId)->get();
 
         return view('ubicaciones', [
             'lista_ubicaciones' => json_encode($list),
@@ -106,6 +106,7 @@ class UbicacionController extends Controller
 
         try {
             $ubicacion = Ubicacion::create($request->all());
+            $nueva_lista_ubicacion = new ListaUbicacion(array('contacto' => $ubicacion->id, 'empleado' => Auth::id()));
             return redirect()->route('ubicaciones')->with('success', 'Ubicación creada exitosamente.');
         } catch (\Exception $e) {
             return redirect()->route('ubicaciones')->with('error', 'Error al crear la ubicación: ' . $e->getMessage());

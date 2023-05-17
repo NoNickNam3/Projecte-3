@@ -42,7 +42,7 @@ class TrackingTableSeeder extends Seeder
 
                 $trackingData[] = [
                     'empleado' => $employeeId,
-                    'momento' => Carbon::now()->subHours(rand(1,10000))->toDateTimeString(),
+                    'momento' => Carbon::now()->subHours(rand(1,1000))->toDateTimeString(),
                     'coordenadas' => $coordenadas,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
