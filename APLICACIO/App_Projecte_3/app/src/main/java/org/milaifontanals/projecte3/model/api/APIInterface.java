@@ -66,7 +66,7 @@ public interface APIInterface {
             @Field("nombre") String nombre,
             @Field("direccion") String direccion,
             @Field("coordenada") String coord,
-            @Field("observacion") String observacion,
+            @Field("observaciones") String observacion,
             @Field("fav") int favorito
     );
 }
