@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-        @if(session()->has('error'))
+    @if(session()->has('error'))
             <script>
             Swal.fire({
                 icon: 'error',
@@ -24,7 +24,6 @@
             </script>
         @endif
 
-
     <div class="contBig">
         <div class="contElem">
             <div class="contBasic shadow-sm sm:rounded-lg">
@@ -32,17 +31,17 @@
                 <form id="formSend" action="{{asset('enviar_codigo')}}" class="contInv" method="post">
                     @csrf
                     <input type="text" name="email" class="inputInv">
-                    <input type='submit' class="buttonInv" value="Enviar">
-                {{-- <div id="buttonSend" class="contBot">
+                <div  id="buttonSend" class="contBot">
                     <h5>Enviar</h5>
                     <i class="fa-solid fa-paper-plane"></i>
-                </div> --}}
+                </div>
                 </form>
                 
             </div>
             <div class="contBasic  shadow-sm sm:rounded-lg">
                 <h1>Desvincular Empleado</h1>
-                <form id="formDesv" action="{{route('desvincular_emp')}}" class="contInv sep2 " method="post"> 
+                <form id="formDesv" action="{{route('desvincular_emp')}}" class="contInv sep2 " method="post">
+                    @csrf
                     <select name="id" class="selectClients">
                         <option class="bg-white" value="0" disabled>Selecciona un empleado...</option>
                         @foreach ($users as $user)

@@ -14,7 +14,7 @@
                             <h4>Empleados</h4>
                         </div>
                         <div class="infoBody bgcol1B">
-                            <h1>30</h1>
+                            <h1>{{$usersEmpleatsCount}}</h1>
                         </div>
                         <div class="infoBottom bgcol1A brcol1">
 
@@ -25,7 +25,7 @@
                             <h4>Ubicaciones</h4>
                         </div>
                         <div class="infoBody bgcol2B">
-                            <h1>134</h1>
+                            <h1>{{$ubicacionesEmpresa}}</h1>
                         </div>
                         <div class="infoBottom bgcol2A brcol2">
                             
@@ -33,10 +33,10 @@
                     </div>
                     <div class="contInfo">
                         <div class="infoHeader bgcol3A brcol3">
-                            <h4>Invitaciones</h4>
+                            <h4>Invitaciones (Pendientes)</h4>
                         </div>
                         <div class="infoBody bgcol3B">
-                            <h1>6</h1>
+                            <h1>{{$invitaciones}}</h1>
                         </div>
                         <div class="infoBottom bgcol3A brcol3">
                             
@@ -47,7 +47,7 @@
                             <h4>Tracking (Hoy)</h4>
                         </div>
                         <div class="infoBody bgcol4B">
-                            <h1>59</h1>
+                            <h1>{{$usersTrackedHoy}}</h1>
                         </div>
                         <div class="infoBottom bgcol4A brcol4">
                             

@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TrackingTableSeeder::class);
         $this->call(UbicacionSeeder::class);
         $this->call(ListaUbicacionesSeeder::class);
+        $this->call(RutaSeeder::class);
+        $this->call(PuntosDeRutaSeeder::class);
 
         // \App\Models\User::factory(10)->create();
 
