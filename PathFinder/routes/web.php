@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaUbicacionController;
 use App\Http\Controllers\UbicacionController;
 use App\Mail\EnviarMail;
+use App\Http\Controllers\OptimizadorController;
 use Illuminate\Facades\Mail;
 
 /*
@@ -28,11 +29,14 @@ Route::get('/', function () {
 
 Route::get('/testing', [ListaUbicacionController::class, 'getLlistaUbicacions']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //INICIO
+    Route::get('/dashboard',[Controller::class, 'index'])->name('dashboard');
+
     //PERFIL
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -50,12 +54,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/ubicaciones/{id}', [UbicacionController::class, 'update'])->name('ubicaciones.update');
 
     //GESTIONAR EMPLEADOS
-    Route::get('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
+    Route::post('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
+    Route::post('/desvincular_emp', [EmpleadosController::class, 'desvincular_emp'])->name('desvincular_emp');
 });
 
 //TESTING
 Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
 Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
+// Route::post('/optim', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
 // Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
 
 // Route::get('/tracking', function () {

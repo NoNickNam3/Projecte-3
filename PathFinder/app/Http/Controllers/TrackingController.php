@@ -15,7 +15,7 @@ class TrackingController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::id();
-        $users = User::where('organizacion', $userId)->get();
+        $users = User::where('organizacion', $userId)->where('id', '!=', $userId)->get();
         return view('tracking', [
             'users' => $users,
             'user' => $request->user(),
@@ -34,6 +34,7 @@ class TrackingController extends Controller
     {
         $id = $request->input('id');
         $fecha = $request->input('fecha');
+
         $trackings = Tracking::where('empleado', $id)
             ->whereRaw("momento LIKE '".$fecha."%'")
             ->get();

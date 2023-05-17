@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\ApiPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\ApiUbicacionController;
+use App\Http\Controllers\Api\OptimizadorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/ubicacion/{id}', [ApiUbicacionController::class, 'destroy']);
     Route::put('/perfil/update', [ProfileController::class, 'update']);
     Route::get('/ubicacion/{id}/coordenada', [ApiUbicacionController::class, 'getCoordenada']);
-    http://127.0.0.1:8000/api/ubicacion/1/coordenada
+    Route::get('/getListaUbicaciones', [ApiUbicacionController::class, 'getUbicaciones']);
+
+    //OPTIMIZAR RUTAS
+    Route::post('/optimizar', [OptimizadorController::class, 'optimizar']);
 });

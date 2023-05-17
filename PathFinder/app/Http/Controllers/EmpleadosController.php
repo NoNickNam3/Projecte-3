@@ -29,4 +29,17 @@ class EmpleadosController extends Controller
         Mail::to($email)->send(new EnviarMail($email, $nom, $codi));
         return redirect()->route('empleados')->with('success', 'Correo enviado exitosamente.');
     }
+
+    public function desvincular_emp(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $user = User::findOrFail($id);
+            $user->organizacion = null;
+            $user->save();
+            return redirect()->route('empleados')->with('success', 'Empleado desvinculado exitosamente.');   
+        } catch (\Throwable $th) {
+            return redirect()->route('empleados')->with('error', 'Error al desvincular empleado.');
+        }
+    }
 }
