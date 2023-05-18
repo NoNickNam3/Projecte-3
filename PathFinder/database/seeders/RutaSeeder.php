@@ -29,5 +29,18 @@ class RutaSeeder extends Seeder
         $ruta->fav = 0;
         $ruta->nombre = 'Ruta 2';
         $ruta->save();
+
+        for ($i = 1; $i <= 10; $i++) {
+            $ruta = new Ruta();
+            $ruta->usuario = 1;
+            $ruta->momento_temporal = Carbon::now();
+            $ruta->observacion = 'Esta es una observación de la ruta ' . ($i + 2); 
+            $ruta->fav = 0;
+            $ruta->nombre = 'Ruta ' . ($i + 2);
+            $ruta->save();
+        
+            sleep(0.5);
+        }
+        
     }
 }

@@ -107,6 +107,7 @@ class UbicacionController extends Controller
         try {
             $ubicacion = Ubicacion::create($request->all());
             $nueva_lista_ubicacion = new ListaUbicacion(array('contacto' => $ubicacion->id, 'empleado' => Auth::id()));
+            $nueva_lista_ubicacion->save();
             return redirect()->route('ubicaciones')->with('success', 'Ubicación creada exitosamente.');
         } catch (\Exception $e) {
             return redirect()->route('ubicaciones')->with('error', 'Error al crear la ubicación: ' . $e->getMessage());
