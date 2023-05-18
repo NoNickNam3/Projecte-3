@@ -67,7 +67,7 @@ class UsersTableSeeder extends Seeder
             [
                 'nombre' => 'Ana',
                 'apellidos' => 'Sánchez',
-                'organizacion' => 3,
+                'organizacion' => 1,
                 'email' => 'anasanchez@gmail.com',
                 'email_verified_at' => null,
                 'password' => Hash::make('contraseña789'),

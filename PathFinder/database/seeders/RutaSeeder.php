@@ -16,7 +16,7 @@ class RutaSeeder extends Seeder
     {
         $ruta = new Ruta();
         $ruta->usuario = 1;
-        $ruta->momento_temporal = Carbon::now();
+        $ruta->momento_temporal = Carbon::now()->subMinutes(rand(1, 160440));
         $ruta->observacion = 'Esta es una observación de la ruta 1';
         $ruta->fav = 1;
         $ruta->nombre = 'Ruta 1';
@@ -24,16 +24,16 @@ class RutaSeeder extends Seeder
         
         $ruta = new Ruta();
         $ruta->usuario = 1;
-        $ruta->momento_temporal = Carbon::now();
+        $ruta->momento_temporal = Carbon::now()->subMinutes(rand(1, 160440));
         $ruta->observacion = 'Esta es una observación de la ruta 2';
         $ruta->fav = 0;
         $ruta->nombre = 'Ruta 2';
         $ruta->save();
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 14; $i++) {
             $ruta = new Ruta();
-            $ruta->usuario = 1;
-            $ruta->momento_temporal = Carbon::now();
+            $ruta->usuario = rand(1, 3);
+            $ruta->momento_temporal = Carbon::now()->subMinutes(rand(1, 160440));
             $ruta->observacion = 'Esta es una observación de la ruta ' . ($i + 2); 
             $ruta->fav = 0;
             $ruta->nombre = 'Ruta ' . ($i + 2);

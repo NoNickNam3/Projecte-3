@@ -15,7 +15,7 @@ class TrackingTableSeeder extends Seeder
      */
     public function run()
     {
-        $employeeIds = [1, 2, 3,4,5,6]; // Ejemplo de ids de empleados
+        $employeeIds = [1, 2, 3,4,5,6,7,8,9,10];
 
         $trackingData = [];
 
@@ -42,7 +42,7 @@ class TrackingTableSeeder extends Seeder
 
                 $trackingData[] = [
                     'empleado' => $employeeId,
-                    'momento' => Carbon::now()->subHours(rand(1,1000))->toDateTimeString(),
+                    'momento' => Carbon::now()->subMinutes(rand(1,1000))->toDateTimeString(),
                     'coordenadas' => $coordenadas,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
