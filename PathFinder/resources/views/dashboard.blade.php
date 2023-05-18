@@ -4,29 +4,11 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-{{-- 
-    @php
-     $rutasCreadasPorMes = array(
-        1=>0,
-        2=>0,
-        3=>0,
-        4=>0,
-        5=>2,
-        6=>0,
-        7=>0,
-        8=>0,
-        9=>0,
-        10=>0,
-        11=>0,
-        12=>0
-     );
-    @endphp --}}
 
     <script>
         let arrayNombres = <?php echo json_encode($listNombres); ?>;
         let arrayValores = <?php echo json_encode($listValores); ?>;
         let rutasMes = <?php echo json_encode($rutasCreadasPorMes); ?>;
-        // console.info(arrayUbicaciones)
     </script>
 
     <div class="py-12">
