@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+{{-- 
     @php
      $rutasCreadasPorMes = array(
         1=>0,
@@ -20,7 +20,7 @@
         11=>0,
         12=>0
      );
-    @endphp
+    @endphp --}}
 
     <script>
         let arrayNombres = <?php echo json_encode($listNombres); ?>;

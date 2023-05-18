@@ -66,6 +66,8 @@ class ApiUbicacionController extends Controller
     
         try {
             $ubicacion = Ubicacion::create($request->all());
+            $nueva_lista_ubicacion = new ListaUbicacion(array('contacto' => $ubicacion->id, 'empleado' => Auth::user()->id));
+            $nueva_lista_ubicacion->save();
             return response()->json([
                 'status' => 'success',
                 'message' => 'Ubicación creada exitosamente.',

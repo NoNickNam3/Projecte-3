@@ -41,6 +41,7 @@ function graficoCicular() {
 function graficoBarras() {
     var data = {
         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        
         datasets: [{
             label: 'Rutas Creadas',
             data: rutasMes,
