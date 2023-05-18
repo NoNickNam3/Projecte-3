@@ -34,13 +34,19 @@ class Controller extends BaseController
 
         $ubicacionesEmpresa = ListaUbicacion::where('empleado', $orgId)->count();
 
-        var_dump($ubicacionesEmpresa);
+        //Select de los usuarios de la organizacion = 1 y hacer un count de las lista_ubicaciones de cada uno
+        $users = User::where('organizacion', $orgId)->where('id', '!=', $orgId)->get();
+        $listNombres = array();
+        $listValores = array();
+        foreach ($users as $user) {
+            $lista_ubicaciones = ListaUbicacion::where('empleado', $user->id)->get();
+            // $a = array('user' => $user->nombre.' '.$user->apellidos, 'count' => $lista_ubicaciones->count());
+            array_push($listNombres, $user->nombre.' '.$user->apellidos);
+            array_push($listValores, $lista_ubicaciones->count());
+        }
 
-        var_dump($usersTrackedHoy);
-
-        var_dump($usersEmpleatsCount);
-
-        var_dump($invitaciones);
+        // var_dump($listNombres);
+        // var_dump($listValores);   
 
         return view('dashboard', [
             'invitaciones' => $invitaciones,
@@ -48,53 +54,8 @@ class Controller extends BaseController
             'usersTrackedHoy' => $usersTrackedHoy,
             'ubicacionesEmpresa' => $ubicacionesEmpresa,
             'user' => $request->user(),
+            'listNombres' => $listNombres,
+            'listValores' => $listValores
         ]);
-        
-        // return view('tracking', array(
-        //     'users' => 
-        //         array(
-        //             "id" => 2,
-        //             "nombre" => "Toni",
-        //             "apellidos" => "Puig Quilez",
-        //             "organizacion" => 1,
-        //             "email" => "tonitonipuig@gmail.com",
-        //             "email_verified_at" => null,
-        //             "created_at" => "2023-04-24T14:40:08.000000Z",
-        //             "updated_at" => "2023-04-26T15:33:51.000000Z"
-        //         ),
-        //         array(
-        //             "id" => 4,
-        //             "nombre" => "toni",
-        //             "apellidos" => "Doe",
-        //             "organizacion" => 2,
-        //             "email" => "john.doe@example.com",
-        //             "email_verified_at" => null,
-        //             "created_at" => "2023-04-24T15:40:27.000000Z",
-        //             "updated_at" => "2023-04-24T15:40:27.000000Z"
-        //         ),
-        //         array(
-        //             "id" => 5,
-        //             "nombre" => "toni",
-        //             "apellidos" => "Doe",
-        //             "organizacion" => 2,
-        //             "email" => "ras@example.com",
-        //             "email_verified_at" => null,
-        //             "created_at" => "2023-04-25T14:15:06.000000Z",
-        //             "updated_at" => "2023-04-25T14:15:06.000000Z"
-        //         ),
-        //         array(
-        //             "id" => 9,
-        //             "nombre" => "hector",
-        //             "apellidos" => "asurza",
-        //             "organizacion" => 1,
-        //             "email" => "hasurza@gmail.com",
-        //             "email_verified_at" => null,
-        //             "created_at" => "2023-04-26T15:27:41.000000Z",
-        //             "updated_at" => "2023-04-26T15:27:41.000000Z"
-        //         )
-        //     ,
-        //     'user' => Auth::user(),
-        //     'proba' => 'a',
-        // ));
     }
 }

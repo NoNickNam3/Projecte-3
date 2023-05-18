@@ -11,6 +11,15 @@ use App\Models\User;
 
 class EmpleadosController extends Controller
 {
+    public function index(Request $request)
+    {
+        $empleados = Auth::id();
+        $users = User::where('organizacion', $empleados)->where('id', '!=', $empleados)->get();
+        return view('empleados', [
+            'users' => $users,
+            'user' => $request->user(),
+        ]);
+    }
     //
     public function enviar_codigo(Request $request)
     {

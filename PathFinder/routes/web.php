@@ -52,8 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/ubicaciones', [UbicacionController::class, 'store'])->name('ubicaciones.store');
     Route::post('/eliminar_ubicacion', [UbicacionController::class, 'eliminar_ubicacion'])->name('eliminar_ubicacion');
     Route::put('/ubicaciones/{id}', [UbicacionController::class, 'update'])->name('ubicaciones.update');
+    Route::post('/importar_ubicaciones', [UbicacionController::class, 'importar_ubicaciones'])->name('importar');
 
     //GESTIONAR EMPLEADOS
+    Route::get('/empleados', [EmpleadosController::class, 'index'])->name('empleados');
     Route::post('/enviar_codigo', [EmpleadosController::class, 'enviar_codigo'])->name('enviar_codigo');
     Route::post('/desvincular_emp', [EmpleadosController::class, 'desvincular_emp'])->name('desvincular_emp');
 });

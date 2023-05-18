@@ -5,18 +5,33 @@
         </h2>
     </x-slot>
 
-    @php
-        $users = [
-        (Object) array ('id' => 1,'nombre'=>'Pedro', 'apellidos'=>'Suarez')
-        ] 
-    @endphp
+    @if(session()->has('error'))
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session()->get('error') }}',
+        })
+        </script>
+    @endif
+    @if(session()->has('success'))
+        <script>
+            Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session()->get('success') }}',
+            })
+        </script>
+    @endif
+
+    
 
     <div class="contBig">
         <div class="contElem">
             <div class="contBasic shadow-sm sm:rounded-lg">
                 <h1>Invitación Empleado</h1>
-                {{-- <form action="{{asset('enviar_codigo')}}" class="contInv" method="post"> --}}
-                    <form id="formSend" action="" class="contInv" method="post">
+                <form id="formSend" action="{{asset('enviar_codigo')}}" class="contInv" method="post">
+                    @csrf
                     <input type="text" name="email" class="inputInv">
                 <div  id="buttonSend" class="contBot">
                     <h5>Enviar</h5>
@@ -27,8 +42,8 @@
             </div>
             <div class="contBasic  shadow-sm sm:rounded-lg">
                 <h1>Desvincular Empleado</h1>
-                {{-- <form action="{{route('desvincular_emp')}}" class="contInv sep2 " method="post"> --}}
-                <form  id="formDesv" action="" class="contInv sep2 " method="post">
+                <form id="formDesv" action="{{route('desvincular_emp')}}" class="contInv sep2 " method="post">
+                    @csrf
                     <select name="id" class="selectClients">
                         <option class="bg-white" value="0" disabled>Selecciona un empleado...</option>
                         @foreach ($users as $user)
