@@ -12,31 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Find"
-            android:background="@drawable/rounded_square_find"
-            android:layout_marginHorizontal="100dp"
-            android:layout_marginTop="20dp"
-            android:textAlignment="center"
-            />
 
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginRight="15dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_action_name"
-            />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="15dp"
-            android:layout_alignParentLeft="true"
-            android:src="@mipmap/icona_pathfinder_foreground"
-            />
 
     </RelativeLayout>
 
