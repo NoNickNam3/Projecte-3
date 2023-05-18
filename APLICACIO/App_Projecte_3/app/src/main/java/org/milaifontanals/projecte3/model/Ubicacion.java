@@ -19,12 +19,6 @@ public class Ubicacion implements Parcelable {
     private String direcccion;
     private String observacion;
     private boolean fav;
-
-    /**
-     * ===========================================================================
-     * Lista de ubicaciones, tengo que conseguir que las descargue de el endpoint
-     * ===========================================================================
-     */
     private static ArrayList<Ubicacion> _mUbicaciones;
 
     private static List<UbicacionApi> llUbicacionsRebudes;

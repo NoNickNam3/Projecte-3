@@ -1,6 +1,7 @@
 package org.milaifontanals.projecte3.model.api;
 
 import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
+import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
 import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
@@ -61,7 +62,7 @@ public interface APIInterface {
     @FormUrlEncoded
     @Headers("Accept: application/json")
     @POST("ubicacion/crear")
-    Call<CrearUbicacio> crearUbicacio(
+    Call<RespostaCrearUbicacio> crearUbicacio(
             @Header("Authorization") String token,
             @Field("nombre") String nombre,
             @Field("direccion") String direccion,

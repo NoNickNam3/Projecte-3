@@ -5,6 +5,8 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,26 +15,36 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import org.milaifontanals.projecte3.R;
+import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
+import org.milaifontanals.projecte3.model.apiUbicacions.DataUbicacio;
+import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DialogFragmentUbicacio extends DialogFragment implements Callback<CrearUbicacio> {
+public class DialogFragmentUbicacio extends DialogFragment implements Callback<RespostaCrearUbicacio> {
 
-    String nombre;
-    String direccion;
-    String obeservacion;
-    Boolean favorito;
-    String mTokenActual;
+    private String nombre;
+    private String direccion;
+    private String obeservacion;
+    private Boolean favorito;
+    private String coordenada;
+    private String mTokenActual;
 
     public DialogFragmentUbicacio(){
         super(R.layout.fragment_crear_ubicacio);
@@ -71,7 +83,18 @@ public class DialogFragmentUbicacio extends DialogFragment implements Callback<C
                 favorito = cbxFav.isChecked();
                 Log.d("XXX", "Nombre: " + nombre + " -> Dir: " + direccion + " -> Obs: " + obeservacion + " -> Fav: " + favorito);
 
-                Call<CrearUbicacio> callUbicacions = APIAdapter.getApiService().crearUbicacio(" Bearer " + mTokenActual, nombre, direccion, "41.579222, 1.602742", obeservacion, favorito?1:0);
+                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocationName(direccion, 1);
+                } catch (IOException e) {
+                    tancaDialog("Fallo al obtener la coordenada");
+                }
+                if (addresses.size() > 0) {
+                    coordenada = addresses.get(0).getLatitude() + "," + addresses.get(0).getLongitude();
+                }
+
+                Call<RespostaCrearUbicacio> callUbicacions = APIAdapter.getApiService().crearUbicacio(" Bearer " + mTokenActual, nombre, direccion, coordenada, obeservacion, favorito?1:0);
                 callUbicacions.enqueue(DialogFragmentUbicacio.this);
 
             }
@@ -81,12 +104,23 @@ public class DialogFragmentUbicacio extends DialogFragment implements Callback<C
     }
 
     @Override
-    public void onResponse(Call<CrearUbicacio> call, Response<CrearUbicacio> response) {
+    public void onResponse(Call<RespostaCrearUbicacio> call, Response<RespostaCrearUbicacio> response) {
+        DataUbicacio uData = response.body().getData();
+        Ubicacion u = new Ubicacion(uData.getId(), uData.getNombre(), uData.getCoordenada(), uData.getDireccion(), uData.getObservaciones(), (Integer.parseInt(uData.getFav())>0?true:false));
+        Ubicacion.addUbicacion(u);
+        Ubicacion.getUbicaciones();
         dismiss();
     }
 
     @Override
-    public void onFailure(Call<CrearUbicacio> call, Throwable t) {
+    public void onFailure(Call<RespostaCrearUbicacio> call, Throwable t) {
 
+        tancaDialog("Fallo de servidor");
+
+    }
+
+    private void tancaDialog(String message){
+        dismiss();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
