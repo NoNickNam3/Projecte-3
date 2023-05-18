@@ -5,12 +5,13 @@ function f_principal() {
         graficoCicular();
         graficoBarras();
     }
-
+    // console.info(arrayNombres);
+    // console.info(arrayValores);
 }
 
 function graficoCicular() {
-    emps = ['Eduardo Lopez', 'Samuel Santos', 'Federico Garcia', 'Susana Diaz', 'Steven Suarez', 'Alberto Jimenez'];
-    qts = [30, 40, 50, 23, 12, 53];
+    emps = arrayNombres;
+    qts = arrayValores;
     var data = {
         labels: emps,
         datasets: [{

@@ -78,6 +78,8 @@ class Controller extends BaseController
             'ubicacionesEmpresa' => $ubicacionesEmpresa,
             'rutasCreadasPorMes' => $qt,
             'user' => $request->user(),
+            'listNombres' => $listNombres,
+            'listValores' => $listValores
         ]);
     }
 }

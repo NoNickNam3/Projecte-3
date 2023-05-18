@@ -8,6 +8,7 @@ let idUb;
 let msgError = "";
 
 function f_principal() {
+
     if (window.location.pathname == '/ubicaciones') {
         inputSearch = document.getElementById('search-input');
         filaUbis = document.getElementsByClassName('filaUbi');
@@ -91,6 +92,10 @@ function agregarListeners() {
     favForm.addEventListener('input', listaUbicaciones);
 
     formAdd.addEventListener('click', () => {
+
+        if (map == undefined) {
+            location.reload();
+        }
 
         animacionCambiarFila();
 

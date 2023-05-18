@@ -29,7 +29,7 @@ class UbicacionController extends Controller
         ]);
     }
 
-    public function importar_ubicacion(Request $request)
+    public function importar_ubicaciones(Request $request)
     {
         $userId = Auth::id();
         $id = $request->input('id');

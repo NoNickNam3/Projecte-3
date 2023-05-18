@@ -6,23 +6,25 @@
     </x-slot>
 
     @if(session()->has('error'))
-            <script>
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session()->get('error') }}',
+        })
+        </script>
+    @endif
+    @if(session()->has('success'))
+        <script>
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: '{{ session()->get('error') }}',
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session()->get('success') }}',
             })
-            </script>
-        @endif
-        @if(session()->has('success'))
-            <script>
-                Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: '{{ session()->get('success') }}',
-                })
-            </script>
-        @endif
+        </script>
+    @endif
+
+    
 
     <div class="contBig">
         <div class="contElem">

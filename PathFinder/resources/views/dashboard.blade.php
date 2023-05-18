@@ -5,6 +5,30 @@
         </h2>
     </x-slot>
 
+    @php
+     $rutasCreadasPorMes = array(
+        1=>0,
+        2=>0,
+        3=>0,
+        4=>0,
+        5=>2,
+        6=>0,
+        7=>0,
+        8=>0,
+        9=>0,
+        10=>0,
+        11=>0,
+        12=>0
+     );
+    @endphp
+
+    <script>
+        let arrayNombres = <?php echo json_encode($listNombres); ?>;
+        let arrayValores = <?php echo json_encode($listValores); ?>;
+        let rutasMes = <?php echo json_encode($rutasCreadasPorMes); ?>;
+        // console.info(arrayUbicaciones)
+    </script>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -15,6 +39,7 @@
                         </div>
                         <div class="infoBody bgcol1B">
                             <h1>{{$usersEmpleatsCount}}</h1>
+                            <i class="fa-solid fa-user-tie"></i>
                         </div>
                         <div class="infoBottom bgcol1A brcol1">
 
@@ -26,6 +51,7 @@
                         </div>
                         <div class="infoBody bgcol2B">
                             <h1>{{$ubicacionesEmpresa}}</h1>
+                            <i class="fa-sharp fa-solid fa-map-location-dot"></i>
                         </div>
                         <div class="infoBottom bgcol2A brcol2">
                             
@@ -37,6 +63,8 @@
                         </div>
                         <div class="infoBody bgcol3B">
                             <h1>{{$invitaciones}}</h1>
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                            
                         </div>
                         <div class="infoBottom bgcol3A brcol3">
                             
@@ -48,6 +76,7 @@
                         </div>
                         <div class="infoBody bgcol4B">
                             <h1>{{$usersTrackedHoy}}</h1>
+                            <i class="fa-solid fa-location-dot"></i>
                         </div>
                         <div class="infoBottom bgcol4A brcol4">
                             
