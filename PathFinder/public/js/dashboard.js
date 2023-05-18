@@ -41,9 +41,10 @@ function graficoCicular() {
 function graficoBarras() {
     var data = {
         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        
         datasets: [{
             label: 'Rutas Creadas',
-            data: [14, 15, 20, 12, 25, 0, 0, 0, 0, 0, 0, 0],
+            data: rutasMes,
             backgroundColor: '#d6882c' // Color de las barras
         }]
     };
