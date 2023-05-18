@@ -672,3 +672,8 @@ body .buttonDesv i {
 body .sep2 {
   gap: 70px;
 }
+body .iconHeader {
+  color: white;
+  font-size: 30px;
+  margin-left: 30px;
+}
