@@ -1,8 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            {{ __('Empleados') }}
-        </h2>
+        <div class="flex items-center separacion">
+            <i class="fa-solid fa-user-tie iconHeader"></i>
+            <h2 class="font-semibold text-xl text-white leading-tight">
+                {{ __('Empleados') }}
+            </h2>
+        </div>
     </x-slot>
 
     @if(session()->has('error'))
@@ -32,7 +35,7 @@
                 <h1>Invitación Empleado</h1>
                 <form id="formSend" action="{{asset('enviar_codigo')}}" class="contInv" method="post">
                     @csrf
-                    <input type="text" name="email" class="inputInv">
+                    <input id="inputInv" type="text" name="email" class="inputInv">
                 <div  id="buttonSend" class="contBot">
                     <h5>Enviar</h5>
                     <i class="fa-solid fa-paper-plane"></i>
@@ -44,7 +47,7 @@
                 <h1>Desvincular Empleado</h1>
                 <form id="formDesv" action="{{route('desvincular_emp')}}" class="contInv sep2 " method="post">
                     @csrf
-                    <select name="id" class="selectClients">
+                    <select id="listClients" name="id" class="selectClients">
                         <option class="bg-white" value="0" disabled>Selecciona un empleado...</option>
                         @foreach ($users as $user)
                         <option class="bg-white block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" value="{{ $user->id }}">{{ $user->nombre}} {{$user->apellidos}}</option>

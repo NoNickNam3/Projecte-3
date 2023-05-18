@@ -1,32 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <div class="flex items-center separacion">
+            <i class="fa-solid fa-gauge iconHeader"></i>
+            <h2 class="font-semibold text-xl text-white leading-tight">
+                {{ __('Dashboard') }}
+            </h2>
+        </div>
     </x-slot>
-{{-- 
-    @php
-     $rutasCreadasPorMes = array(
-        1=>0,
-        2=>0,
-        3=>0,
-        4=>0,
-        5=>2,
-        6=>0,
-        7=>0,
-        8=>0,
-        9=>0,
-        10=>0,
-        11=>0,
-        12=>0
-     );
-    @endphp --}}
 
     <script>
         let arrayNombres = <?php echo json_encode($listNombres); ?>;
         let arrayValores = <?php echo json_encode($listValores); ?>;
         let rutasMes = <?php echo json_encode($rutasCreadasPorMes); ?>;
-        // console.info(arrayUbicaciones)
     </script>
 
     <div class="py-12">
