@@ -3,6 +3,7 @@ package org.milaifontanals.projecte3.model.api;
 import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
 import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
@@ -69,5 +70,11 @@ public interface APIInterface {
             @Field("coordenada") String coord,
             @Field("observaciones") String observacion,
             @Field("fav") int favorito
+    );
+
+    @POST("logout")
+    @Headers("Accept: application/json")
+    Call<RespostaLogOut> logout(
+            @Header("Authorization") String token
     );
 }

@@ -1,5 +1,6 @@
 package org.milaifontanals.projecte3.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
@@ -14,18 +15,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.databinding.ActivityMainBinding;
+import org.milaifontanals.projecte3.model.api.APIAdapter;
+import org.milaifontanals.projecte3.model.api.APIInterface;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Callback<RespostaLogOut> {
     private ActivityMainBinding bind;
     private NavHostFragment navHostFragment;
     private String mTokenActual = null;
@@ -76,5 +82,31 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inf = getMenuInflater();
         inf.inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itemSignOut:
+                Call<RespostaLogOut> call = APIAdapter.getApiService().logout(" Bearer " + this.getBaseContext().getSharedPreferences("tokenUsuari", MODE_PRIVATE).getString("token", null));
+                call.enqueue(this);
+                break;
+            case R.id.itemEnlaceEmpresa:
+
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onResponse(Call<RespostaLogOut> call, Response<RespostaLogOut> response) {
+        if(response.isSuccessful()){
+            IntentUtils.anarLogin(getBaseContext(), navHostFragment);
+        }
+    }
+
+    @Override
+    public void onFailure(Call<RespostaLogOut> call, Throwable t) {
+
     }
 }

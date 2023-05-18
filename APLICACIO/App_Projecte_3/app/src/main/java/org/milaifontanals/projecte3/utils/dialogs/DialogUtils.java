@@ -16,6 +16,6 @@ public class DialogUtils {
         DialogFragmentUbicacio d = new DialogFragmentUbicacio();
         d.setCancelable(true);
 
-        d.show(f, "");
+        d.show(f, null);
     }
 }
