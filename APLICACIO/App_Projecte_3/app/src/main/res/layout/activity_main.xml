@@ -59,7 +59,7 @@
                     android:maxHeight="30dp"
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ruta" />
+                    android:src="@drawable/route_icon" />
             </FrameLayout>
 
             <FrameLayout
@@ -82,7 +82,7 @@
                     android:maxHeight="30dp"
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/agenda" />
+                    android:src="@drawable/agenda_icon" />
             </FrameLayout>
 
             <FrameLayout
@@ -105,7 +105,7 @@
                     android:maxHeight="30dp"
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/tracking" />
+                    android:src="@drawable/tracking_icon" />
             </FrameLayout>
 
         </GridLayout>

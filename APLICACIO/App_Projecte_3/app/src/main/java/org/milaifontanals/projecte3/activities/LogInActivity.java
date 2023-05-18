@@ -60,6 +60,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
 
                 intentMove = new Intent(this, MainActivity.class);
                 startActivity(intentMove);
+            }else{
+                dbUtils.eliminarUsuariBDD(db);
             }
             cursor.close();
         }catch(Exception e){}
