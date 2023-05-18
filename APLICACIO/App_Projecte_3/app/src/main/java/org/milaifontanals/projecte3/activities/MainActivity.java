@@ -23,8 +23,10 @@ import org.milaifontanals.projecte3.databinding.ActivityMainBinding;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.api.APIInterface;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.model.elazarEmpresa.RespostaEnllacarEmpresa;
 import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
 import retrofit2.Call;
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
                 call.enqueue(this);
                 break;
             case R.id.itemEnlaceEmpresa:
-
+                DialogUtils.obrirDialogenllacEmpresa(getSupportFragmentManager());
                 break;
         }
         return true;
@@ -109,4 +111,5 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
     public void onFailure(Call<RespostaLogOut> call, Throwable t) {
 
     }
+
 }

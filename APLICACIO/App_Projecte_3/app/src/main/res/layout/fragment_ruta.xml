@@ -36,16 +36,16 @@
         <Button
             android:id="@+id/btnNetejar"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginRight="20dp"
-            android:text="Netejar"/>
+            android:text="LIMPIAR"/>
 
         <Button
             android:id="@+id/btnAnar"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginLeft="20dp"
-            android:text="Anar"/>
+            android:text="CONFIRMAR DESTINOS"/>
 
     </LinearLayout>
 

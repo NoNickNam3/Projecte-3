@@ -1,8 +1,7 @@
-package org.milaifontanals.projecte3.ui.crearUbicacio;
+package org.milaifontanals.projecte3.ui.dialogFragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -26,8 +25,6 @@ import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.apiUbicacions.DataUbicacio;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
 
 import java.io.IOException;
 import java.util.List;

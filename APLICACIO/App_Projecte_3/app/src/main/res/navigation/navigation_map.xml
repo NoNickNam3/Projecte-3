@@ -25,4 +25,9 @@
         android:name="org.milaifontanals.projecte3.ui.crearUbicacio.CrearUbicacio"
         android:label="fragment_crear_ubicacio"
         tools:layout="@layout/fragment_crear_ubicacio" />
+    <fragment
+        android:id="@+id/dialogFragmentEnllacEmpresa"
+        android:name="org.milaifontanals.projecte3.DialogFragmentEnllacEmpresa"
+        android:label="fragment_dialog_enllac_empresa"
+        tools:layout="@layout/fragment_dialog_enllac_empresa" />
 </navigation>

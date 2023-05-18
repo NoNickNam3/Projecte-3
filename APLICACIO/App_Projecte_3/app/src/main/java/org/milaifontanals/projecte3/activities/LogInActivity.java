@@ -39,9 +39,6 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
         db = dbHelper.getWritableDatabase();
 
 
-        //  Comprovació del Token a la bdd, si existeix, em crec que és el bó
-
-
         setContentView(R.layout.activity_log_in);
 
         //  Assigno els camps del LogIn a els edits.

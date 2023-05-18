@@ -3,6 +3,7 @@ package org.milaifontanals.projecte3.model.api;
 import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.elazarEmpresa.RespostaEnllacarEmpresa;
 import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
 import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
@@ -76,5 +77,13 @@ public interface APIInterface {
     @Headers("Accept: application/json")
     Call<RespostaLogOut> logout(
             @Header("Authorization") String token
+    );
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("enlazar_codigo")
+    Call<RespostaEnllacarEmpresa> enllacEmpresa(
+            @Header("Authorization") String token,
+            @Field("codigo") String codi
     );
 }
