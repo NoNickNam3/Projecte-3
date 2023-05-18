@@ -96,15 +96,16 @@ class UbicacionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'coordenada' => 'required|max:100',
-            'observaciones' => 'nullable|max:300',
-            'direccion' => 'nullable|max:100',
-            'fav' => 'required|integer|min:0|max:1',
-        ]);
+        var_dump($request->all());
 
         try {
+            $request->validate([
+                'nombre' => 'required|max:100',
+                'coordenada' => 'required|max:100',
+                'observaciones' => 'nullable|max:300',
+                'direccion' => 'nullable|max:100',
+                'fav' => 'required|integer|min:0|max:1',
+            ]);
             $ubicacion = Ubicacion::create($request->all());
             $nueva_lista_ubicacion = new ListaUbicacion(array('contacto' => $ubicacion->id, 'empleado' => Auth::id()));
             $nueva_lista_ubicacion->save();
