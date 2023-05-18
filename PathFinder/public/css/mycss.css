@@ -119,6 +119,9 @@ body .mrg-l4 {
 body .hover-text-color4:hover {
   color: #3c745c;
 }
+body .selectClients {
+  cursor: pointer;
+}
 body .selectClients,
 body input[type="date"] {
   background-color: #855113;
@@ -219,7 +222,7 @@ body thead tr:nth-child(1) {
 }
 body tbody td,
 body thead th {
-  width: 200px;
+  width: 8%;
   padding-bottom: 15px;
   padding-top: 15px;
   text-align: center;
@@ -282,6 +285,7 @@ body .fav {
   border-radius: 3px;
   margin: 5px;
   transform: scale(2);
+  cursor: pointer;
 }
 body .fav:checked {
   border-color: #855113;
@@ -296,6 +300,7 @@ body .fav2 {
   border-radius: 3px;
   margin: 5px;
   transform: scale(2);
+  cursor: pointer;
 }
 body .fav2:checked {
   border-color: #093e3b;
@@ -642,6 +647,7 @@ body .contBot {
   background-color: #855113;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  cursor: pointer;
 }
 body .contBot i {
   font-size: 25px;
@@ -657,6 +663,7 @@ body .buttonDesv {
   gap: 10px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 body .buttonDesv i {
   font-size: 25px;
