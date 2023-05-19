@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TrackingController;
 use App\Models\ListaUbicacion;
+use App\Models\Ruta;
 use App\Models\Tracking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaUbicacionController;
