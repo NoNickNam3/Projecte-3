@@ -3,6 +3,7 @@ package org.milaifontanals.projecte3.ui.ruta;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,9 +20,12 @@ import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.databinding.FragmentRutaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
+import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
 import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
 import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.model.optimitzarRequest.CoordsParada;
+import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.ui.adapters.UbicacionRutaAdapter;
 import org.milaifontanals.projecte3.utils.db.dbUtils;
 import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
@@ -89,7 +93,6 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
         }else{
             IntentUtils.anarLogin(requireContext(), this);
         }
-
     }
 
     public void onClick(View view){
@@ -107,6 +110,27 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
                 break;
 
             case R.id.btnAnar:
+
+                List<CoordsParada> parades = new ArrayList<>();
+
+                for(Ubicacion u : uSeleccionades){
+                    parades.add(new CoordsParada(u.getCoordenadas()));
+                }
+
+                Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
+
+                Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(mTokenActual, new OptimitzarRequest(sortida.getLatitude() + "," + sortida.getLongitude(), parades));
+                call.enqueue(new Callback<RespostaRuta>() {
+                    @Override
+                    public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
+                        Log.d("XXX", "He rebut resposta correcta");
+                    }
+
+                    @Override
+                    public void onFailure(Call<RespostaRuta> call, Throwable t) {
+                        Log.d("XXX", "CATAPUM!");
+                    }
+                });
 
                 uDesti = uSeleccionades.get(0);
                 DireccionsUtil.obrirRuta(requireContext(), uDesti, uSeleccionades);
