@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PuntoDeRuta;
+use App\Models\Ruta;
+use Auth;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\GuzzleException;
@@ -47,7 +51,6 @@ class OptimizadorController extends Controller
         $coordenadas = $sortida . ';' . $coordenadas;
 
         $baseUrl = 'https://api.mapbox.com/optimized-trips/v1/mapbox/driving/';
-        // $coordenadas = '41.5843,1.6126;41.4147,2.1528;41.3809,2.1731;41.5989,1.7004;41.5019,1.8125';
 
         $client = new Client();
 
@@ -82,6 +85,24 @@ class OptimizadorController extends Controller
             'duracioTotal' => $tripDuration,
             'distanciaTotal' => $tripDistance
         ];
+
+        try {
+            $r = new Ruta(array('usuario'=>Auth::id()));
+            $r->save();
+            $idRuta = $r->id;
+    
+            foreach ($result['locations'] as $key => $location) {
+                $p = new PuntoDeRuta(array('ruta'=>$idRuta, 
+                                    'coordenada'=>$location[0].','.$location[1],
+                                    'ordre'=>$key+1));
+                $p->save();
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error al guardar la ruta',
+            ]);
+        }
 
         return response()->json([
             'status' => 'success',

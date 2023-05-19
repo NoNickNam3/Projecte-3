@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\TrackingController;
 use App\Models\ListaUbicacion;
+use App\Models\Ruta;
+use App\Models\Tracking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListaUbicacionController;
 use App\Http\Controllers\UbicacionController;
@@ -45,6 +47,7 @@ Route::middleware('auth')->group(function () {
     //TRACKING
     Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
     Route::post('/get_tracking_user', [TrackingController::class, 'get_tracking_user']);
+    Route::post('/get_dias_user', [TrackingController::class, 'get_dias_user']);
 
     //UBICACION
     Route::get('/ubicaciones', [UbicacionController::class, 'index'])->name('ubicaciones');
@@ -63,6 +66,7 @@ Route::middleware('auth')->group(function () {
 //TESTING
 Route::get('/ubicaciones/{id}/coordenada', [App\Http\Controllers\UbicacionController::class, 'getCoordenada']);
 Route::get('/perfil/getUsers', [App\Http\Controllers\ProfileController::class, 'getUsers']);
+
 // Route::post('/optim', [App\Http\Controllers\OptimizadorController::class, 'optimizar']);
 // Route::get('/testing/index', [App\Http\Controllers\Controller::class, 'index']);
 

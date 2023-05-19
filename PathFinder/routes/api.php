@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ApiPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\ApiUbicacionController;
 use App\Http\Controllers\Api\OptimizadorController;
+use App\Http\Controllers\Api\ApiRutas;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //OPTIMIZAR RUTAS
     Route::post('/optimizar', [OptimizadorController::class, 'optimizar']);
+
+    //RUTAS
+    Route::get('/getListaRutas', [ApiRutas::class, 'get_rutas']);
 });

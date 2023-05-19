@@ -51,6 +51,30 @@ class TrackingController extends Controller
         return response()->json($coordenadas);
     }
 
+    public function get_dias_user(Request $request)
+    {
+        $id = $request->input('id');
+        $trackings = Tracking::where('empleado', $id)->get();
+
+        $events = [];
+        $last='';
+        foreach ($trackings as $tracking) {
+                $timestamp = strtotime($tracking->momento);
+                $fecha_formateada = date('Y-m-d', $timestamp);
+                if($last==$fecha_formateada){
+                    break;
+                }
+                $event = [
+                    'title' => 'Trackedo',
+                    'start' => $fecha_formateada,
+                    'color' => 'Blue'
+                ];
+                $events[] = $event;
+                $last=$fecha_formateada;
+        }
+        return response()->json($events);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
