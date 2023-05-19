@@ -12,7 +12,6 @@ function f_principal() {
     if (window.location.pathname == '/ubicaciones') {
         inputSearch = document.getElementById('search-input');
         filaUbis = document.getElementsByClassName('filaUbi');
-        // console.info(filaUbis);
         contEdit = document.querySelector('.contEdit');
         contBotones = document.getElementById('contBotones');
         nombre = document.getElementById('nombre');
@@ -48,14 +47,13 @@ function f_principal() {
         listaUbicaciones();
         agregarListeners();
         checkFav();
+        cargarUbisUser();
     }
 
 }
 
 function agregarListeners() {
 
-    // Array.from(filaUbis).forEach(function (fila) {
-    // });
     buttonEditar.addEventListener('click', () => {
         disabledFormEdit(false);
     });
@@ -65,11 +63,8 @@ function agregarListeners() {
         disabledFormEdit(true);
     });
 
-    // inputSearch.addEventListener('change', initMap);
     direccion.addEventListener("keydown", function (event) {
-        // Comprobar si la tecla presionada es Enter
         if (event.keyCode === 13) {
-            // Ejecutar la acción deseada (por ejemplo, enviar un formulario)
             buscarCoordenada(direccion.value);
         }
     });
@@ -257,7 +252,6 @@ function agregarList(fila) {
 
         } else {
             ocultarBotones(false);
-            // buttonCrear.classList.remove('oculto');
         }
 
     });
@@ -268,7 +262,6 @@ function animacionCambiarFila() {
         contEdit.classList.add('moverDerecha');
         setTimeout(() => {
             contEdit.classList.remove('moverDerecha');
-            // disabledFormEdit(true);
         }, 500);
     }
     contEdit.classList.add('show'); /* Al hacer clic en la fila, se agrega la clase "show" al segundo div */
@@ -323,11 +316,8 @@ function crearAutocomplete() {
     autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
         // Mostrar información de la dirección en la página
-
         if (place.geometry) {
             // Mover el mapa a la ubicación seleccionada
-            // direccion.value = place.formatted_address;
-            // console.info(place);
             map.setCenter(place.geometry.location);
             map.setZoom(15);
 
@@ -339,7 +329,6 @@ function crearAutocomplete() {
 
 
 function buscarCoordenada(direccion) {
-    // var direccion = document.getElementById('search-input').value;
 
     var geocoder = new google.maps.Geocoder();
 
@@ -353,10 +342,8 @@ function buscarCoordenada(direccion) {
             direMsg.classList.add('success');
             coordenada.value = marker.getPosition().lat() + "," + marker.getPosition().lng();
             let latLng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
-            // console.info("esta es la coordenada:" + latLng);
             buscarDireccion(marker.getPosition());
         } else {
-            // alert('No se ha podido encontrar la dirección ingresada. Inténtelo de nuevo.');
             coordenada.value = "";
             direMsg.classList.add('error');
         }
@@ -377,8 +364,6 @@ function buscarDireccion(coordenadas) {
         }
     });
 }
-
-
 
 function limipiarMsg() {
     if (direMsg.classList.toString().includes('error')) {
@@ -428,10 +413,8 @@ function listaUbicaciones() {
         .then(response => {
             if (response.status == 200) {
                 if (response.ok) {
-                    // console.log('La petición fue enviada exitosamente');
-                    // console.info(data);
+
                     response.json().then(data => llenarTabla(data));
-                    // response.json().then(data => console.info(data));
 
                 } else {
                     console.error('Error al enviar la petición');
@@ -452,7 +435,6 @@ function llenarTabla(ubicaciones) {
     ubicaciones.forEach(function (ubicacion) {
         // Crear un elemento tr para representar la fila
         var fila = document.createElement("tr");
-        // fila.addEventListener('dblclick',);
         agregarList(fila);
         fila.setAttribute("class", "filaUbi");
 
@@ -466,7 +448,6 @@ function llenarTabla(ubicaciones) {
         fila.appendChild(direccion);
 
         var favorito = document.createElement("td");
-        // console.info(ubicacion);
         if (ubicacion.fav) {
             var icono = document.createElement("i");
             icono.setAttribute("class", "fa-solid fa-star");
@@ -516,33 +497,10 @@ function eliminarContenido() {
     }
 }
 
-// function eliminarUbicacion(idUbi) {
-//     let dataSend = {
-//         id: idUbi,
-//     }
-
-//     fetch('/get_ubicaciones_user', {
-//         method: 'POST',
-//         body: JSON.stringify(dataSend),
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'X-CSRF-TOKEN': csrfToken
-//         }
-//     })
-//         .then(response => {
-//             if (response.status == 200) {
-//                 if (response.ok) {
-//                     // console.log('La petición fue enviada exitosamente');
-//                     response.json().then(data => llenarTabla(data));
-//                 } else {
-//                     console.error('Error al enviar la petición');
-//                 }
-//             } else {
-//                 console.info("es null");
-//                 console.info(response);
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error al enviar la petición:', error);
-//         });
-// }
+function cargarUbisUser() {
+    if (sessionStorage.getItem('clickedIndex') != null) {
+        userForm.selectedIndex = parseInt(sessionStorage.getItem('clickedIndex')) + 1;
+        listaUbicaciones();
+        sessionStorage.setItem('clickedIndex', null);
+    }
+}

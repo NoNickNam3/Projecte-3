@@ -138,9 +138,10 @@ body .contMapa {
   display: flex;
   justify-content: center;
   position: relative;
+  gap: 30px;
 }
 body #elMeuMapa {
-  width: 90%;
+  width: 45%;
   height: auto;
   border: solid 5px #093e3b;
   border-radius: 10px;
@@ -150,10 +151,11 @@ body .pdbottom {
   padding-bottom: 30px;
 }
 body .mascara {
-  width: 90%;
+  width: 44.5%;
   height: 100%;
   background-color: black;
   position: absolute;
+  right: 4%;
   opacity: 0.7;
   border-radius: 2%;
 }
@@ -191,59 +193,59 @@ body .contTabla {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
-body table {
+body .contTabla table {
   width: 100%;
   /* 140px * 5 column + 16px scrollbar width */
   border: 4px solid #093e3b;
   font-weight: bold;
   user-select: none;
 }
-body tbody,
-body thead tr {
+body .contTabla tbody,
+body .contTabla thead tr {
   display: block;
 }
-body tbody {
+body .contTabla tbody {
   height: 338px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-body tbody tr:hover {
+body .contTabla tbody tr:hover {
   cursor: pointer;
 }
-body tbody tr:active {
+body .contTabla tbody tr:active {
   background-color: #f0f0f0;
 }
-body thead {
+body .contTabla thead {
   background-color: #093e3b;
   color: white;
 }
-body thead tr:nth-child(1) {
+body .contTabla thead tr:nth-child(1) {
   background-color: #093e3b;
 }
-body tbody td,
-body thead th {
+body .contTabla tbody td,
+body .contTabla thead th {
   width: 8%;
   padding-bottom: 15px;
   padding-top: 15px;
   text-align: center;
 }
-body tr i {
+body .contTabla tr i {
   font-size: 20px;
   color: #093e3b;
 }
-body tr:nth-child(even) {
+body .contTabla tr:nth-child(even) {
   background-color: white;
 }
-body tr:nth-child(odd) {
+body .contTabla tr:nth-child(odd) {
   background-color: #b8e2df;
 }
-body tbody::-webkit-scrollbar {
+body .contTabla tbody::-webkit-scrollbar {
   width: 10px;
 }
-body tbody::-webkit-scrollbar-track {
+body .contTabla tbody::-webkit-scrollbar-track {
   background-color: #3c745c;
 }
-body tbody::-webkit-scrollbar-thumb {
+body .contTabla tbody::-webkit-scrollbar-thumb {
   background-color: #093e3b;
 }
 body .borRad {
@@ -676,4 +678,11 @@ body .iconHeader {
   color: white;
   font-size: 30px;
   margin-left: 30px;
+}
+body .calendar {
+  width: 45%;
+  height: 100%;
+}
+body .hover-event {
+  cursor: pointer;
 }

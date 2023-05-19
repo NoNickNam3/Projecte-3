@@ -1,4 +1,10 @@
 <x-app-layout>
+    @section('dashboard')
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+        <script src={{asset('js/dashboard.js')}}></script>
+    @endsection
     <x-slot name="header">
         <div class="flex items-center separacion">
             <i class="fa-solid fa-gauge iconHeader"></i>

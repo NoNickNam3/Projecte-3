@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('empleados')
+        <script src={{asset('js/empleados.js')}}></script>
+    @endsection
     <x-slot name="header">
         <div class="flex items-center separacion">
             <i class="fa-solid fa-user-tie iconHeader"></i>
