@@ -1,5 +1,6 @@
 package org.milaifontanals.projecte3.model.api;
 
+import org.milaifontanals.projecte3.model.api.apiJobScheduling.RespostaJobScheduling;
 import org.milaifontanals.projecte3.model.api.apiRuta.RespostaRuta;
 import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaCrearUbicacio;
 import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
@@ -82,5 +83,13 @@ public interface APIInterface {
     Call<RespostaEnllacarEmpresa> enllacEmpresa(
             @Header("Authorization") String token,
             @Field("codigo") String codi
+    );
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("tracking")
+    Call<RespostaJobScheduling> trackingLocation(
+            @Header("Authorization") String token,
+            @Field("location") String location
     );
 }

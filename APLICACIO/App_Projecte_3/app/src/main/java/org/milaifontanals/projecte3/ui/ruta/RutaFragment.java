@@ -125,9 +125,17 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
                         if(response.isSuccessful()){
                             DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
                             RespostaRuta rr = response.body();
-                            List<Double> desti = rr.getLocations().get(rr.getLocations().size());
-                            uDesti = desti.get(0) + "," + desti.get(1);
-                            DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getLocations());
+                            if(rr.getLocations().size() != 0){
+                                List<Double> desti = rr.getLocations().get(rr.getLocations().size());
+                                uDesti = desti.get(0) + "," + desti.get(1);
+                                DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getLocations());
+                            }else{
+                                uDesti = parades.get(parades.size());
+                                DireccionsUtil.obrirRutaString(requireContext(), uDesti, parades);
+                            }
+
+                        }else{
+                            DialogUtils.toastMessageLong(requireActivity(), "ERROR CALCULANDO LA RUTA");
                         }
                     }
 
