@@ -1,5 +1,5 @@
 
-package org.milaifontanals.projecte3.model.apiUbicacions;
+package org.milaifontanals.projecte3.model.api.apiUbicacions;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

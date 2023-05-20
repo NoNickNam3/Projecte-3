@@ -1,5 +1,5 @@
 
-package org.milaifontanals.projecte3.model.apiError;
+package org.milaifontanals.projecte3.model.api.apiError;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

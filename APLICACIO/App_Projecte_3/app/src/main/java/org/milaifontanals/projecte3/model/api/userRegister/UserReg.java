@@ -1,12 +1,12 @@
 
-package org.milaifontanals.projecte3.model.apiUser;
+package org.milaifontanals.projecte3.model.api.userRegister;
 
 import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class UserReg {
 /*
 
     "user": {
@@ -18,9 +18,7 @@ public class User {
         "id": 13
     },
  */
-    @SerializedName("id")
-    @Expose
-    private Integer id;
+
     @Nullable
     @SerializedName("nombre")
     @Expose
@@ -29,26 +27,27 @@ public class User {
     @SerializedName("apellidos")
     @Expose
     private String apellidos;
-    @Nullable
-    @SerializedName("organizacion")
-    @Expose
-    private Object organizacion;
+
     @Nullable
     @SerializedName("email")
     @Expose
     private String email;
-    @Nullable
-    @SerializedName("email_verified_at")
-    @Expose
-    private Object emailVerifiedAt;
-    @Nullable
-    @SerializedName("created_at")
-    @Expose
-    private String createdAt;
+
     @Nullable
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @Nullable
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+
+
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+
 
     public Integer getId() {
         return id;
@@ -74,28 +73,12 @@ public class User {
         this.apellidos = apellidos;
     }
 
-    public Object getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(Object organizacion) {
-        this.organizacion = organizacion;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Object getEmailVerifiedAt() {
-        return emailVerifiedAt;
-    }
-
-    public void setEmailVerifiedAt(Object emailVerifiedAt) {
-        this.emailVerifiedAt = emailVerifiedAt;
     }
 
     public String getCreatedAt() {

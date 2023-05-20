@@ -1,16 +1,17 @@
-package org.milaifontanals.projecte3.model.elazarEmpresa;
+
+package org.milaifontanals.projecte3.model.api.apiError;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RespostaEnllacarEmpresa {
-    @SerializedName("status")
-    @Expose
-    private String status;
+public class ErrorRegister {
 
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("errors")
+    @Expose
+    private Errors errors;
 
     public String getMessage() {
         return message;
@@ -20,11 +21,12 @@ public class RespostaEnllacarEmpresa {
         this.message = message;
     }
 
-    public String getStatus() {
-        return status;
+    public Errors getErrors() {
+        return errors;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setErrors(Errors errors) {
+        this.errors = errors;
     }
+
 }

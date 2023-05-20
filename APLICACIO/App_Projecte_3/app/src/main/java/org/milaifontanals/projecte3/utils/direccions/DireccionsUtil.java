@@ -1,10 +1,6 @@
 package org.milaifontanals.projecte3.utils.direccions;
 
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.LOCATION_SERVICE;
-
-import static androidx.core.content.ContextCompat.checkSelfPermission;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,21 +10,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import org.milaifontanals.projecte3.activities.MainActivity;
 import org.milaifontanals.projecte3.model.Ubicacion;
-import org.milaifontanals.projecte3.model.optimitzarRequest.CoordsParada;
-import org.milaifontanals.projecte3.ui.ruta.RutaFragment;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 
-import java.util.ArrayList;
+import java.security.Permission;
 import java.util.List;
 
 public class DireccionsUtil {
@@ -55,6 +43,14 @@ public class DireccionsUtil {
         return "";
     }
 
+    public static String getStringFromDoubleList(List<Double> ll){
+        String u = "";
+
+        u = getStringFromDoubleList(ll);
+
+        return u;
+    }
+
     public static void obreMaps(Context c, Ubicacion u) {
         Uri gmmIntentUri = Uri.parse("google.navigation:q=" + getNNStringFromUbicacion(u));
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -62,26 +58,22 @@ public class DireccionsUtil {
         c.startActivity(mapIntent);
     }
 
-    public static void obrirRuta(Context c, Ubicacion desti, List<Ubicacion> llUbicacions) {
+    public static void obrirRuta(Context c, String desti, List<List<Double>> llUbicacions) {
         String googleURL = "&waypoints=";
 
-        if (llUbicacions.contains(desti)) {
-            llUbicacions.remove(desti);
-        }
-
         int i = 0;
-        for (Ubicacion u : llUbicacions) {
+        for (List<Double> u : llUbicacions) {
 
             if (i != llUbicacions.size() && i != 0) {
                 googleURL += "|";
             }
 
-            googleURL += getNNStringFromUbicacion(u);
+            googleURL += getStringFromDoubleList(u);
 
             i++;
         }
 
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + getNNStringFromUbicacion(desti) + googleURL);
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + desti + googleURL);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         c.startActivity(mapIntent);
@@ -95,51 +87,26 @@ public class DireccionsUtil {
         c.startActivity(mapIntent);
     }
 
-//    public static Location getCurrentLocation(Activity activity) {
-//        LocationManager locationManager = (LocationManager) activity.getSystemService(LOCATION_SERVICE);
-//
-//
-//
-//        // Check if location permission is granted
-//        if (locationManager != null && activity.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            // Get the last known location from the GPS provider
-//            Location gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//
-//            // Get the last known location from the network provider
-//            Location networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//
-//            // Choose the most recent location
-//            if (gpsLocation != null && networkLocation != null) {
-//                if (gpsLocation.getTime() > networkLocation.getTime()) {
-//                    return gpsLocation;
-//                } else {
-//                    return networkLocation;
-//                }
-//            } else if (gpsLocation != null) {
-//                return gpsLocation;
-//            } else if (networkLocation != null) {
-//                return networkLocation;
-//            }
-//        }
-//
-//        // Return null if location is not available
-//        return null;
-//    }
+    public static boolean setPermissionsTo(Activity a, String permissions) {
+        if (a.checkSelfPermission(permissions) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(a,
+                    new String[]{permissions},
+                    PackageManager.PERMISSION_GRANTED);
+            return true;
+        }
+        return false;
+    }
 
     public static Location getLastKnownLocation(Activity a) {
 
-        if (a.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(a,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PackageManager.PERMISSION_GRANTED);
-        }
+        giveAllPermissions(a);
 
         LocationManager mLocationManager = (LocationManager) a.getSystemService(LOCATION_SERVICE);
         List<String> providers = mLocationManager.getProviders(true);
         Location bestLocation = null;
         for (String provider : providers) {
 
-            if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED && ActivityCompat.checkSelfPermission(a, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_DENIED) {
                 Location l = mLocationManager.getLastKnownLocation(provider);
                 if (l == null) {
                     continue;
@@ -151,6 +118,14 @@ public class DireccionsUtil {
             }
         }
         return bestLocation;
+    }
+
+    public static void giveAllPermissions(Activity a){
+        if(!setPermissionsTo(a, Manifest.permission.ACCESS_FINE_LOCATION) && !setPermissionsTo(a, Manifest.permission.ACCESS_BACKGROUND_LOCATION) && !setPermissionsTo(a, Manifest.permission.ACCESS_COARSE_LOCATION)){
+            DialogUtils.toastMessageLong(a, "La localización ya estaba activada");
+        }else{
+            DialogUtils.toastMessageLong(a, "Se ha activado la localización");
+        }
     }
 
 }

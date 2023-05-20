@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.model.apiRuta;
+package org.milaifontanals.projecte3.model.api.apiRuta;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

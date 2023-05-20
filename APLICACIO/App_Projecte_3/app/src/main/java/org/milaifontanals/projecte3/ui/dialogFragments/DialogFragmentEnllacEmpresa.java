@@ -4,15 +4,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,15 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import org.milaifontanals.projecte3.R;
-import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.apiUbicacions.DataUbicacio;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
-import org.milaifontanals.projecte3.model.elazarEmpresa.RespostaEnllacarEmpresa;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import org.milaifontanals.projecte3.model.api.elazarEmpresa.RespostaEnllacarEmpresa;
 
 import retrofit2.Call;
 import retrofit2.Callback;

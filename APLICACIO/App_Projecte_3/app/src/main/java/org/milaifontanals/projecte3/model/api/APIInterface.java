@@ -1,26 +1,22 @@
 package org.milaifontanals.projecte3.model.api;
 
-import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.elazarEmpresa.RespostaEnllacarEmpresa;
-import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
-import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
-import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
-import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
-import org.milaifontanals.projecte3.ui.crearUbicacio.CrearUbicacio;
+import org.milaifontanals.projecte3.model.api.apiRuta.RespostaRuta;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaCrearUbicacio;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.api.elazarEmpresa.RespostaEnllacarEmpresa;
+import org.milaifontanals.projecte3.model.api.logOut.RespostaLogOut;
+import org.milaifontanals.projecte3.model.api.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.model.api.userRegister.RespostaRegister;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface APIInterface {
 /*
@@ -58,7 +54,8 @@ public interface APIInterface {
     @POST("optimizar")
     Call<RespostaRuta> getOptimitzador(
             @Header("Authorization") String token,
-            @Body OptimitzarRequest or
+            @Field("sortida") String sortida,
+            @Field("parades") List<String> coord
             );
 
     @FormUrlEncoded

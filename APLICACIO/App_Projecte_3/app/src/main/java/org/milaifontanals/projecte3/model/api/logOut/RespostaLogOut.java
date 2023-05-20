@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.model.logOut;
+package org.milaifontanals.projecte3.model.api.logOut;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

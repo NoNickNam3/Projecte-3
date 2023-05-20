@@ -1,5 +1,8 @@
 package org.milaifontanals.projecte3.utils.dialogs;
 
+import android.app.Activity;
+import android.widget.Toast;
+
 import androidx.fragment.app.FragmentManager;
 
 import org.milaifontanals.projecte3.ui.dialogFragments.DialogFragmentEnllacEmpresa;
@@ -18,5 +21,10 @@ public class DialogUtils {
         d.setCancelable(true);
 
         d.show(f, null);
+    }
+
+    public static void toastMessageLong(Activity a, String missatge){
+        Toast.makeText(a, missatge,
+                Toast.LENGTH_LONG).show();
     }
 }

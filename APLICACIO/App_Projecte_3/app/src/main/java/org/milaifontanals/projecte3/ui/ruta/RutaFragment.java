@@ -20,14 +20,13 @@ import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.databinding.FragmentRutaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.apiRuta.RespostaRuta;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+import org.milaifontanals.projecte3.model.api.apiRuta.RespostaRuta;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
-import org.milaifontanals.projecte3.model.optimitzarRequest.CoordsParada;
-import org.milaifontanals.projecte3.model.optimitzarRequest.OptimitzarRequest;
 import org.milaifontanals.projecte3.ui.adapters.UbicacionRutaAdapter;
 import org.milaifontanals.projecte3.utils.db.dbUtils;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
@@ -46,7 +45,7 @@ import retrofit2.Response;
 public class RutaFragment extends Fragment implements Callback<RespostaGetUbicaciones>, View.OnClickListener {
 
     private List<Ubicacion> uSeleccionades;
-    private Ubicacion uDesti;
+    private String uDesti;
     private FragmentRutaBinding binding;
     private UbicacionRutaAdapter adapter, adapterSeleccionats;
     public String mTokenActual = null;
@@ -111,29 +110,33 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
             case R.id.btnAnar:
 
-                List<CoordsParada> parades = new ArrayList<>();
+                List<String> parades = new ArrayList<>();
 
                 for(Ubicacion u : uSeleccionades){
-                    parades.add(new CoordsParada(u.getCoordenadas()));
+                    parades.add(u.getCoordenadas());
                 }
 
                 Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
 
-                Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(mTokenActual, new OptimitzarRequest(sortida.getLatitude() + "," + sortida.getLongitude(), parades));
+                Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sortida.getLatitude() + "," + sortida.getLongitude(), parades);
                 call.enqueue(new Callback<RespostaRuta>() {
                     @Override
                     public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
-                        Log.d("XXX", "He rebut resposta correcta");
+                        if(response.isSuccessful()){
+                            DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
+                            RespostaRuta rr = response.body();
+                            List<Double> desti = rr.getLocations().get(rr.getLocations().size());
+                            uDesti = desti.get(0) + "," + desti.get(1);
+                            DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getLocations());
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<RespostaRuta> call, Throwable t) {
-                        Log.d("XXX", "CATAPUM!");
+                        DialogUtils.toastMessageLong(requireActivity(), "ERROR CREANDO LA RUTA");
                     }
                 });
 
-                uDesti = uSeleccionades.get(0);
-                DireccionsUtil.obrirRuta(requireContext(), uDesti, uSeleccionades);
                 break;
         }
     }

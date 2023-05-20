@@ -5,14 +5,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.content.ContentValues;
+import android.Manifest;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,12 +18,10 @@ import android.view.View;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.databinding.ActivityMainBinding;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.api.APIInterface;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
-import org.milaifontanals.projecte3.model.elazarEmpresa.RespostaEnllacarEmpresa;
-import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
-import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.model.api.logOut.RespostaLogOut;
 import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
+import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
 import retrofit2.Call;
@@ -43,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DireccionsUtil.setPermissionsTo(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        DireccionsUtil.setPermissionsTo(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
         //getSupportActionBar().hide();
 
@@ -95,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
                 break;
             case R.id.itemEnlaceEmpresa:
                 DialogUtils.obrirDialogenllacEmpresa(getSupportFragmentManager());
+                break;
+            case R.id.itemPedirPermisos:
+                DireccionsUtil.giveAllPermissions(this);
                 break;
         }
         return true;

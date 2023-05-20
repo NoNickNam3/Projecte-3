@@ -10,7 +10,7 @@
 
     <gradient
         android:startColor="@color/darkPaletteWhite"
-        android:endColor="@color/color4"
+        android:endColor="@color/lightPaletteSea"
         android:type="linear"
         android:angle="45"
     />

@@ -14,8 +14,9 @@ import android.widget.EditText;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
-import org.milaifontanals.projecte3.model.userRegister.RespostaRegister;
+import org.milaifontanals.projecte3.model.api.userRegister.RespostaRegister;
 import org.milaifontanals.projecte3.utils.db.dbUtils;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,10 +70,9 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
 
     @Override
     public void onResponse(Call<RespostaRegister> call, Response<RespostaRegister> response) {
-        Log.d("XXX", "He rebut contestació correcta");
-
         if(response.isSuccessful()) {
             Log.d("XXX", "Resposta correcta del servidor");
+            DialogUtils.toastMessageLong(this, "SE HA REGISTRADO CORRECTAMENTE");
             RespostaRegister res = response.body();
 
             //Database configs
@@ -90,15 +90,17 @@ public class RegisterActivity extends AppCompatActivity implements Callback<Resp
 
             intentMove = new Intent(this, MainActivity.class);
             startActivity(intentMove);
+        }else{
+            DialogUtils.toastMessageLong(this, "NO SE HA PODIDO CONECTAR CON EL SERVICIO");
         }
 
     }
 
     @Override
     public void onFailure(Call<RespostaRegister> call, Throwable t) {
-        Log.d("XXX", "Crashed " + t.getMessage());
-         Log.d("XXX", "Localized: " + t.getLocalizedMessage());
-        intentMove = new Intent(this, LogInActivity.class);
+        Log.d("XXX", t.getMessage());
+        DialogUtils.toastMessageLong(this, "ERROR AL REGISTRARSE");
+        intentMove = new Intent(this, RegisterActivity.class);
         startActivity(intentMove);
     }
 }

@@ -1,13 +1,9 @@
 package org.milaifontanals.projecte3.utils.db;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 
-import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.apiUser.User;
-import org.milaifontanals.projecte3.model.logOut.RespostaLogOut;
+import org.milaifontanals.projecte3.model.api.apiUser.User;
 import org.milaifontanals.projecte3.utils.comprovacions.ComprovacionsUtil;
 
 public class dbUtils {

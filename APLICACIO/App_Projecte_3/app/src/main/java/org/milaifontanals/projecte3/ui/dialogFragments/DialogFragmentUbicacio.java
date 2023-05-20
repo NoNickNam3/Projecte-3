@@ -23,8 +23,8 @@ import androidx.fragment.app.DialogFragment;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.apiUbicacions.DataUbicacio;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaCrearUbicacio;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.DataUbicacio;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaCrearUbicacio;
 
 import java.io.IOException;
 import java.util.List;

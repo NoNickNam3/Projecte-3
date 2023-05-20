@@ -6,8 +6,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.UbicacionApi;
 
 import java.util.ArrayList;
 import java.util.List;

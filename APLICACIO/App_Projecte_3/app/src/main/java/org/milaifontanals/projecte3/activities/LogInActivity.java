@@ -14,8 +14,9 @@ import android.widget.EditText;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
-import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.model.api.userLogin.RespostaLogin;
 import org.milaifontanals.projecte3.utils.db.dbUtils;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,7 +72,6 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
     public void onClick(View view){
         switch(view.getId()){
             case R.id.btnLogIn:
-                Log.d("XXX", edtCorreu.getText().toString() + " - " + edtPasswd.getText().toString());
                 Call<RespostaLogin> call = APIAdapter.getApiService().loginUser(edtCorreu.getText().toString(), edtPasswd.getText().toString());
                 call.enqueue(this);
                 break;
@@ -84,9 +84,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
 
     @Override
     public void onResponse(Call<RespostaLogin> call, Response<RespostaLogin> response) {
-        Log.d("XXX", "He rebut contestació:");
         if(response.isSuccessful()){
-            Log.d("XXX", "Resposta correcta del servidor");
+            DialogUtils.toastMessageLong(this, "LOGGED-IN");
             RespostaLogin res = response.body();
 
             //Database configs
@@ -99,7 +98,6 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
             SharedPreferences.Editor ed = sp.edit();
             ed.putString("token", mTokenActual);
             ed.commit();
-            Log.d("XXX", res.getToken());
 
             intentMove = new Intent(this, MainActivity.class);
             startActivity(intentMove);
@@ -109,8 +107,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
 
     @Override
     public void onFailure(Call<RespostaLogin> call, Throwable t) {
-        Log.d("XXX", "NO HE POGUT FER EL CALL");
-        //db.rawQuery("delete from dbInterna", null);
+        DialogUtils.toastMessageLong(this, "NO SE HA PODIDO INICIAR SESIÓN");
     }
 
 }

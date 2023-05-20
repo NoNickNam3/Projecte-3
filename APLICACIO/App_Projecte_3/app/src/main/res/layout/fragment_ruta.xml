@@ -35,17 +35,21 @@
 
         <Button
             android:id="@+id/btnNetejar"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
-            android:layout_marginRight="20dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_square_find"
             android:text="LIMPIAR"/>
 
         <Button
             android:id="@+id/btnAnar"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="20dp"
-            android:text="CONFIRMAR DESTINOS"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:text="CONFIRMAR DESTINOS"
+            android:background="@drawable/rounded_square_find"/>
 
     </LinearLayout>
 

@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import org.milaifontanals.projecte3.databinding.FragmentAgendaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
 import org.milaifontanals.projecte3.ui.adapters.UbicacionAdapter;
 import org.milaifontanals.projecte3.utils.db.dbUtils;
@@ -80,7 +80,6 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
         binding.btnAfegirUbicacio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("XXX", "Han clicat al +");
                 DialogUtils.obrirDialogAddUbicacio(getFragmentManager());
             }
         });
@@ -126,7 +125,7 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
 
     @Override
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
-        Log.d("XXX", "Error en descarregar les ubicacions, de volta al LogIn jefe.");
+        DialogUtils.toastMessageLong(requireActivity(), "TOKEN NO VALIDO, INICIE SESIÓN");
 
         dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
 

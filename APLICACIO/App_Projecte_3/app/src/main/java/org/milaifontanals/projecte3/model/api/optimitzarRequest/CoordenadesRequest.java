@@ -1,12 +1,12 @@
-package org.milaifontanals.projecte3.model.optimitzarRequest;
+package org.milaifontanals.projecte3.model.api.optimitzarRequest;
 
 import java.util.List;
 
-public class OptimitzarRequest {
+public class CoordenadesRequest {
     String sortida;
     List<CoordsParada> parades;
 
-    public OptimitzarRequest(String sortida, List<CoordsParada> parades) {
+    public CoordenadesRequest(String sortida, List<CoordsParada> parades) {
         setSortida(sortida);
         setParades(parades);
     }

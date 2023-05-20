@@ -1,4 +1,4 @@
-package org.milaifontanals.projecte3.model.optimitzarRequest;
+package org.milaifontanals.projecte3.model.api.optimitzarRequest;
 
 public class CoordsParada {
     String coord;
