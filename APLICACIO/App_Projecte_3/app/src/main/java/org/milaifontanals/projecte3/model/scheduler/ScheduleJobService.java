@@ -21,22 +21,20 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class ScheduleJobService extends JobService {
-
-    private static final String TAG = "JOB SERVICE";
     private boolean jobCancelled = false;
     private String mTokenActual;
     public Activity mActivity;
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Log.d("XXX", TAG);
+        Log.d("XXX", "JOB SERVICE STARTED");
 
         SharedPreferences sp = getBaseContext().getSharedPreferences("tokenUsuari", MODE_PRIVATE);
         mTokenActual = sp.getString("token", null);
 
         //mActivity = getActivityFromContext(getBaseContext());
 
-        //sendCoordsToServer(params);
+        sendCoordsToServer(params);
 
         return true;
     }
@@ -47,8 +45,8 @@ public class ScheduleJobService extends JobService {
             @Override
             public void run() {
                 if(jobCancelled){return;}
-                Location l = DireccionsUtil.getLastKnownLocation(getActivityFromContext(mActivity));
-                Call<RespostaJobScheduling> call = APIAdapter.getApiService().trackingLocation(mTokenActual, l.getLatitude() + "," + l.getLongitude());
+                Location l = DireccionsUtil.getLastKnownLocationC(getBaseContext());
+                Call<RespostaJobScheduling> call = APIAdapter.getApiService().trackingLocation(" Bearer " + mTokenActual, l.getLatitude() + "," + l.getLongitude());
                 call.enqueue(new retrofit2.Callback<RespostaJobScheduling>() {
                     @Override
                     public void onResponse(Call<RespostaJobScheduling> call, Response<RespostaJobScheduling> response) {

@@ -46,7 +46,7 @@ public class DireccionsUtil {
     public static String getStringFromDoubleList(List<Double> ll){
         String u = "";
 
-        u = getStringFromDoubleList(ll);
+        u = ll.get(0) + "," + ll.get(1);
 
         return u;
     }
@@ -60,6 +60,8 @@ public class DireccionsUtil {
 
     public static void obrirRuta(Context c, String desti, List<List<Double>> llUbicacions) {
         String googleURL = "&waypoints=";
+
+        llUbicacions.remove(0);
 
         int i = 0;
         for (List<Double> u : llUbicacions) {
@@ -142,12 +144,49 @@ public class DireccionsUtil {
         return bestLocation;
     }
 
+    public static Location getLastKnownLocationC(Context c) {
+
+        //giveAllPermissions(a);
+
+        LocationManager mLocationManager = (LocationManager) c.getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+
+            if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_DENIED) {
+                Location l = mLocationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+            }
+        }
+        return bestLocation;
+    }
+
     public static void giveAllPermissions(Activity a){
         if(!setPermissionsTo(a, Manifest.permission.ACCESS_FINE_LOCATION) && !setPermissionsTo(a, Manifest.permission.ACCESS_BACKGROUND_LOCATION) && !setPermissionsTo(a, Manifest.permission.ACCESS_COARSE_LOCATION)){
             DialogUtils.toastMessageLong(a, "La localización ya estaba activada");
         }else{
             DialogUtils.toastMessageLong(a, "Se ha activado la localización");
         }
+    }
+
+    public static String convertToJSON(List<String> dir){
+
+        String jsonResult = "[";
+
+        for(String s: dir){
+            jsonResult += "{'coord': '" + s + "'}";
+            if(!s.equals(dir.get(dir.size() - 1))){
+                jsonResult += ",";
+            }
+        }
+
+        return jsonResult += "]";
     }
 
 }

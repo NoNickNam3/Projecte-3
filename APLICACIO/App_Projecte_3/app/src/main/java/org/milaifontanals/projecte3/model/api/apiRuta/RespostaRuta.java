@@ -6,37 +6,38 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class RespostaRuta {
-    @SerializedName("locations")
+
+    @SerializedName("status")
     @Expose
-    private List<List<Double>> locations;
-    @SerializedName("duracioTotal")
+    private String status;
+    @SerializedName("message")
     @Expose
-    private Double duracioTotal;
-    @SerializedName("distanciaTotal")
+    private String message;
+    @SerializedName("data")
     @Expose
-    private Double distanciaTotal;
+    private DataRuta data;
 
-    public List<List<Double>> getLocations() {
-        return locations;
+    public String getStatus() {
+        return status;
     }
 
-    public void setLocations(List<List<Double>> locations) {
-        this.locations = locations;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Double getDuracioTotal() {
-        return duracioTotal;
+    public String getMessage() {
+        return message;
     }
 
-    public void setDuracioTotal(Double duracioTotal) {
-        this.duracioTotal = duracioTotal;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Double getDistanciaTotal() {
-        return distanciaTotal;
+    public DataRuta getData() {
+        return data;
     }
 
-    public void setDistanciaTotal(Double distanciaTotal) {
-        this.distanciaTotal = distanciaTotal;
+    public void setData(DataRuta data) {
+        this.data = data;
     }
 }

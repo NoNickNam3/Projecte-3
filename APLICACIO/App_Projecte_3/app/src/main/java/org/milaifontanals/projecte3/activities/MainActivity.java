@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Resposta
 
         DireccionsUtil.setPermissionsTo(this, Manifest.permission.ACCESS_FINE_LOCATION);
         DireccionsUtil.setPermissionsTo(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        DireccionsUtil.setPermissionsTo(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
 
         //getSupportActionBar().hide();
 

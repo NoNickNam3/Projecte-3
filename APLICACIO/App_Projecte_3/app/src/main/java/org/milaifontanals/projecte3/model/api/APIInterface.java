@@ -56,7 +56,7 @@ public interface APIInterface {
     Call<RespostaRuta> getOptimitzador(
             @Header("Authorization") String token,
             @Field("sortida") String sortida,
-            @Field("parades") List<String> coord
+            @Field("parades") String coords
             );
 
     @FormUrlEncoded
@@ -89,6 +89,14 @@ public interface APIInterface {
     @Headers("Accept: application/json")
     @POST("tracking")
     Call<RespostaJobScheduling> trackingLocation(
+            @Header("Authorization") String token,
+            @Field("location") String location
+    );
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("tracking")
+    Call<RespostaRuta> getAllRutes(
             @Header("Authorization") String token,
             @Field("location") String location
     );

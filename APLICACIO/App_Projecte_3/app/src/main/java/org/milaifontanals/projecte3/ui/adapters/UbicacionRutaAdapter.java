@@ -98,11 +98,14 @@ public class UbicacionRutaAdapter extends RecyclerView.Adapter<UbicacionRutaAdap
             }else{
                 holder.txvNombre.setText("" + u.getNombre());
             }
-            if(u.getDirecccion().equals("")){
-                holder.txvDireccion.setLayoutParams(params);
-            }else{
-                holder.txvDireccion.setText("" + u.getDirecccion());
+            if(u.getDirecccion() != null){
+                if(u.getDirecccion().equals("")){
+                    holder.txvDireccion.setLayoutParams(params);
+                }else{
+                    holder.txvDireccion.setText("" + u.getDirecccion());
+                }
             }
+
         }
 
         holder.txvObservacion.setText("" + u.getObservacion());

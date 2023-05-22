@@ -118,17 +118,19 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
                 Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
 
-                Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sortida.getLatitude() + "," + sortida.getLongitude(), parades);
+                String sParades = DireccionsUtil.convertToJSON(parades);
+
+                Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sortida.getLatitude() + "," + sortida.getLongitude(), sParades);
                 call.enqueue(new Callback<RespostaRuta>() {
                     @Override
                     public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
                         if(response.isSuccessful()){
                             DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
                             RespostaRuta rr = response.body();
-                            if(rr.getLocations().size() != 0){
-                                List<Double> desti = rr.getLocations().get(rr.getLocations().size());
+                            if(rr.getData() != null){
+                                List<Double> desti = rr.getData().getLocations().get(rr.getData().getLocations().size() - 1);
                                 uDesti = desti.get(0) + "," + desti.get(1);
-                                DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getLocations());
+                                DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getData().getLocations());
                             }else{
                                 uDesti = parades.get(parades.size());
                                 DireccionsUtil.obrirRutaString(requireContext(), uDesti, parades);
@@ -141,7 +143,7 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
                     @Override
                     public void onFailure(Call<RespostaRuta> call, Throwable t) {
-                        DialogUtils.toastMessageLong(requireActivity(), "ERROR CREANDO LA RUTA");
+                        DialogUtils.toastMessageLong(requireActivity(), "ERROR EN LA CONEXION CON EL SERVIDOR");
                     }
                 });
 

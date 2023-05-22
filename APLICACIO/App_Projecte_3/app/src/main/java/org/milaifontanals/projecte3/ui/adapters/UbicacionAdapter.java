@@ -111,16 +111,20 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
             holder.txvDireccion.setLayoutParams(params);
             holder.txvNombre.setText("Aquesta ubicació no té un nom o direccio identificable");
         }else{
+
             if(u.getNombre().equals("")){
                 holder.txvNombre.setLayoutParams(params);
             }else{
                 holder.txvNombre.setText("" + u.getNombre());
             }
-            if(u.getDirecccion().equals("")){
-                holder.txvDireccion.setLayoutParams(params);
-            }else{
-                holder.txvDireccion.setText("" + u.getDirecccion());
+            if(u.getDirecccion() != null){
+                if(u.getDirecccion().equals("")){
+                    holder.txvDireccion.setLayoutParams(params);
+                }else{
+                    holder.txvDireccion.setText("" + u.getDirecccion());
+                }
             }
+
         }
 
         holder.txvObservacion.setText("" + u.getObservacion());
