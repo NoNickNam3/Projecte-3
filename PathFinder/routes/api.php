@@ -45,4 +45,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //RUTAS
     Route::get('/getListaRutas', [ApiRutas::class, 'get_rutas']);
+    Route::post('/getRuta', [ApiRutas::class, 'get_ruta']);
+
+    //TRAKING
+    Route::post('/tracking', [ApiEmpleatController::class, 'tracking']);
 });

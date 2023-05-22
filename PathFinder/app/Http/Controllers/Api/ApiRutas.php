@@ -30,4 +30,38 @@ class ApiRutas extends Controller
             ], 500);
         }
     }
+
+    public function get_ruta(Request $request){
+        try {
+            $id = $request->input('id');
+            $puntos = PuntoDeRuta::where('ruta', $id)->get();
+
+            $locations = [];
+        
+            foreach ($puntos as $punto) {
+                $array = explode(",", $punto->coordenada);
+                $location = [
+                    $array[0],
+                    $array[1]
+                ];
+                $locations[] = $location;
+            }
+        
+            $dataArray = [
+                "locations" => $locations,
+            ];
+        
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Puntos de ruta obtenidos correctamente',
+                'data' => $dataArray,
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error al obtener la ruta',
+            ], 500);
+        }
+    }
 }
