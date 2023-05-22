@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" href="{{ asset('img/PathFinderHD4.png') }}" type="image/x-icon">
+
+        <title>{{ config('app.name', 'PathFinder') }}</title>
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
 
         <!-- SweetAlert -->

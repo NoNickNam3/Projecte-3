@@ -90,24 +90,44 @@ function f_omplirCalendar(arrayFechas) {
 
     // Eliminar todos los eventos existentes
     calendar.removeAllEvents();
-
+    calendar.setOption('locale', 'ES');
     calendar.setOption('initialView', 'dayGridMonth');
     calendar.setOption('headerToolbar', {
         left: 'prev,next today',
         center: 'title',
         right: 'dayGridMonth,dayGridYear'
     });
+    calendar.setOption('firstDay', '1');
+    calendar.setOption('buttonText', {
+        prev: 'Anterior',
+        next: 'Siguiente',
+        today: 'Hoy',
+        month: 'Mes',
+        year: 'Año',
+        day: 'Día',
+        list: 'Lista'
+    });
+    // calendar.setOption('buttonIcons', {
+    //     prev: 'left-single-arrow',
+    //     next: 'right-single-arrow',
+    //     prevYear: 'left-double-arrow',
+    //     nextYear: 'right-double-arrow'
+    // });
     calendar.setOption('eventClassNames', 'hover-event');
     calendar.setOption('events', arrayFechas);
 
     calendar.setOption('eventClick', function (info) {
-        // Acceder al objeto de evento
-        let event = info.event;
 
+        let event = info.event;
         let start = event.start;
-        let stringdata = start.toISOString().split('T')[0];
+        let year = start.getFullYear();
+        let month = String(start.getMonth() + 1).padStart(2, '0');
+        let day = String(start.getDate()).padStart(2, '0');
+
+        let stringdata = `${year}-${month}-${day}`;
         f_peticionMapa(stringdata);
     });
+    calendar.setOption('themeSystem', 'bootstrap');
 
     calendar.render();
 }
@@ -128,10 +148,10 @@ function f_peticionMapa(fecha) {
         id: cliente.value,
         fecha: fecha
     }
+
     if (f_comprobacionParams(cliente, fecha)) {
-        console.info('entro');
         let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        fetch('/get_rete', {
+        fetch('/get_tracking_user', {
             method: 'POST',
             body: JSON.stringify(dataSend),
             headers: {
@@ -142,7 +162,6 @@ function f_peticionMapa(fecha) {
             .then(response => {
                 if (response.status == 200) {
                     if (response.ok) {
-                        // console.log('La petición fue enviada exitosamente');
                         response.json().then(data => f_omplirMapa(data));
                     } else {
                         console.error('Error al enviar la petición');
@@ -167,9 +186,8 @@ function f_peticionUsers() {
         id: cliente.value,
     }
     if (f_comprobacionParams(cliente)) {
-        console.info('entra');
         let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        fetch('/get_tracking_user', {
+        fetch('/get_dias_user', {
             method: 'POST',
             body: JSON.stringify(dataSend),
             headers: {
@@ -209,7 +227,6 @@ function f_mascaraDisabled(valor) {
 
 function f_comprobacionParams(cli, data) {
     if (arguments.length == 1 && cli.selectedIndex != 0) {
-        console.info('argumentstrue');
         return true;
     }
     if (arguments.length == 2 && cli.selectedIndex != 0 && data.value != '') {

@@ -26,8 +26,8 @@
                             <option class="bg-white block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" value="{{ $user->id }}">{{ $user->nombre}} {{$user->apellidos}}</option>
                         @endforeach
                     </select>
-                    <h3 class="font-semibold text-xl text-gray-800 leading-tight mrg-l4">Fecha del Tracking:</h3>
-                    <input name="fechaClient" type="date">
+                    {{-- <h3 class="font-semibold text-xl text-gray-800 leading-tight mrg-l4">Fecha del Tracking:</h3> --}}
+                    {{-- <input name="fechaClient" type="date"> --}}
                 </div>
                 <div class='contMapa'>
                     <div id="calendar" class="calendar"></div>
