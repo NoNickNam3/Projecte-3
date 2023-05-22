@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', f_principal);
-
+let globalUser;
 function f_principal() {
     if (window.location.pathname == '/dashboard') {
         graficoCicular();
         graficoBarras();
     }
-    // console.info(arrayNombres);
-    // console.info(arrayValores);
 }
 
 function graficoCicular() {
@@ -26,7 +24,8 @@ function graficoCicular() {
         maintainAspectRatio: false,
         legend: {
             position: 'right' // Posiciona la leyenda a la derecha del gráfico
-        }
+        },
+        onClick: handleClick,
     };
 
     // Crear el gráfico circular
@@ -41,7 +40,7 @@ function graficoCicular() {
 function graficoBarras() {
     var data = {
         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        
+
         datasets: [{
             label: 'Rutas Creadas',
             data: rutasMes,
@@ -90,4 +89,13 @@ function generarColorAleatorio(letrasHexadecimales) {
     }
 
     return color;
+}
+
+function handleClick(event, elements) {
+    if (elements.length > 0) {
+        var clickedIndex = elements[0].index; // Índice de la parte clicada
+        // Redirigir a la página con los datos correspondientes
+        sessionStorage.setItem('clickedIndex', clickedIndex);
+        window.location.href = '/ubicaciones';
+    }
 }

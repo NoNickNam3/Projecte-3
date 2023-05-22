@@ -67,7 +67,7 @@ class TrackingController extends Controller
                 $event = [
                     'title' => 'Trackedo',
                     'start' => $fecha_formateada,
-                    'color' => 'Blue'
+                    'color' => '#093e3b'
                 ];
                 $events[] = $event;
                 $last=$fecha_formateada;

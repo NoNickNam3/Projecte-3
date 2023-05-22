@@ -1,4 +1,9 @@
 <x-app-layout>
+    @section('ubicaciones')
+        <!-- ApiGoogleMaps -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWYVE4Alu_0w_V0Vhng5i_p1LScjMm2mM&libraries=places&callback=initMap"></script>
+        <script src={{asset('js/googlemap.js')}}></script>
+    @endsection
     <x-slot name="header">
         <div class="flex items-center separacion">
             <i class="fa-sharp fa-solid fa-map-location-dot iconHeader"></i>

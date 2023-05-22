@@ -3,13 +3,30 @@ document.addEventListener('DOMContentLoaded', f_principal);
 function f_principal() {
     if (window.location.pathname == '/tracking') {
         let cliente = document.getElementsByName('selectClients')[0];
-        let fecha = document.getElementsByName('fechaClient')[0];
+        // let fecha = document.getElementsByName('fechaClient')[0];
 
         cliente.selectedIndex = 0;
-        cliente.addEventListener('change', f_peticionMapa);
-        fecha.addEventListener('change', f_peticionMapa);
+        cliente.addEventListener('change', f_peticionUsers);
+        // fecha.addEventListener('change', f_peticionMapa);
+
+        let arrayFechas = [
+            // Array de fechas que deseas marcar
+            {
+                title: 'Tracking',
+                start: '2023-05-19', // Fecha a marcar
+                color: 'green' // Color personalizado para el evento
+            },
+            {
+                title: 'Tracking',
+                start: '2023-05-21', // Fecha a marcar
+                color: 'green' // Color personalizado para el evento
+            },
+            // Más eventos...
+        ];
 
         f_omplirMapa([]);
+        f_omplirCalendar([]);
+
     }
 }
 
@@ -67,6 +84,54 @@ function f_omplirMapa(listTracking) {
     }
 }
 
+function f_omplirCalendar(arrayFechas) {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl);
+
+    // Eliminar todos los eventos existentes
+    calendar.removeAllEvents();
+    calendar.setOption('locale', 'ES');
+    calendar.setOption('initialView', 'dayGridMonth');
+    calendar.setOption('headerToolbar', {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,dayGridYear'
+    });
+    calendar.setOption('firstDay', '1');
+    calendar.setOption('buttonText', {
+        prev: 'Anterior',
+        next: 'Siguiente',
+        today: 'Hoy',
+        month: 'Mes',
+        year: 'Año',
+        day: 'Día',
+        list: 'Lista'
+    });
+    // calendar.setOption('buttonIcons', {
+    //     prev: 'left-single-arrow',
+    //     next: 'right-single-arrow',
+    //     prevYear: 'left-double-arrow',
+    //     nextYear: 'right-double-arrow'
+    // });
+    calendar.setOption('eventClassNames', 'hover-event');
+    calendar.setOption('events', arrayFechas);
+
+    calendar.setOption('eventClick', function (info) {
+
+        let event = info.event;
+        let start = event.start;
+        let year = start.getFullYear();
+        let month = String(start.getMonth() + 1).padStart(2, '0');
+        let day = String(start.getDate()).padStart(2, '0');
+
+        let stringdata = `${year}-${month}-${day}`;
+        f_peticionMapa(stringdata);
+    });
+    calendar.setOption('themeSystem', 'bootstrap');
+
+    calendar.render();
+}
+
 function f_limpiarMapa() {
     if (typeof mapa !== 'undefined') {
         mapa.eachLayer((layer) => {
@@ -77,13 +142,13 @@ function f_limpiarMapa() {
     }
 }
 
-function f_peticionMapa() {
+function f_peticionMapa(fecha) {
     let cliente = document.getElementsByName('selectClients')[0];
-    let fecha = document.getElementsByName('fechaClient')[0];
     let dataSend = {
         id: cliente.value,
-        fecha: fecha.value
+        fecha: fecha
     }
+
     if (f_comprobacionParams(cliente, fecha)) {
         let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         fetch('/get_tracking_user', {
@@ -97,7 +162,6 @@ function f_peticionMapa() {
             .then(response => {
                 if (response.status == 200) {
                     if (response.ok) {
-                        // console.log('La petición fue enviada exitosamente');
                         response.json().then(data => f_omplirMapa(data));
                     } else {
                         console.error('Error al enviar la petición');
@@ -116,6 +180,42 @@ function f_peticionMapa() {
     }
 }
 
+function f_peticionUsers() {
+    let cliente = document.getElementsByName('selectClients')[0];
+    let dataSend = {
+        id: cliente.value,
+    }
+    if (f_comprobacionParams(cliente)) {
+        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch('/get_dias_user', {
+            method: 'POST',
+            body: JSON.stringify(dataSend),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            }
+        })
+            .then(response => {
+                if (response.status == 200) {
+                    if (response.ok) {
+                        // console.log('La petición fue enviada exitosamente');
+                        response.json().then(data => f_omplirCalendar(data));
+                    } else {
+                        console.error('Error al enviar la petición');
+                    }
+                } else if (response.status == 419) {
+                    window.location.href = '/login';
+                } else {
+                    console.info("es null");
+                    console.info(response);
+                }
+            })
+            .catch(error => {
+                console.error('Error al enviar la petición:', error);
+            });
+    }
+}
+
 function f_mascaraDisabled(valor) {
     if (valor) {
         document.getElementsByClassName("mascara")[0].style.display = "block";
@@ -126,8 +226,13 @@ function f_mascaraDisabled(valor) {
 }
 
 function f_comprobacionParams(cli, data) {
-    if (cli.selectedIndex != 0 && data.value != '') {
+    if (arguments.length == 1 && cli.selectedIndex != 0) {
+        return true;
+    }
+    if (arguments.length == 2 && cli.selectedIndex != 0 && data.value != '') {
         return true;
     }
     return false;
 }
+
+
