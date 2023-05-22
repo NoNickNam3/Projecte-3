@@ -19,7 +19,7 @@
         android:id="@+id/trackingFragment"
         android:name="org.milaifontanals.projecte3.ui.tracking.TrackingFragment"
         android:label="fragment_tracking"
-        tools:layout="@layout/fragment_tracking" />
+        tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/crearUbicacio"
         android:name="org.milaifontanals.projecte3.ui.crearUbicacio.CrearUbicacio"

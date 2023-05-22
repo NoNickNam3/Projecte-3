@@ -1,14 +1,24 @@
 package org.milaifontanals.projecte3.ui.tracking;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.milaifontanals.projecte3.R;
+import org.milaifontanals.projecte3.databinding.FragmentHistoryBinding;
+import org.milaifontanals.projecte3.model.Ruta;
+import org.milaifontanals.projecte3.ui.adapters.RutaAdapter;
+import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,33 +27,17 @@ import org.milaifontanals.projecte3.R;
  */
 public class TrackingFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentHistoryBinding binding;
+    public String mTokenActual = null;
+    private RutaAdapter adapter;
 
     public TrackingFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrackingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TrackingFragment newInstance(String param1, String param2) {
         TrackingFragment fragment = new TrackingFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +45,37 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tracking, container, false);
+        binding = FragmentHistoryBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SharedPreferences sp = this.requireContext().getSharedPreferences("tokenUsuari", MODE_PRIVATE);
+        mTokenActual = sp.getString("token", null);
+
+        //---------------------------------
+        // Configuració del RecyclerView
+        //---------------------------------
+        binding.rcvRutes.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        binding.rcvRutes.setHasFixedSize(true);
+
+        adapter = new RutaAdapter(Ruta.getRutes(), this.getContext());
+        binding.rcvRutes.setAdapter(adapter);
+        adapter.setOnRutaClickedListener(new RutaAdapter.OnRutaClickedListener() {
+            @Override
+            public void onRutaClicked(Ruta r) {
+
+            }
+        });
+
     }
 }
