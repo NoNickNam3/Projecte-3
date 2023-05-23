@@ -1,6 +1,7 @@
 package org.milaifontanals.projecte3.model.api;
 
 import org.milaifontanals.projecte3.model.api.apiJobScheduling.RespostaJobScheduling;
+import org.milaifontanals.projecte3.model.api.apiRuta.RespostaGetRutas;
 import org.milaifontanals.projecte3.model.api.apiRuta.RespostaRuta;
 import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaCrearUbicacio;
 import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
@@ -20,16 +21,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface APIInterface {
-/*
-    @GET("/api/unknown")
-    Call<MultipleResource> doGetListResources();
-/*
-    @POST("/login")
-    Call<Ubicacion> createUser(@Body User user);
-/*
-    @GET("/api/users?")
-    Call<UserList> doGetUserList(@Query("page") String page);
-*/
     @FormUrlEncoded
     @POST("login")
     Call<RespostaLogin> loginUser(
@@ -93,11 +84,16 @@ public interface APIInterface {
             @Field("location") String location
     );
 
+    @Headers("Accept: application/json")
+    @GET("getListaRutas")
+    Call<RespostaGetRutas> getAllRutes(
+            @Header("Authorization") String token
+    );
     @FormUrlEncoded
     @Headers("Accept: application/json")
-    @POST("tracking")
-    Call<RespostaRuta> getAllRutes(
+    @POST("getRuta")
+    Call<RespostaRuta> getRutaClick(
             @Header("Authorization") String token,
-            @Field("location") String location
+            @Field("id") int id
     );
 }

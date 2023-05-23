@@ -49,6 +49,7 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
     private FragmentRutaBinding binding;
     private UbicacionRutaAdapter adapter, adapterSeleccionats;
     public String mTokenActual = null;
+    private int tries;
 
     public RutaFragment() {
         // Required empty public constructor
@@ -64,6 +65,7 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uSeleccionades = new ArrayList<>();
+        tries = 0;
         Log.d("XXX", "onCreate");
     }
 
@@ -115,6 +117,12 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
                 for(Ubicacion u : uSeleccionades){
                     parades.add(u.getCoordenadas());
                 }
+/*
+                Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
+                DireccionsUtil.obrirRutaStringAutoOrdenada(requireContext(), sortida.getLatitude() + "," + sortida.getLongitude(), parades);
+*/
+                /*      INTENTO DE RUTA CON ENDPOINT
+                 */
 
                 Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
 
@@ -127,12 +135,12 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
                         if(response.isSuccessful()){
                             DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
                             RespostaRuta rr = response.body();
-                            if(rr.getData() != null){
+                            if(rr.getData().getLocations() != null){
                                 List<Double> desti = rr.getData().getLocations().get(rr.getData().getLocations().size() - 1);
-                                uDesti = desti.get(0) + "," + desti.get(1);
+                                uDesti = DireccionsUtil.getStringFromDoubleList(desti);
                                 DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getData().getLocations());
                             }else{
-                                uDesti = parades.get(parades.size());
+                                uDesti = parades.get(parades.size() - 1);
                                 DireccionsUtil.obrirRutaString(requireContext(), uDesti, parades);
                             }
 
@@ -198,18 +206,27 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
 
         }else{
-            IntentUtils.anarLogin(requireContext(), this);
+            retryCallIfPossible();
         }
 
     }
 
     @Override
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
-        Log.d("XXX", "Error en descarregar les ubicacions, de volta al LogIn jefe.");
 
-        dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
+        Log.d("XXX", "Error connectant amb el servidor");
+        retryCallIfPossible();
 
-        IntentUtils.anarLogin(requireContext(), this);
+    }
 
+    private void retryCallIfPossible(){
+        if(tries < 3){
+            tries++;
+            Call<RespostaGetUbicaciones> callUbicacions = APIAdapter.getApiService().getLlistaUbicacions(" Bearer " + mTokenActual);
+            callUbicacions.enqueue(this);
+        }else{
+            dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
+            IntentUtils.anarLogin(requireContext(), this);
+        }
     }
 }

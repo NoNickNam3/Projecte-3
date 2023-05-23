@@ -43,6 +43,7 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
     private FragmentAgendaBinding binding;
     private UbicacionAdapter adapter;
     public String mTokenActual = null;
+    private int tries;
 
     public AgendaFragment() {
         // Required empty public constructor
@@ -56,6 +57,7 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        tries = 0;
         super.onCreate(savedInstanceState);
     }
 
@@ -117,8 +119,7 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
                 }
             });
         }else{
-            dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
-            IntentUtils.anarLogin(requireContext(), this);
+            retryCallIfPossible();
         }
 
     }
@@ -127,9 +128,18 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
         DialogUtils.toastMessageLong(requireActivity(), "TOKEN NO VALIDO, INICIE SESIÓN");
 
-        dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
+        retryCallIfPossible();
 
-        IntentUtils.anarLogin(requireContext(), this);
+    }
 
+    private void retryCallIfPossible(){
+        if(tries < 3){
+            tries++;
+            Call<RespostaGetUbicaciones> callUbicacions = APIAdapter.getApiService().getLlistaUbicacions(" Bearer " + mTokenActual);
+            callUbicacions.enqueue(this);
+        }else{
+            dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
+            IntentUtils.anarLogin(requireContext(), this);
+        }
     }
 }

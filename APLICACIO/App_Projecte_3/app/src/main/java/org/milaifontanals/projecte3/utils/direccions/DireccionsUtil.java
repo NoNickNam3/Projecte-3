@@ -17,6 +17,7 @@ import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 
 import java.security.Permission;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DireccionsUtil {
@@ -46,7 +47,7 @@ public class DireccionsUtil {
     public static String getStringFromDoubleList(List<Double> ll){
         String u = "";
 
-        u = ll.get(0) + "," + ll.get(1);
+        u = ll.get(1) + "," + ll.get(0);
 
         return u;
     }
@@ -62,15 +63,22 @@ public class DireccionsUtil {
         String googleURL = "&waypoints=";
 
         llUbicacions.remove(0);
+        //llUbicacions.remove(llUbicacions.size() - 1);
 
         int i = 0;
+        List<String> alternativa = new ArrayList<>();
         for (List<Double> u : llUbicacions) {
 
-            if (i != llUbicacions.size() && i != 0) {
-                googleURL += "|";
-            }
+            String ub = getStringFromDoubleList(u);
 
-            googleURL += getStringFromDoubleList(u);
+            if(!alternativa.contains(ub) && !ub.equals(desti)) {
+                alternativa.add(ub);
+                if (i != llUbicacions.size() && i != 0) {
+                    googleURL += "|";
+                }
+
+                googleURL += ub;
+            }
 
             i++;
         }
@@ -98,6 +106,28 @@ public class DireccionsUtil {
         }
 
         Uri gmmIntentUri = Uri.parse("google.navigation:q=" + desti + googleURL);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        c.startActivity(mapIntent);
+
+    }
+
+    public static void obrirRutaStringAutoOrdenada(Context c, String desti, List<String> llUbicacions) {
+        String googleURL = "&waypoints=";
+
+        int i = 0;
+        for (String u : llUbicacions) {
+
+            if (i != llUbicacions.size() && i != 0) {
+                googleURL += "|";
+            }
+
+            googleURL += u;
+
+            i++;
+        }
+
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + desti + googleURL + "&dirflg=r");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         c.startActivity(mapIntent);

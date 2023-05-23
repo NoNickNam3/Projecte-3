@@ -14,15 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.Ubicacion;
+import org.milaifontanals.projecte3.model.api.APIAdapter;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.utils.db.dbUtils;
+import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.ViewHolder> {
 
     public interface OnUbicacioClickedListener{
         public void onUbicacioClicked(Ubicacion u);
     }
-
     private List<Ubicacion> mUbicaciones;
     private Context mContext;
 
@@ -112,10 +118,13 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
             holder.txvNombre.setText("Aquesta ubicació no té un nom o direccio identificable");
         }else{
 
-            if(u.getNombre().equals("")){
-                holder.txvNombre.setLayoutParams(params);
-            }else{
-                holder.txvNombre.setText("" + u.getNombre());
+
+            if(u.getNombre() != null) {
+                if (u.getNombre().equals("")) {
+                    holder.txvNombre.setLayoutParams(params);
+                } else {
+                    holder.txvNombre.setText("" + u.getNombre());
+                }
             }
             if(u.getDirecccion() != null){
                 if(u.getDirecccion().equals("")){

@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.Ruta;
 import org.milaifontanals.projecte3.model.Ubicacion;
+import org.milaifontanals.projecte3.utils.comprovacions.ComprovacionsUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RutaAdapter extends RecyclerView.Adapter<RutaAdapter.ViewHolder> {
@@ -44,10 +46,14 @@ public class RutaAdapter extends RecyclerView.Adapter<RutaAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView momentTemporal;
+        TextView horaRuta;
+        TextView nombreRuta;
 
         public ViewHolder(@NonNull View filaActual) {
             super(filaActual);
             momentTemporal = filaActual.findViewById(R.id.txvMomentRuta);
+            horaRuta = filaActual.findViewById(R.id.txvHoraRuta);
+            nombreRuta = filaActual.findViewById(R.id.txvNombreRuta);
         }
     }
 
@@ -78,7 +84,14 @@ public class RutaAdapter extends RecyclerView.Adapter<RutaAdapter.ViewHolder> {
         );
         params.weight = 0.0f;
 
-        holder.momentTemporal.setText("" + r.getMoment());
+        LocalDateTime ldt = r.getMoment();
+
+        holder.momentTemporal.setText("" + ldt.getDayOfWeek() + ", " + ldt.getDayOfMonth() + " " + ldt.getMonth() + " " + ldt.getYear());
+        holder.horaRuta.setText("" + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond());
+        holder.nombreRuta.setText("" + ComprovacionsUtil.getStringNN(r.getNomRuta()));
+        if(holder.nombreRuta.getText().equals("")){
+            holder.nombreRuta.setText("Esta ruta no tiene nombre");
+        }
 
         Log.d("XXX", "Actualizando la ubicacion en la posicion  " + position);
     }
