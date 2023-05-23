@@ -41,7 +41,7 @@ class ApiEmpleatController extends Controller
 
     public function tracking(Request $request){
         try {
-            $id = Auth::user()->id;
+            $id = Auth::id();
             $traking = new Tracking(array('empleado' => $id, 'momento' => Carbon::now(), 
             'coordenadas' => $request->input('location')));
             $traking->save();

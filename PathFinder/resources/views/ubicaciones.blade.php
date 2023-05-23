@@ -8,7 +8,7 @@
         <div class="flex items-center separacion">
             <i class="fa-sharp fa-solid fa-map-location-dot iconHeader"></i>
             <h2 class="font-semibold text-xl text-white leading-tight">
-                {{ __('Dashboard') }}
+                {{ __('Ubicaciones') }}
             </h2>
         </div>
         <input id="formAdd" type="button" class="formAdd" value="Crear nueva Ubicacion">

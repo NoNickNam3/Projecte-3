@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\ListaUbicacion;
 use App\Models\Ubicacion;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +31,14 @@ class ApiUbicacionController extends Controller
     public function getUbicaciones(Request $request)
     {
         try {
-            $lista_ubicaciones = ListaUbicacion::where('empleado', Auth::user()->id)->get();
+            $org = User::find(Auth::user()->id)->organizacion;
+            $lista_ubicaciones = ListaUbicacion::where(function ($query) use ($org) {
+                $query->where('empleado', Auth::user()->id)
+                      ->orWhere('empleado', $org);
+            })->get();
+
             $list = array();
+
             foreach ($lista_ubicaciones as $lista_ubicacion) {
                 $ubicacion = $lista_ubicacion->ubicacion;
                 $co = explode(",", $ubicacion->coordenada);
@@ -40,6 +47,7 @@ class ApiUbicacionController extends Controller
     
                 array_push($list, $ubicacion);
             }
+            
             return response()->json([
                 'status' => 'success',
                 'message' => 'Ubicaciones obtenidas',
