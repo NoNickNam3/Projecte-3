@@ -6,8 +6,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.UbicacionApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +18,6 @@ public class Ubicacion implements Parcelable {
     private String direcccion;
     private String observacion;
     private boolean fav;
-
-    /**
-     * ===========================================================================
-     * Lista de ubicaciones, tengo que conseguir que las descargue de el endpoint
-     * ===========================================================================
-     */
     private static ArrayList<Ubicacion> _mUbicaciones;
 
     private static List<UbicacionApi> llUbicacionsRebudes;
@@ -137,6 +130,14 @@ public class Ubicacion implements Parcelable {
         setDirecccion(direcccion);
         setObservacion(observacion);
         setFav(fav);
+    }
+
+    public static void removeUbicacion(Ubicacion u) {
+        _mUbicaciones.remove(u);
+    }
+
+    public static void addUbicacion(Ubicacion u) {
+        _mUbicaciones.add(u);
     }
 
     public int getId() {

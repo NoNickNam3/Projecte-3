@@ -14,8 +14,9 @@ import android.widget.EditText;
 import org.milaifontanals.projecte3.R;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
-import org.milaifontanals.projecte3.model.userLogin.RespostaLogin;
-import org.milaifontanals.projecte3.utils.dbUtils;
+import org.milaifontanals.projecte3.model.api.userLogin.RespostaLogin;
+import org.milaifontanals.projecte3.utils.db.dbUtils;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +27,6 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
     private SQLiteDatabase db = null;
     private String mTokenActual = null;
     private EditText edtCorreu, edtPasswd;
-
     private Intent intentMove;
 
     @Override
@@ -39,17 +39,6 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        //  Comprovació del Token a la bdd, si existeix, em crec que és el bó
-        Cursor cursor = db.rawQuery("select * from dbInterna", null);
-        if (cursor.moveToNext()) {
-            Log.d("XXX", "HE POGUT CARREGAR LA BDD");
-            String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
-            mTokenActual = token;
-            Log.d("XXX", mTokenActual);
-            intentMove = new Intent(this, MainActivity.class);
-            startActivity(intentMove);
-        }
-        cursor.close();
 
         setContentView(R.layout.activity_log_in);
 
@@ -57,12 +46,32 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
         edtCorreu = findViewById(R.id.edtCorreuUsuari);
         edtPasswd = findViewById(R.id.edtPasswd);
 
+        try{
+            Cursor cursor = db.rawQuery("select * from dbInterna", null);
+            if (cursor.moveToNext()) {
+                Log.d("XXX", "HE POGUT CARREGAR LA BDD");
+                String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
+                mTokenActual = token;
+                Log.d("XXX", mTokenActual);
+
+                SharedPreferences sp = this.getSharedPreferences("tokenUsuari", MODE_PRIVATE);
+                SharedPreferences.Editor ed = sp.edit();
+                ed.putString("token", mTokenActual);
+                ed.commit();
+
+                intentMove = new Intent(this, MainActivity.class);
+                startActivity(intentMove);
+            }else{
+                dbUtils.eliminarUsuariBDD(db);
+            }
+            cursor.close();
+        }catch(Exception e){}
+
     }
 
     public void onClick(View view){
         switch(view.getId()){
             case R.id.btnLogIn:
-                Log.d("XXX", edtCorreu.getText().toString() + " - " + edtPasswd.getText().toString());
                 Call<RespostaLogin> call = APIAdapter.getApiService().loginUser(edtCorreu.getText().toString(), edtPasswd.getText().toString());
                 call.enqueue(this);
                 break;
@@ -75,22 +84,18 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
 
     @Override
     public void onResponse(Call<RespostaLogin> call, Response<RespostaLogin> response) {
-        Log.d("XXX", "He rebut contestació:");
         if(response.isSuccessful()){
-            Log.d("XXX", "Resposta correcta del servidor");
+            DialogUtils.toastMessageLong(this, "LOGGED IN");
             RespostaLogin res = response.body();
 
-            //Database configs
-
             //  Enregistra l'usuari a la bdd
-            //dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
+            dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);
 
             mTokenActual = res.getToken();
             SharedPreferences sp = this.getSharedPreferences("tokenUsuari", MODE_PRIVATE);
             SharedPreferences.Editor ed = sp.edit();
             ed.putString("token", mTokenActual);
             ed.commit();
-            Log.d("XXX", res.getToken());
 
             intentMove = new Intent(this, MainActivity.class);
             startActivity(intentMove);
@@ -100,8 +105,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
 
     @Override
     public void onFailure(Call<RespostaLogin> call, Throwable t) {
-        Log.d("XXX", "NO HE POGUT FER EL CALL");
-        //db.rawQuery("delete from dbInterna", null);
+        DialogUtils.toastMessageLong(this, "NO SE HA PODIDO INICIAR SESIÓN");
     }
 
 }

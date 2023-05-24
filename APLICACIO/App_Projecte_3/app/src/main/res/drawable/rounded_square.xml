@@ -10,10 +10,10 @@
         android:width="2dp" />
 
     <gradient
-        android:startColor="@color/color1"
-        android:endColor="@color/color5"
+        android:startColor="@color/darkPaletteGrey"
+        android:endColor="@color/lightPaletteSea"
         android:type="linear"
-        android:angle="45"
+        android:angle="90"
         />
 
     <corners

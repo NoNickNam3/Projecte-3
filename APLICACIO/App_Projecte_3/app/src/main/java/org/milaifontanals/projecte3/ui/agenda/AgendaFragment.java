@@ -3,10 +3,7 @@ package org.milaifontanals.projecte3.ui.agenda;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,15 +25,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 import org.milaifontanals.projecte3.activities.LogInActivity;
 import org.milaifontanals.projecte3.activities.MainActivity;
+>>>>>>> 370f659b68b6421b7714fbd1c6f5575a8e58586a
 import org.milaifontanals.projecte3.databinding.FragmentAgendaBinding;
 import org.milaifontanals.projecte3.model.Ubicacion;
 import org.milaifontanals.projecte3.model.api.APIAdapter;
-import org.milaifontanals.projecte3.model.apiUbicacions.RespostaGetUbicaciones;
-import org.milaifontanals.projecte3.model.apiUbicacions.UbicacionApi;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.RespostaGetUbicaciones;
+import org.milaifontanals.projecte3.model.api.apiUbicacions.UbicacionApi;
 import org.milaifontanals.projecte3.model.db.MyDatabaseHelper;
+import org.milaifontanals.projecte3.ui.adapters.UbicacionAdapter;
+import org.milaifontanals.projecte3.utils.db.dbUtils;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
+import org.milaifontanals.projecte3.utils.intentMoves.IntentUtils;
 
 import java.util.List;
 
@@ -54,6 +58,9 @@ public class AgendaFragment extends Fragment implements Callback<RespostaGetUbic
     private FragmentAgendaBinding binding;
     private UbicacionAdapter adapter;
     public String mTokenActual = null;
+<<<<<<< HEAD
+    private int tries;
+=======
 =======
 import org.milaifontanals.projecte3.R;
 
@@ -73,6 +80,7 @@ public class CrearUbicacio extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+>>>>>>> 370f659b68b6421b7714fbd1c6f5575a8e58586a
 
 <<<<<<< HEAD
     public AgendaFragment() {
@@ -81,6 +89,8 @@ public class CrearUbicacio extends Fragment {
 >>>>>>> 775ea72fb5cc56873befd27ccd1c583a105e9cab
         // Required empty public constructor
     }
+<<<<<<< HEAD
+=======
 
     /**
      * Use this factory method to create a new instance of
@@ -92,6 +102,7 @@ public class CrearUbicacio extends Fragment {
      * @return A new instance of fragment AgendaFragment.
      */
     // TODO: Rename and change types and number of parameters
+>>>>>>> 370f659b68b6421b7714fbd1c6f5575a8e58586a
     public static AgendaFragment newInstance(String param1, String param2) {
         AgendaFragment fragment = new AgendaFragment();
 =======
@@ -102,19 +113,14 @@ public class CrearUbicacio extends Fragment {
         CrearUbicacio fragment = new CrearUbicacio();
 >>>>>>> 775ea72fb5cc56873befd27ccd1c583a105e9cab
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        tries = 0;
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -136,10 +142,18 @@ public class CrearUbicacio extends Fragment {
 
         SharedPreferences sp = this.requireContext().getSharedPreferences("tokenUsuari", MODE_PRIVATE);
         mTokenActual = sp.getString("token", null);
+        binding.btnAfegirUbicacio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtils.obrirDialogAddUbicacio(getFragmentManager());
+            }
+        });
 
         if(mTokenActual != null){
             Call<RespostaGetUbicaciones> callUbicacions = APIAdapter.getApiService().getLlistaUbicacions(" Bearer " + mTokenActual);
             callUbicacions.enqueue(this);
+        }else{
+            IntentUtils.anarLogin(requireContext(), this);
         }
 
     }
@@ -168,21 +182,30 @@ public class CrearUbicacio extends Fragment {
                 }
             });
         }else{
-            Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
-            startActivity(intentMove);
+            retryCallIfPossible();
         }
 
     }
 
     @Override
     public void onFailure(Call<RespostaGetUbicaciones> call, Throwable t) {
-        Log.d("XXX", "No he pogut obtenir una merda");
+        DialogUtils.toastMessageLong(requireActivity(), "TOKEN NO VALIDO, INICIE SESIÓN");
 
-        Intent intentMove = new Intent(this.getContext(), LogInActivity.class);
-        startActivity(intentMove);
+        retryCallIfPossible();
 
 =======
         return inflater.inflate(R.layout.fragment_crear_ubicacio, container, false);
 >>>>>>> 775ea72fb5cc56873befd27ccd1c583a105e9cab
+    }
+
+    private void retryCallIfPossible(){
+        if(tries < 3){
+            tries++;
+            Call<RespostaGetUbicaciones> callUbicacions = APIAdapter.getApiService().getLlistaUbicacions(" Bearer " + mTokenActual);
+            callUbicacions.enqueue(this);
+        }else{
+            dbUtils.eliminarUsuariBDD(new MyDatabaseHelper(requireContext()).getWritableDatabase());
+            IntentUtils.anarLogin(requireContext(), this);
+        }
     }
 }

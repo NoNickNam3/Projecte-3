@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemSignOut"
+        android:title="Cerrar Sesión" />
+    <item
+        android:id="@+id/itemEnlaceEmpresa"
+        android:title="Enlazar con la Empresa" />
+    <item
+        android:id="@+id/itemPedirPermisos"
+        android:title="Activar localización" />
+</menu>

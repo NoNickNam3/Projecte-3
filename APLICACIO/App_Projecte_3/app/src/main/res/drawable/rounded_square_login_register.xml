@@ -10,7 +10,7 @@
 
     <gradient
         android:startColor="@color/darkPaletteNavy"
-        android:endColor="@color/lightPaletteBlue"
+        android:endColor="@color/darkPaletteBlack"
         android:type="linear"
         android:angle="45"
         />

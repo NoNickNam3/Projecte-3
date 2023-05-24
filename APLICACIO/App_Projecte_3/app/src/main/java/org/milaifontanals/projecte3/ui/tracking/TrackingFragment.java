@@ -1,14 +1,34 @@
 package org.milaifontanals.projecte3.ui.tracking;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.milaifontanals.projecte3.R;
+import org.milaifontanals.projecte3.databinding.FragmentHistoryBinding;
+import org.milaifontanals.projecte3.model.Ruta;
+import org.milaifontanals.projecte3.model.api.APIAdapter;
+import org.milaifontanals.projecte3.model.api.apiRuta.RespostaGetRutas;
+import org.milaifontanals.projecte3.model.api.apiRuta.RespostaRuta;
+import org.milaifontanals.projecte3.ui.adapters.RutaAdapter;
+import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
+import org.milaifontanals.projecte3.utils.direccions.DireccionsUtil;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,33 +37,17 @@ import org.milaifontanals.projecte3.R;
  */
 public class TrackingFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentHistoryBinding binding;
+    public String mTokenActual = null;
+    private RutaAdapter adapter;
 
     public TrackingFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrackingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TrackingFragment newInstance(String param1, String param2) {
         TrackingFragment fragment = new TrackingFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +55,75 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tracking, container, false);
+        binding = FragmentHistoryBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SharedPreferences sp = this.requireContext().getSharedPreferences("tokenUsuari", MODE_PRIVATE);
+        mTokenActual = sp.getString("token", null);
+
+        Call<RespostaGetRutas> call = APIAdapter.getApiService().getAllRutes(" Bearer " + mTokenActual);
+        call.enqueue(new Callback<RespostaGetRutas>() {
+            @Override
+            public void onResponse(Call<RespostaGetRutas> call, Response<RespostaGetRutas> response) {
+                if(response.isSuccessful()){
+                    RespostaGetRutas rgr = response.body();
+                    //---------------------------------
+                    // Configuració del RecyclerView
+                    //---------------------------------
+                    binding.rcvRutes.setLayoutManager(new LinearLayoutManager(requireContext()));
+                    binding.rcvRutes.setHasFixedSize(true);
+
+                    adapter = new RutaAdapter(Ruta.setRutes(rgr), requireContext());
+                    binding.rcvRutes.setAdapter(adapter);
+                    adapter.setOnRutaClickedListener(new RutaAdapter.OnRutaClickedListener() {
+                        @Override
+                        public void onRutaClicked(Ruta r) {
+                            Call<RespostaRuta> call = APIAdapter.getApiService().getRutaClick(" Bearer " + mTokenActual, r.getId());
+                            call.enqueue(new Callback<RespostaRuta>() {
+                                @Override
+                                public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
+                                    if(response.isSuccessful()){
+                                        DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
+                                        RespostaRuta rr = response.body();
+                                        if(rr.getData().getLocations() != null){
+                                            DireccionsUtil.obrirRuta(requireContext(), rr.getData().getLocations());
+                                        }else{
+                                            DialogUtils.toastMessageLong(requireActivity(), "NO S'HA POGUT RECUPERAR LA RUTA");
+                                        }
+
+                                    }else{
+                                        DialogUtils.toastMessageLong(requireActivity(), "ERROR CALCULANDO LA RUTA");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<RespostaRuta> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RespostaGetRutas> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 }
