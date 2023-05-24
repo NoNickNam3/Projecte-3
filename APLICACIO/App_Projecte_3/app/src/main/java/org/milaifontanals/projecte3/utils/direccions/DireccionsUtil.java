@@ -175,9 +175,6 @@ public class DireccionsUtil {
     }
 
     public static Location getLastKnownLocationC(Context c) {
-
-        //giveAllPermissions(a);
-
         LocationManager mLocationManager = (LocationManager) c.getSystemService(LOCATION_SERVICE);
         List<String> providers = mLocationManager.getProviders(true);
         Location bestLocation = null;
@@ -199,7 +196,7 @@ public class DireccionsUtil {
 
     public static void giveAllPermissions(Activity a){
         if(!setPermissionsTo(a, Manifest.permission.ACCESS_FINE_LOCATION) && !setPermissionsTo(a, Manifest.permission.ACCESS_BACKGROUND_LOCATION) && !setPermissionsTo(a, Manifest.permission.ACCESS_COARSE_LOCATION)){
-            DialogUtils.toastMessageLong(a, "La localización ya estaba activada");
+            DialogUtils.toastMessageLong(a, "PathFinder: Accediendo a la ubicación");
         }else{
             DialogUtils.toastMessageLong(a, "Se ha activado la localización");
         }

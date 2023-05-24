@@ -9,11 +9,11 @@
         android:width="2dp" />
 
     <gradient
-        android:startColor="@color/darkPaletteWhite"
-        android:endColor="@color/lightPaletteSea"
+        android:startColor="@color/darkPaletteNavy"
+        android:endColor="@color/lightPaletteBlue"
         android:type="linear"
         android:angle="45"
-    />
+        />
 
     <corners
         android:radius="15dp" />

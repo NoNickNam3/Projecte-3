@@ -97,10 +97,10 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
     }
 
     public void onClick(View view){
-        switch(view.getId()){
+        switch(view.getId()) {
             case R.id.btnNetejar:
 
-                for(Ubicacion u : uSeleccionades){
+                for (Ubicacion u : uSeleccionades) {
                     Ubicacion.addUbicacion(u);
                 }
 
@@ -112,50 +112,55 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
             case R.id.btnAnar:
 
-                List<String> parades = new ArrayList<>();
+                if (uSeleccionades.size() <= 1) {
+                    DialogUtils.toastMessageLong(requireActivity(), "SE REQUIERE MÁS DE UN DESTINO PARA OPTIMIZAR LA RUTA");
+                } else {
 
-                for(Ubicacion u : uSeleccionades){
-                    parades.add(u.getCoordenadas());
-                }
+                    List<String> parades = new ArrayList<>();
+
+                    for (Ubicacion u : uSeleccionades) {
+                        parades.add(u.getCoordenadas());
+                    }
 /*
                 Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
                 DireccionsUtil.obrirRutaStringAutoOrdenada(requireContext(), sortida.getLatitude() + "," + sortida.getLongitude(), parades);
 */
-                /*      INTENTO DE RUTA CON ENDPOINT
-                 */
+                    /*      INTENTO DE RUTA CON ENDPOINT
+                     */
 
-                Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
+                    Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
 
-                String sParades = DireccionsUtil.convertToJSON(parades);
+                    String sParades = DireccionsUtil.convertToJSON(parades);
 
-                Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sortida.getLatitude() + "," + sortida.getLongitude(), sParades);
-                call.enqueue(new Callback<RespostaRuta>() {
-                    @Override
-                    public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
-                        if(response.isSuccessful()){
-                            DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
-                            RespostaRuta rr = response.body();
-                            if(rr.getData().getLocations() != null){
-                                List<Double> desti = rr.getData().getLocations().get(rr.getData().getLocations().size() - 1);
-                                uDesti = DireccionsUtil.getStringFromDoubleList(desti);
-                                DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getData().getLocations());
-                            }else{
-                                uDesti = parades.get(parades.size() - 1);
-                                DireccionsUtil.obrirRutaString(requireContext(), uDesti, parades);
+                    Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sortida.getLatitude() + "," + sortida.getLongitude(), sParades);
+                    call.enqueue(new Callback<RespostaRuta>() {
+                        @Override
+                        public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
+                            if (response.isSuccessful()) {
+                                DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
+                                RespostaRuta rr = response.body();
+                                if (rr.getData().getLocations() != null) {
+                                    List<Double> desti = rr.getData().getLocations().get(rr.getData().getLocations().size() - 1);
+                                    uDesti = DireccionsUtil.getStringFromDoubleList(desti);
+                                    DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getData().getLocations());
+                                } else {
+                                    uDesti = parades.get(parades.size() - 1);
+                                    DireccionsUtil.obrirRutaString(requireContext(), uDesti, parades);
+                                }
+
+                            } else {
+                                DialogUtils.toastMessageLong(requireActivity(), "ERROR CALCULANDO LA RUTA");
                             }
-
-                        }else{
-                            DialogUtils.toastMessageLong(requireActivity(), "ERROR CALCULANDO LA RUTA");
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<RespostaRuta> call, Throwable t) {
-                        DialogUtils.toastMessageLong(requireActivity(), "ERROR EN LA CONEXION CON EL SERVIDOR");
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<RespostaRuta> call, Throwable t) {
+                            DialogUtils.toastMessageLong(requireActivity(), "ERROR EN LA CONEXION CON EL SERVIDOR");
+                        }
+                    });
 
-                break;
+                    break;
+                }
         }
     }
 

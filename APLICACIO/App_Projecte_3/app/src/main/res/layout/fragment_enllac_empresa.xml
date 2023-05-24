@@ -13,9 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical"
-        android:background="@drawable/rounded_square_login_register"
+        android:background="@drawable/rounded_square_selected"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
+        android:paddingTop="10dp"
         >
 
         <TextView

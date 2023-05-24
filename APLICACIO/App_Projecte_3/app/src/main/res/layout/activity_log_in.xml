@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/background_app"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +19,7 @@
 
         <EditText
             android:id="@+id/edtCorreuUsuari"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:textAlignment="center"
             android:paddingBottom="15dp"
