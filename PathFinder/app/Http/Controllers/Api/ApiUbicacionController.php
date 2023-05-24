@@ -53,6 +53,7 @@ class ApiUbicacionController extends Controller
                 'message' => 'Ubicaciones obtenidas',
                 'data' => $list
             ], 200);
+            
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',

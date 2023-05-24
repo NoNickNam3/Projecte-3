@@ -41,17 +41,11 @@ class ListaUbicacion extends Model
         'empleado',
     ];
 
-    /**
-     * Get the ubicacion associated with the lista_ubicacion.
-     */
     public function ubicacion(): BelongsTo
     {
         return $this->belongsTo(Ubicacion::class, 'contacto');
     }
 
-    /**
-     * Get the user associated with the lista_ubicacion.
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'empleado');

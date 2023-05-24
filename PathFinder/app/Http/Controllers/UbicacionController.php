@@ -133,42 +133,6 @@ class UbicacionController extends Controller
         // return view('ubicaciones.edit', compact('ubicacion'));
     }
 
-    //UPDATE FRONDEND EXAMPLE
-//     <form action="{{ route('ubicaciones.update', $ubicacion->id) }}" method="POST">
-//   @csrf
-//   @method('PUT')
-
-//   <div>
-//     <label for="nombre">Nombre:</label>
-//     <input type="text" name="nombre" id="nombre" value="{{ $ubicacion->nombre }}" required>
-//   </div>
-
-//   <div>
-//     <label for="coordenada">Coordenada:</label>
-//     <input type="text" name="coordenada" id="coordenada" value="{{ $ubicacion->coordenada }}" required>
-//   </div>
-
-//   <div>
-//     <label for="observaciones">Observaciones:</label>
-//     <textarea name="observaciones" id="observaciones" rows="4">{{ $ubicacion->observaciones }}</textarea>
-//   </div>
-
-//   <div>
-//     <label for="direccion">Dirección:</label>
-//     <input type="text" name="direccion" id="direccion" value="{{ $ubicacion->direccion }}">
-//   </div>
-
-//   <div>
-//     <label for="fav">Favorito:</label>
-//     <select name="fav" id="fav" required>
-//       <option value="0" {{ $ubicacion->fav == 0 ? 'selected' : '' }}>No</option>
-//       <option value="1" {{ $ubicacion->fav == 1 ? 'selected' : '' }}>Sí</option>
-//     </select>
-//   </div>
-
-//   <button type="submit">Actualizar</button>
-// </form>
-
     public function update(Request $request, $id)
     {    
         try {

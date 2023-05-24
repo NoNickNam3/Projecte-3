@@ -48,17 +48,6 @@ class ProfileController extends Controller
         }
     }
 
-    // public function getUsers(Request $request)
-    // {
-    //     $userId = Auth::id();
-    //     $users = User::where('organizacion', $userId)->get();
-    //     return $users;
-    //     // return view('tracking', [
-    //     //     'users' => $users,
-    //     //     'user' => $request->user(),
-    //     // ]);
-    // }
-
     /**
      * Delete the user's account.
      */

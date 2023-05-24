@@ -24,8 +24,6 @@ class OptimizadorController extends Controller
             ], 400);
         }
 
-        // $string = trim($request->input('parades'),'"');
-
         Storage::prepend('file.log', $request->input('parades'));
 
         $nuevoString = str_replace("'", '"', $request->input('parades'));
@@ -51,18 +49,12 @@ class OptimizadorController extends Controller
 
         $coordenadas = rtrim($coordenadas, ';');
 
-        //INVERTIR LA DE SORTIDA
+        //INVERTIR LA COORDENADA DE SORTIDA
         $coordenadasArray = explode(",", $request->input('sortida'));
         $coordenadasArrayInvertidas = array_reverse($coordenadasArray);
         $coordenadasInvertidas = implode(",", $coordenadasArrayInvertidas);
 
         $coordenadas = $coordenadasInvertidas . ';' . $coordenadas;
-
-        $total = count($data);
-        $radiuses = '100';
-        for ($i = 0; $i < $total; $i++) {
-            $radiuses .= ';100';
-        }
 
         $baseUrl = 'https://api.mapbox.com/optimized-trips/v1/mapbox/driving/';
 
@@ -72,7 +64,9 @@ class OptimizadorController extends Controller
             'query' => [
                 'access_token' => env('MAPBOX_KEY'),
                 'steps' => 'false',
+                'roundtrip' => 'true',
                 'source' => 'first',
+                'destination' => 'any',
             ]
         ]);
 
@@ -93,13 +87,13 @@ class OptimizadorController extends Controller
 
             ksort($locations);
 
-            $tripDuration = $dataArr['trips'][0]['duration'];
-            $tripDistance = $dataArr['trips'][0]['distance'];
+            $duracioTotal = $dataArr['trips'][0]['duration'];
+            $distanciaTotal = $dataArr['trips'][0]['distance'];
 
             $result = [
                 'locations' => $locations,
-                'duracioTotal' => $tripDuration,
-                'distanciaTotal' => $tripDistance
+                'duracioTotal' => $duracioTotal,
+                'distanciaTotal' => $distanciaTotal
             ];
         } catch (\Throwable $th) {
             return response()->json([
@@ -110,10 +104,12 @@ class OptimizadorController extends Controller
         }
 
         try {
+            //CREAR NOVA RUTA
             $r = new Ruta(array('usuario' => Auth::id()));
             $r->save();
             $idRuta = $r->id;
 
+            //GUARDAR PUNTS DE RUTA JA ORDENATS
             foreach ($result['locations'] as $key => $location) {
                 $p = new PuntoDeRuta(
                     array(

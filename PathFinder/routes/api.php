@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //OPTIMIZAR RUTAS
     Route::post('/optimizar', [OptimizadorController::class, 'optimizar']);
 
-    //RUTAS
+    //CONSULTAR RUTAS
     Route::get('/getListaRutas', [ApiRutas::class, 'get_rutas']);
     Route::post('/getRuta', [ApiRutas::class, 'get_ruta']);
 
