@@ -36,7 +36,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AgendaFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * create an instance of this fragment
  */
 public class AgendaFragment extends Fragment implements Callback<RespostaGetUbicaciones> {
 
