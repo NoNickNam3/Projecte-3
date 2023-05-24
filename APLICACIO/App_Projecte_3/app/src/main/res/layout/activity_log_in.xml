@@ -50,6 +50,7 @@
                 android:text="LOG IN"
                 android:layout_margin="10dp"
                 android:onClick="onClick"
+                android:background="@drawable/background_buttons_clickables"
                 />
 
             <Button
@@ -59,6 +60,7 @@
                 android:text="REGISTER"
                 android:layout_margin="10dp"
                 android:onClick="onClick"
+                android:background="@drawable/background_buttons_clickables"
                 />
 
         </LinearLayout>

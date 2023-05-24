@@ -130,9 +130,11 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
 
                     Location sortida = DireccionsUtil.getLastKnownLocation(getActivity());
 
+                    String sSortida = DireccionsUtil.concatCoordsIfNN(sortida.getLatitude(), sortida.getLongitude());
+
                     String sParades = DireccionsUtil.convertToJSON(parades);
 
-                    Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sortida.getLatitude() + "," + sortida.getLongitude(), sParades);
+                    Call<RespostaRuta> call = APIAdapter.getApiService().getOptimitzador(" Bearer " + mTokenActual, sSortida, sParades);
                     call.enqueue(new Callback<RespostaRuta>() {
                         @Override
                         public void onResponse(Call<RespostaRuta> call, Response<RespostaRuta> response) {
@@ -140,9 +142,7 @@ public class RutaFragment extends Fragment implements Callback<RespostaGetUbicac
                                 DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
                                 RespostaRuta rr = response.body();
                                 if (rr.getData().getLocations() != null) {
-                                    List<Double> desti = rr.getData().getLocations().get(rr.getData().getLocations().size() - 1);
-                                    uDesti = DireccionsUtil.getStringFromDoubleList(desti);
-                                    DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getData().getLocations());
+                                    DireccionsUtil.obrirRuta(requireContext(), rr.getData().getLocations());
                                 } else {
                                     uDesti = parades.get(parades.size() - 1);
                                     DireccionsUtil.obrirRutaString(requireContext(), uDesti, parades);

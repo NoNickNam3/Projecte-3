@@ -7,7 +7,6 @@
     tools:context=".ui.crearUbicacio.CrearUbicacio"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#00000000"
     >
 
     <LinearLayout

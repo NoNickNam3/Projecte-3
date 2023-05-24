@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/edtCorreuUsuari"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:textAlignment="center"
             android:paddingBottom="15dp"
