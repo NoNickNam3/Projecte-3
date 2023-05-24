@@ -85,10 +85,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<Respost
     @Override
     public void onResponse(Call<RespostaLogin> call, Response<RespostaLogin> response) {
         if(response.isSuccessful()){
-            DialogUtils.toastMessageLong(this, "LOGGED-IN");
+            DialogUtils.toastMessageLong(this, "LOGGED IN");
             RespostaLogin res = response.body();
-
-            //Database configs
 
             //  Enregistra l'usuari a la bdd
             dbUtils.guardarUsuariBDD(res.getToken(), res.getUser(), db);

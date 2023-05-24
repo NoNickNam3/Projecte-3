@@ -18,11 +18,13 @@ import org.milaifontanals.projecte3.utils.dialogs.DialogUtils;
 
 import java.security.Permission;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class DireccionsUtil {
 
-    public static String concatCoordsIfNN(String lat, String lon) {
+    public static String concatCoordsIfNN(Double lat, Double lon) {
 
         if (lat != null && lon != null) {
             return lat + "," + lon;
@@ -59,25 +61,30 @@ public class DireccionsUtil {
         c.startActivity(mapIntent);
     }
 
-    public static void obrirRuta(Context c, String desti, List<List<Double>> llUbicacions) {
+    public static void obrirRuta(Context c, List<List<Double>> llUbicacions) {
         String googleURL = "&waypoints=";
 
+
         llUbicacions.remove(0);
-        //llUbicacions.remove(llUbicacions.size() - 1);
+        Collections.reverse(llUbicacions);
+
+        String desti = getStringFromDoubleList(llUbicacions.get(llUbicacions.size() - 1));
 
         int i = 0;
+        boolean primeraDone = false;
         List<String> alternativa = new ArrayList<>();
-        for (List<Double> u : llUbicacions) {
+        for (List<Double> u: llUbicacions) {
 
             String ub = getStringFromDoubleList(u);
 
             if(!alternativa.contains(ub) && !ub.equals(desti)) {
                 alternativa.add(ub);
-                if (i != llUbicacions.size() && i != 0) {
+                if (i != llUbicacions.size() && primeraDone) {
                     googleURL += "|";
                 }
 
                 googleURL += ub;
+                primeraDone = true;
             }
 
             i++;

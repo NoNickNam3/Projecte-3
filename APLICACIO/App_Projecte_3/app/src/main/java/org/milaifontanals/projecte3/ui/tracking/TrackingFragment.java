@@ -98,9 +98,7 @@ public class TrackingFragment extends Fragment {
                                         DialogUtils.toastMessageLong(requireActivity(), "RUTA RECIBIDA");
                                         RespostaRuta rr = response.body();
                                         if(rr.getData().getLocations() != null){
-                                            List<Double> desti = rr.getData().getLocations().get(rr.getData().getLocations().size() - 1);
-                                            uDesti = DireccionsUtil.getStringFromDoubleList(desti);
-                                            DireccionsUtil.obrirRuta(requireContext(), uDesti, rr.getData().getLocations());
+                                            DireccionsUtil.obrirRuta(requireContext(), rr.getData().getLocations());
                                         }else{
                                             DialogUtils.toastMessageLong(requireActivity(), "NO S'HA POGUT RECUPERAR LA RUTA");
                                         }
