@@ -8,22 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ListaUbicacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // $listaUbicaciones = ListaUbicacion::all();
-        // return view('lista_ubicaciones.index', compact('listaUbicaciones'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // return view('lista_ubicaciones.create');
-    }
 
     /**
      * Store a newly created resource in storage.
