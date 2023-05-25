@@ -90,7 +90,7 @@ public class RutaAdapter extends RecyclerView.Adapter<RutaAdapter.ViewHolder> {
         holder.horaRuta.setText("" + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond());
         holder.nombreRuta.setText("" + ComprovacionsUtil.getStringNN(r.getNomRuta()));
         if(holder.nombreRuta.getText().equals("")){
-            holder.nombreRuta.setText("Esta ruta no tiene nombre");
+            holder.nombreRuta.setText("Ruta " + r.getId());
         }
 
         Log.d("XXX", "Actualizando la ubicacion en la posicion  " + position);

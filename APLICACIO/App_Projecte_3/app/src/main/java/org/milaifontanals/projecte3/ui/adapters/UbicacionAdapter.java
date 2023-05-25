@@ -136,7 +136,17 @@ public class UbicacionAdapter extends RecyclerView.Adapter<UbicacionAdapter.View
 
         }
 
-        holder.txvObservacion.setText("" + u.getObservacion());
+        if(u.getObservacion() != null){
+            if(u.getObservacion().equals("")){
+                holder.txvObservacion.setText("");
+            }else{
+                holder.txvObservacion.setText("" + u.getObservacion());
+            }
+        }else{
+            holder.txvObservacion.setText("");
+        }
+
+
 
         Log.d("XXX", "Actualizando la ubicacion en la posicion  " + position);
     }
