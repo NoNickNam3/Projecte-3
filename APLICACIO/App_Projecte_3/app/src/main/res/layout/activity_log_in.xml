@@ -24,6 +24,7 @@
             android:textAlignment="center"
             android:paddingBottom="15dp"
             android:hint="email"
+            android:autoSizeTextType="uniform"
             android:text="tonitonipuig@gmail.com"/>
 
         <EditText

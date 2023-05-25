@@ -30,7 +30,7 @@
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:paddingBottom="15dp"
-                android:hint="name" />
+                android:hint="NOMBRE" />
 
             <EditText
                 android:id="@+id/edtCognomUsuari"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:hint="surname" />
+                android:hint="APELLIDOS" />
         </LinearLayout>
 
         <EditText
@@ -47,24 +47,25 @@
             android:layout_height="50dp"
             android:textAlignment="center"
             android:paddingBottom="15dp"
-            android:hint="email" />
+            android:autoSizeTextType="uniform"
+            android:hint="CORREO" />
 
         <EditText
             android:id="@+id/edtPasswd"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:textAlignment="center"
             android:paddingBottom="5dp"
-            android:hint="password"
+            android:hint="CONTRASEÑA"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/edtPasswdConfirm"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="50dp"
             android:textAlignment="center"
             android:paddingBottom="5dp"
-            android:hint="confirm password"
+            android:hint="CONFIRMAR CONTRASEÑA"
             android:inputType="textPassword" />
 
         <LinearLayout
