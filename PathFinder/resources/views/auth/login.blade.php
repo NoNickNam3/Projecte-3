@@ -45,11 +45,11 @@
             </x-primary-button>
         </div>
 
-        <div class="mt-3">
+        {{-- <div class="mt-3">
             <span class="ml-2 text-sm text-gray-600">{{ __('Aún no tienes una cuenta?') }}</span>
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
                 {{ __('Registrate') }}
             </a>
-        </div>
+        </div> --}}
     </form>
 </x-guest-layout>

@@ -1,8 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            {{ __('Profile') }}
-        </h2>
+        <div class="flex items-center separacion">
+            <i class="fa-solid fa-user iconHeader"></i>
+            <h2 class="font-semibold text-xl text-white leading-tight">
+                {{ __('Perfil') }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -19,11 +22,11 @@
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            {{-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </x-app-layout>
